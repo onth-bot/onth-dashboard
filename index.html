@@ -388,7 +388,8 @@ function processData(rows) {
     .filter(function(r) {
       var name = String(r[Y_NAME] || '').trim();
       var type = String(r[D_TYPE] || '').toLowerCase();
-      if (!name || type.includes('helper')) return false;
+      if (!name || name === '#N/A' || name.toUpperCase() === 'N/A') return false;
+      if (type.includes('helper')) return false;
       var key = name.toUpperCase();
       if (seen[key]) return false;
       seen[key] = true;
@@ -422,13 +423,13 @@ function renderDaily(rows) {
   tbody.innerHTML = rows.map(function(r, i) {
     var stops = num(r[D_STOPS]);
     var pkgs  = num(r[D_PKGS]);
-    var sph   = num(r[D_SPH]);
+    var sph   = fmt(r[D_SPH], 2);
     return '<tr>' +
       '<td><div class="rank-cell"><span class="rank-num ' + rc(i) + '">' + (i+1) + '</span>' +
       '<span class="driver-name">' + esc(r[D_NAME]) + '</span></div></td>' +
       '<td>' + (i===0 ? '<span class="stat-tag">' + stops + '</span>' : stops) + '</td>' +
       '<td>' + (pkgs || '--') + '</td>' +
-      '<td>' + (sph  || '--') + '</td>' +
+      '<td>' + sph + '</td>' +
       '</tr>';
   }).join('');
 }
@@ -441,16 +442,16 @@ function renderYTD(rows) {
     return;
   }
   tbody.innerHTML = rows.map(function(r, i) {
-    var pkgs    = num(r[Y_PKGS]);
-    var sph     = num(r[Y_SPH]);
-    var overall = num(r[Y_OVERALL]);
+    var pkgs    = fmt(r[Y_PKGS]);
+    var sph     = fmt(r[Y_SPH], 2);
+    var overall = fmt(r[Y_OVERALL], 2);
     var rank    = num(r[Y_RANK]);
     return '<tr>' +
       '<td><div class="rank-cell"><span class="rank-num ' + rc(i) + '">' + (i+1) + '</span>' +
       '<span class="driver-name">' + esc(r[Y_NAME]) + '</span></div></td>' +
-      '<td>' + (pkgs || '--') + '</td>' +
-      '<td>' + (sph  || '--') + '</td>' +
-      '<td>' + (overall ? '<span class="stat-tag">' + overall + '</span>' : '--') + '</td>' +
+      '<td>' + pkgs + '</td>' +
+      '<td>' + sph  + '</td>' +
+      '<td>' + (overall !== '--' ? '<span class="stat-tag">' + overall + '</span>' : '--') + '</td>' +
       '<td>' + (rank || '--') + '</td>' +
       '</tr>';
   }).join('');
@@ -459,9 +460,9 @@ function renderYTD(rows) {
 // ── RENDER RECORDS ──────────────────────────────────────────
 function renderRecords(sR, pR, sphR) {
   var defs = [
-    { icon:'&#128683;', lbl:'Most Stops &middot; Single Day',    val: sR   ? num(sR[D_STOPS])  : '--', name: sR   ? sR[D_NAME]   : 'No data', date: sR   ? sR[D_DATE]   : '' },
-    { icon:'&#128230;', lbl:'Most Packages &middot; Single Day', val: pR   ? num(pR[D_PKGS])   : '--', name: pR   ? pR[D_NAME]   : 'No data', date: pR   ? pR[D_DATE]   : '' },
-    { icon:'&#9889;',   lbl:'Best SPH &middot; Single Day',      val: sphR ? num(sphR[D_SPH])  : '--', name: sphR ? sphR[D_NAME] : 'No data', date: sphR ? sphR[D_DATE] : '' },
+    { icon:'&#128683;', lbl:'Most Stops &middot; Single Day',    val: sR   ? num(sR[D_STOPS])  : '--', name: sR   ? sR[D_NAME]   : 'No data', date: sR   ? formatRecordDate(sR[D_DATE])   : '' },
+    { icon:'&#128230;', lbl:'Most Packages &middot; Single Day', val: pR   ? num(pR[D_PKGS])   : '--', name: pR   ? pR[D_NAME]   : 'No data', date: pR   ? formatRecordDate(pR[D_DATE])   : '' },
+    { icon:'&#9889;',   lbl:'Best SPH &middot; Single Day',      val: sphR ? num(sphR[D_SPH])  : '--', name: sphR ? sphR[D_NAME] : 'No data', date: sphR ? formatRecordDate(sphR[D_DATE]) : '' },
   ];
   document.getElementById('recordsGrid').innerHTML = defs.map(function(d) {
     return '<div class="record-item">' +
@@ -481,7 +482,22 @@ function num(v) {
   var n = parseFloat(String(v||'').replace(/,/g,''));
   return isNaN(n) ? 0 : n;
 }
+function fmt(v, decimals) {
+  var n = num(v);
+  if (!n) return '--';
+  return decimals !== undefined ? n.toFixed(decimals) : n;
+}
 
+function formatRecordDate(s) {
+  if (!s) return '';
+  var str = String(s);
+  // Handle ISO date from Google Sheets e.g. "2026-01-09T08:00:00.000Z"
+  if (str.includes('T')) {
+    var d = new Date(str);
+    if (!isNaN(d)) return d.toLocaleDateString('en-US', {month:'short', day:'numeric', year:'numeric'});
+  }
+  return str;
+}
 function parseSheetDate(s) {
   if (!s) return null;
   var p = s.split('/');
