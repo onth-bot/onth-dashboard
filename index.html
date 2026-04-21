@@ -2,263 +2,315 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 <title>ONTH Driver Performance Dashboard</title>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
+/* ── TOKENS ─────────────────────────────────────────────── */
 :root {
   --black:      #0a0a0a;
   --dark:       #111214;
   --card:       #18191d;
   --border:     #2a2c31;
   --gold:       #f5c518;
-  --gold-dim:   #c49a0e;
   --gold-bg:    rgba(245,197,24,0.08);
   --gold-bd:    rgba(245,197,24,0.22);
   --white:      #f0efe8;
   --muted:      #78797f;
-  --success-bg: rgba(76,175,125,0.10);
-  --success-bd: rgba(76,175,125,0.28);
-  --success-tx: #72dda0;
-  --danger-bg:  rgba(224,82,82,0.10);
-  --danger-bd:  rgba(224,82,82,0.28);
-  --danger-tx:  #f0a0a0;
+  --green:      #72dda0;
+  --green-bg:   rgba(76,175,125,0.10);
+  --green-bd:   rgba(76,175,125,0.28);
+  --red:        #f0a0a0;
+  --red-bg:     rgba(224,82,82,0.10);
+  --red-bd:     rgba(224,82,82,0.28);
 }
+
+/* ── RESET ──────────────────────────────────────────────── */
 *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
 html { scroll-behavior:smooth; }
 body {
-  background: var(--black);
-  color: var(--white);
-  font-family: 'DM Sans', sans-serif;
-  font-size: 15px;
-  line-height: 1.7;
-  -webkit-font-smoothing: antialiased;
+  background:var(--black); color:var(--white);
+  font-family:'DM Sans',sans-serif; font-size:15px;
+  line-height:1.7; -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
 }
 
-/* HERO */
+/* ── HERO ────────────────────────────────────────────────── */
 .hero {
-  position: relative;
-  min-height: 36vh;
-  display: flex; flex-direction: column;
-  justify-content: center; align-items: center;
-  text-align: center;
-  padding: 64px 24px 52px;
-  overflow: hidden;
-  background: var(--dark);
+  position:relative;
+  display:flex; flex-direction:column;
+  align-items:center; justify-content:center;
+  text-align:center;
+  padding:52px 20px 44px;
+  background:var(--dark);
+  overflow:hidden;
 }
 .hero::before {
-  content: ''; position: absolute; inset: 0;
+  content:''; position:absolute; inset:0; pointer-events:none;
   background:
     radial-gradient(ellipse 80% 55% at 50% 0%, rgba(245,197,24,0.13) 0%, transparent 68%),
     repeating-linear-gradient(0deg,  transparent, transparent 39px, rgba(255,255,255,0.018) 40px),
     repeating-linear-gradient(90deg, transparent, transparent 39px, rgba(255,255,255,0.018) 40px);
-  pointer-events: none;
 }
 .hero-badge {
-  display: inline-flex; align-items: center; gap: 8px;
-  font-family: 'DM Mono', monospace;
-  font-size: 10.5px; letter-spacing: 0.22em; text-transform: uppercase;
-  color: var(--gold); border: 1px solid var(--gold-bd); background: var(--gold-bg);
-  padding: 7px 18px; border-radius: 2px; margin-bottom: 28px;
-  position: relative; z-index: 1;
-  animation: fadeUp 0.65s ease both;
+  position:relative; z-index:1;
+  display:inline-flex; align-items:center; gap:8px;
+  font-family:'DM Mono',monospace; font-size:10px;
+  letter-spacing:0.2em; text-transform:uppercase;
+  color:var(--gold); border:1px solid var(--gold-bd);
+  background:var(--gold-bg); padding:6px 16px;
+  border-radius:2px; margin-bottom:22px;
+  animation:fadeUp .6s ease both;
 }
 .hero h1 {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: clamp(52px, 10vw, 110px);
-  line-height: 0.9; letter-spacing: 0.025em;
-  position: relative; z-index: 1;
-  animation: fadeUp 0.65s 0.1s ease both;
+  position:relative; z-index:1;
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(48px,12vw,110px);
+  line-height:.9; letter-spacing:.025em;
+  animation:fadeUp .6s .1s ease both;
 }
 .hero h1 span { display:block; color:var(--gold); }
 .hero-sub {
-  margin-top: 22px; font-size: 15px; color: var(--muted);
-  max-width: 440px; line-height: 1.65;
-  position: relative; z-index: 1;
-  animation: fadeUp 0.65s 0.2s ease both;
+  position:relative; z-index:1;
+  margin-top:16px; font-size:14px; color:var(--muted);
+  max-width:400px; line-height:1.6;
+  animation:fadeUp .6s .2s ease both;
 }
 .hero-meta {
-  margin-top: 20px; font-family: 'DM Mono', monospace;
-  font-size: 10.5px; letter-spacing: 0.18em; color: var(--muted); text-transform: uppercase;
-  position: relative; z-index: 1;
-  animation: fadeUp 0.65s 0.3s ease both;
+  position:relative; z-index:1;
+  margin-top:14px; font-family:'DM Mono',monospace;
+  font-size:10px; letter-spacing:.15em;
+  color:var(--muted); text-transform:uppercase;
+  animation:fadeUp .6s .25s ease both;
 }
 .hero-refresh {
-  background: var(--gold); color: #000; border: none;
-  padding: 8px 22px; font-family: 'Bebas Neue', sans-serif;
-  font-size: 15px; letter-spacing: 1.5px; border-radius: 2px;
-  cursor: pointer; transition: background .15s, transform .1s;
-  position: relative; z-index: 1;
-  animation: fadeUp 0.65s 0.35s ease both;
-  margin-top: 22px;
+  position:relative; z-index:1;
+  margin-top:18px; background:var(--gold); color:#000;
+  border:none; padding:9px 24px;
+  font-family:'Bebas Neue',sans-serif;
+  font-size:15px; letter-spacing:1.5px;
+  border-radius:2px; cursor:pointer;
+  transition:background .15s, transform .1s;
+  animation:fadeUp .6s .3s ease both;
+  -webkit-tap-highlight-color:transparent;
 }
-.hero-refresh:hover { background: #ffd83a; }
-.hero-refresh:active { transform: scale(.97); }
+.hero-refresh:hover { background:#ffd83a; }
+.hero-refresh:active { transform:scale(.97); }
 
-/* WRAPPER */
-.wrapper { max-width: 1000px; margin: 0 auto; padding: 0 28px 100px; }
+/* ── WRAPPER ─────────────────────────────────────────────── */
+.wrapper {
+  width:100%; max-width:960px;
+  margin:0 auto; padding:0 16px 80px;
+}
 
-/* SECTION */
+/* ── SECTION ─────────────────────────────────────────────── */
 .section {
-  margin-top: 72px;
-  opacity: 0; transform: translateY(18px);
-  transition: opacity 0.45s ease, transform 0.45s ease;
+  margin-top:52px;
+  opacity:0; transform:translateY(16px);
+  transition:opacity .4s ease, transform .4s ease;
 }
-.section.visible { opacity:1; transform:translateY(0); }
-
+.section.visible { opacity:1; transform:none; }
 .section-label {
-  font-family: 'DM Mono', monospace;
-  font-size: 10px; letter-spacing: 0.28em; text-transform: uppercase;
-  color: var(--gold); margin-bottom: 13px;
-  display: flex; align-items: center; gap: 14px;
+  font-family:'DM Mono',monospace;
+  font-size:9.5px; letter-spacing:.28em;
+  text-transform:uppercase; color:var(--gold);
+  margin-bottom:10px;
+  display:flex; align-items:center; gap:12px;
 }
 .section-label::after { content:''; flex:1; height:1px; background:var(--border); }
 .section-title {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: clamp(34px, 6vw, 58px);
-  line-height: 1; margin-bottom: 22px; letter-spacing: 0.02em;
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(32px,7vw,56px);
+  line-height:1; margin-bottom:16px; letter-spacing:.02em;
 }
 
-/* STATUS */
+/* ── STATUS BAR ──────────────────────────────────────────── */
 .status-bar {
-  display: flex; align-items: center; gap: 10px;
-  background: var(--card); border: 1px solid var(--border);
-  border-radius: 3px; padding: 10px 16px;
-  font-family: 'DM Mono', monospace; font-size: 11.5px; color: var(--muted);
+  display:flex; align-items:center; gap:9px;
+  background:var(--card); border:1px solid var(--border);
+  border-radius:3px; padding:9px 14px;
+  font-family:'DM Mono',monospace; font-size:11px; color:var(--muted);
 }
 .dot { width:7px; height:7px; border-radius:50%; background:var(--muted); flex-shrink:0; }
-.dot.ok      { background:var(--success-tx); box-shadow:0 0 6px rgba(76,175,125,.5); }
-.dot.err     { background:var(--danger-tx);  box-shadow:0 0 6px rgba(224,82,82,.5); }
-.dot.loading { background:var(--gold); animation:pulse 1s infinite; }
+.dot.ok      { background:var(--green); box-shadow:0 0 6px rgba(76,175,125,.5); }
+.dot.err     { background:var(--red);   box-shadow:0 0 6px rgba(224,82,82,.5); }
+.dot.loading { background:var(--gold);  animation:pulse 1s infinite; }
 @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.3} }
 
-/* CARD */
-.card {
-  background: var(--card); border: 1px solid var(--border);
-  border-radius: 5px; padding: 24px 26px;
+/* ── INFO GRID ───────────────────────────────────────────── */
+.info-grid {
+  display:grid; grid-template-columns:1fr 1fr;
+  gap:10px; margin-bottom:10px;
 }
-.card + .card { margin-top: 10px; }
+.info-item {
+  background:rgba(255,255,255,.025);
+  border:1px solid var(--border); border-radius:4px;
+  padding:12px 14px;
+}
+.info-item .lbl {
+  font-family:'DM Mono',monospace; font-size:9px;
+  letter-spacing:.2em; text-transform:uppercase;
+  color:var(--muted); margin-bottom:4px;
+}
+.info-item .val { font-size:14px; font-weight:600; color:var(--white); line-height:1.3; }
+
+/* ── CARD ────────────────────────────────────────────────── */
+.card {
+  background:var(--card); border:1px solid var(--border);
+  border-radius:5px; padding:16px 14px;
+  overflow:hidden;
+}
 .card-title {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 19px; letter-spacing: 0.07em; color: var(--gold);
-  margin-bottom: 16px; display: flex; align-items: center; gap: 10px;
+  font-family:'Bebas Neue',sans-serif;
+  font-size:16px; letter-spacing:.07em; color:var(--gold);
+  margin-bottom:12px;
+  display:flex; align-items:center; gap:9px;
 }
 .ci {
-  width:26px; height:26px; flex-shrink:0;
+  width:24px; height:24px; flex-shrink:0;
   background:var(--gold-bg); border:1px solid var(--gold-bd);
-  border-radius:4px; display:flex; align-items:center; justify-content:center;
+  border-radius:3px; display:flex; align-items:center; justify-content:center;
 }
-.ci svg { width:14px; height:14px; stroke:var(--gold); fill:none; stroke-width:1.9; stroke-linecap:round; stroke-linejoin:round; }
+.ci svg { width:12px; height:12px; stroke:var(--gold); fill:none; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; }
 
-/* INFO GRID */
-.info-grid { display:grid; grid-template-columns:1fr 1fr; gap:13px; margin-bottom:13px; }
-@media(max-width:560px){ .info-grid{ grid-template-columns:1fr; } }
-.info-item {
-  background:rgba(255,255,255,0.025); border:1px solid var(--border);
-  border-radius:4px; padding:16px 18px;
+/* ── LEADERBOARD ─────────────────────────────────────────── */
+.leaderboard {
+  width:100%; border-collapse:collapse;
+  table-layout:fixed;
 }
-.info-item .lbl { font-family:'DM Mono',monospace; font-size:9.5px; letter-spacing:0.2em; text-transform:uppercase; color:var(--muted); margin-bottom:5px; }
-.info-item .val { font-size:15px; font-weight:600; color:var(--white); line-height:1.4; }
-
-/* LEADERBOARD TABLE */
-.leaderboard { width:100%; border-collapse:collapse; }
 .leaderboard thead th {
-  text-align:left; font-family:'DM Mono',monospace; font-size:9.5px;
-  letter-spacing:0.2em; text-transform:uppercase; color:var(--muted);
-  padding:9px 14px; border-bottom:1px solid var(--border);
+  font-family:'DM Mono',monospace; font-size:9px;
+  letter-spacing:.18em; text-transform:uppercase;
+  color:var(--muted); padding:7px 8px;
+  border-bottom:1px solid var(--border);
+  text-align:left; white-space:nowrap; overflow:hidden;
 }
 .leaderboard thead th:not(:first-child) { text-align:right; }
-.leaderboard tbody tr { border-bottom:1px solid rgba(42,44,49,.7); transition:background .12s; }
+.leaderboard tbody tr {
+  border-bottom:1px solid rgba(42,44,49,.6);
+  transition:background .1s;
+}
 .leaderboard tbody tr:last-child { border-bottom:none; }
 .leaderboard tbody tr:hover { background:var(--gold-bg); }
-.leaderboard tbody td { padding:11px 14px; font-size:14px; vertical-align:middle; }
-.leaderboard tbody td:not(:first-child) { text-align:right; font-family:'DM Mono',monospace; font-size:13px; color:#c8c8c8; }
+.leaderboard tbody td {
+  padding:9px 8px; font-size:13px;
+  vertical-align:middle; overflow:hidden;
+}
+.leaderboard tbody td:not(:first-child) {
+  text-align:right; font-family:'DM Mono',monospace;
+  font-size:12px; color:#c8c8c8; white-space:nowrap;
+}
 
-.rank-cell { display:flex; align-items:center; gap:12px; }
-.rank-num { font-family:'Bebas Neue',sans-serif; font-size:26px; color:var(--muted); min-width:28px; text-align:center; line-height:1; }
-.rank-num.gold   { color:var(--gold); text-shadow:0 0 14px rgba(245,197,24,.55); }
+/* Driver column — auto width, number cols fixed */
+.leaderboard .col-driver { width:auto; }
+.leaderboard .col-num    { width:62px; }
+.leaderboard .col-rank   { width:48px; }
+
+.rank-cell  { display:flex; align-items:center; gap:8px; min-width:0; }
+.rank-num   { font-family:'Bebas Neue',sans-serif; font-size:22px; color:var(--muted); min-width:20px; text-align:center; line-height:1; flex-shrink:0; }
+.rank-num.gold   { color:var(--gold); text-shadow:0 0 12px rgba(245,197,24,.55); }
 .rank-num.silver { color:#c0c0c0; }
 .rank-num.bronze { color:#cd7f32; }
-.driver-name { font-weight:600; font-size:14px; color:var(--white); }
+.driver-name {
+  font-weight:600; font-size:13px; color:var(--white);
+  white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+  min-width:0; flex:1;
+}
+
 .stat-tag {
-  display:inline-block; font-family:'DM Mono',monospace; font-size:10px;
-  padding:3px 9px; border-radius:2px; letter-spacing:0.06em;
+  display:inline-block; font-family:'DM Mono',monospace;
+  font-size:10px; padding:2px 7px; border-radius:2px;
+  letter-spacing:.05em;
   background:var(--gold-bg); color:var(--gold); border:1px solid var(--gold-bd);
 }
 
-/* RECORDS GRID */
-.records-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:13px; }
-@media(max-width:640px){ .records-grid{ grid-template-columns:1fr; } }
-
-/* ── MOBILE ─────────────────────────────────────────── */
-@media(max-width:600px) {
-  .wrapper { padding: 0 12px 80px; }
-  .hero { padding: 44px 16px 36px; min-height:auto; }
-  .hero-badge { font-size:9px; padding:5px 11px; margin-bottom:16px; letter-spacing:0.14em; }
-  .hero-sub { font-size:13px; margin-top:12px; }
-  .hero-meta { font-size:9px; letter-spacing:0.1em; }
-  .hero-refresh { padding:10px 24px; font-size:14px; margin-top:14px; }
-  .section { margin-top:40px; }
-  .section-title { margin-bottom:12px; }
-  .card { padding:14px 10px; overflow:hidden; }
-  .card-title { font-size:14px; margin-bottom:10px; gap:7px; }
-  .ci { width:22px; height:22px; }
-  .ci svg { width:11px; height:11px; }
-  .info-grid { gap:8px; margin-bottom:10px; }
-  .info-item { padding:10px 12px; }
-  .info-item .lbl { font-size:8px; }
-  .info-item .val { font-size:13px; }
-  .leaderboard { table-layout:fixed; width:100%; }
-  .leaderboard thead th { padding:7px 6px; font-size:8px; letter-spacing:0.08em; }
-  .leaderboard tbody td { padding:8px 6px; font-size:13px; }
-  .leaderboard tbody td:not(:first-child) { font-size:12px; }
-  .rank-num { font-size:18px; min-width:18px; }
-  .rank-cell { gap:6px; }
-  .driver-name { font-size:12px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:145px; display:block; }
-  .records-grid { grid-template-columns:1fr; gap:10px; }
-  .record-val { font-size:34px; }
-  .status-bar { font-size:10px; padding:8px 12px; }
-  .footer { padding:28px 16px; font-size:12px; }
-  .section-label { font-size:9px; letter-spacing:0.2em; }
+/* ── RECORDS GRID ────────────────────────────────────────── */
+.records-grid {
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:10px;
 }
 .record-item {
-  background:rgba(255,255,255,0.025); border:1px solid var(--border);
+  background:rgba(255,255,255,.025);
+  border:1px solid var(--border);
   border-top:2px solid var(--gold-bd);
-  border-radius:4px; padding:20px; transition:border-top-color .2s;
+  border-radius:4px; padding:16px 14px;
+  transition:border-top-color .2s;
+  min-width:0;
 }
 .record-item:hover { border-top-color:var(--gold); }
-.record-icon { font-size:18px; margin-bottom:8px; display:block; }
-.record-lbl  { font-family:'DM Mono',monospace; font-size:9.5px; letter-spacing:0.2em; text-transform:uppercase; color:var(--muted); margin-bottom:6px; }
-.record-val  { font-family:'Bebas Neue',sans-serif; font-size:44px; color:var(--gold); line-height:1; margin-bottom:5px; }
-.record-name { font-size:14px; font-weight:600; color:var(--white); }
-.record-date { font-size:11.5px; color:var(--muted); font-family:'DM Mono',monospace; margin-top:3px; }
+.record-icon  { font-size:16px; margin-bottom:6px; display:block; }
+.record-lbl   { font-family:'DM Mono',monospace; font-size:8.5px; letter-spacing:.18em; text-transform:uppercase; color:var(--muted); margin-bottom:4px; line-height:1.4; }
+.record-val   { font-family:'Bebas Neue',sans-serif; font-size:clamp(28px,6vw,42px); color:var(--gold); line-height:1; margin-bottom:4px; }
+.record-name  { font-size:13px; font-weight:600; color:var(--white); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.record-date  { font-size:10.5px; color:var(--muted); font-family:'DM Mono',monospace; margin-top:2px; }
 
-.empty-state { padding:2.5rem; text-align:center; color:var(--muted); font-family:'DM Mono',monospace; font-size:11.5px; letter-spacing:0.1em; }
+/* ── EMPTY STATE ─────────────────────────────────────────── */
+.empty-state {
+  padding:2rem; text-align:center;
+  color:var(--muted); font-family:'DM Mono',monospace;
+  font-size:11px; letter-spacing:.1em; line-height:1.6;
+}
 
-/* FOOTER */
-.footer { border-top:1px solid var(--border); padding:44px 28px; text-align:center; color:var(--muted); font-size:13px; }
-.footer-logo { font-family:'Bebas Neue',sans-serif; font-size:28px; letter-spacing:0.06em; color:var(--white); margin-bottom:7px; }
+/* ── FOOTER ──────────────────────────────────────────────── */
+.footer {
+  border-top:1px solid var(--border);
+  padding:36px 16px; text-align:center;
+  color:var(--muted); font-size:12px;
+}
+.footer-logo {
+  font-family:'Bebas Neue',sans-serif;
+  font-size:26px; letter-spacing:.06em;
+  color:var(--white); margin-bottom:6px;
+}
 .footer-logo span { color:var(--gold); }
 
+/* ── DESKTOP ENHANCEMENTS (768px+) ──────────────────────── */
+@media(min-width:768px) {
+  .wrapper { padding:0 28px 100px; }
+  .hero { padding:64px 24px 52px; }
+  .hero-badge { font-size:10.5px; }
+  .section { margin-top:72px; }
+  .card { padding:22px 24px; }
+  .card-title { font-size:19px; margin-bottom:16px; }
+  .ci { width:26px; height:26px; }
+  .ci svg { width:14px; height:14px; }
+  .leaderboard thead th { padding:9px 12px; font-size:9.5px; }
+  .leaderboard tbody td { padding:11px 12px; font-size:14px; }
+  .leaderboard tbody td:not(:first-child) { font-size:13px; }
+  .rank-num { font-size:26px; min-width:28px; }
+  .rank-cell { gap:12px; }
+  .driver-name { font-size:14px; }
+  .leaderboard .col-num  { width:80px; }
+  .leaderboard .col-rank { width:60px; }
+  .info-item { padding:16px 18px; }
+  .info-item .lbl { font-size:9.5px; }
+  .info-item .val { font-size:15px; }
+  .record-item { padding:20px; }
+  .record-lbl { font-size:9.5px; }
+}
+
 @keyframes fadeUp {
-  from { opacity:0; transform:translateY(16px); }
-  to   { opacity:1; transform:translateY(0); }
+  from { opacity:0; transform:translateY(14px); }
+  to   { opacity:1; transform:none; }
 }
 </style>
 </head>
 <body>
 
+<!-- HERO -->
 <section class="hero">
   <div class="hero-badge">Driver Performance Dashboard</div>
   <h1>Performance<span>Leaderboard</span></h1>
-  <p class="hero-sub">Live driver rankings for DSJ5 — pulled directly from the ONTH data sheet.</p>
+  <p class="hero-sub">Live driver rankings for DSJ5 — pulled from the ONTH data sheet.</p>
   <p class="hero-meta">DSJ5 &nbsp;&middot;&nbsp; Fresno, CA &nbsp;&middot;&nbsp; <span id="dateBadge"></span></p>
   <button class="hero-refresh" onclick="loadData()">&#8635; REFRESH</button>
 </section>
 
 <div class="wrapper">
 
-  <div class="section" style="margin-top:40px;">
+  <!-- STATUS -->
+  <div class="section" style="margin-top:32px;">
     <div class="status-bar">
       <div class="dot loading" id="statusDot"></div>
       <span id="statusText">Loading data...</span>
@@ -282,11 +334,14 @@ body {
     <div class="card">
       <div class="card-title">
         <span class="ci"><svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></span>
-        Top 10 Drivers &mdash; Stops Completed
+        Top 10 &mdash; Stops Completed
       </div>
       <table class="leaderboard" id="dailyTable">
-        <thead><tr>
-          <th>Driver</th><th>Stops</th><th>Packages</th><th>SPH</th>
+        <thead><tr id="dailyHead">
+          <th class="col-driver">Driver</th>
+          <th class="col-num">Stops</th>
+          <th class="col-num">Pkgs</th>
+          <th class="col-num">SPH</th>
         </tr></thead>
         <tbody id="dailyBody">
           <tr><td colspan="4"><div class="empty-state">Loading...</div></td></tr>
@@ -302,11 +357,15 @@ body {
     <div class="card">
       <div class="card-title">
         <span class="ci"><svg viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></span>
-        Top 10 Drivers &mdash; Overall Score
+        Top 10 &mdash; Overall Score
       </div>
       <table class="leaderboard" id="ytdTable">
-        <thead><tr>
-          <th>Driver</th><th>Packages</th><th>SPH</th><th>Overall</th><th>Rank</th>
+        <thead><tr id="ytdHead">
+          <th class="col-driver">Driver</th>
+          <th class="col-num">Pkgs</th>
+          <th class="col-num">SPH</th>
+          <th class="col-num">Overall</th>
+          <th class="col-rank">Rank</th>
         </tr></thead>
         <tbody id="ytdBody">
           <tr><td colspan="5"><div class="empty-state">Loading...</div></td></tr>
@@ -320,9 +379,24 @@ body {
     <div class="section-label">All-Time Records</div>
     <div class="section-title">2026 Company Records</div>
     <div class="records-grid" id="recordsGrid">
-      <div class="record-item"><span class="record-icon">&#128683;</span><div class="record-lbl">Most Stops &middot; Single Day</div><div class="record-val">--</div><div class="record-name">Loading...</div></div>
-      <div class="record-item"><span class="record-icon">&#128230;</span><div class="record-lbl">Most Packages &middot; Single Day</div><div class="record-val">--</div><div class="record-name">Loading...</div></div>
-      <div class="record-item"><span class="record-icon">&#9889;</span><div class="record-lbl">Best SPH &middot; Single Day</div><div class="record-val">--</div><div class="record-name">Loading...</div></div>
+      <div class="record-item">
+        <span class="record-icon">&#128683;</span>
+        <div class="record-lbl">Most Stops &middot; Single Day</div>
+        <div class="record-val">--</div>
+        <div class="record-name">Loading...</div>
+      </div>
+      <div class="record-item">
+        <span class="record-icon">&#128230;</span>
+        <div class="record-lbl">Most Packages &middot; Single Day</div>
+        <div class="record-val">--</div>
+        <div class="record-name">Loading...</div>
+      </div>
+      <div class="record-item">
+        <span class="record-icon">&#9889;</span>
+        <div class="record-lbl">Best SPH &middot; Single Day</div>
+        <div class="record-val">--</div>
+        <div class="record-name">Loading...</div>
+      </div>
     </div>
   </div>
 
@@ -331,271 +405,233 @@ body {
 <footer class="footer">
   <div class="footer-logo">On The <span>Level</span> Logistics</div>
   <p>825 N Clovis Ave &nbsp;&middot;&nbsp; Fresno, CA &nbsp;&middot;&nbsp; DSJ5</p>
-  <p style="margin-top:20px;font-size:10.5px;font-family:'DM Mono',monospace;letter-spacing:0.12em;color:#3e3f44;">ONTH INTERNAL USE ONLY &nbsp;&middot;&nbsp; DATA: GOOGLE SHEETS</p>
+  <p style="margin-top:16px;font-size:10px;font-family:'DM Mono',monospace;letter-spacing:.12em;color:#3e3f44;">ONTH INTERNAL USE ONLY &nbsp;&middot;&nbsp; DATA: GOOGLE SHEETS</p>
 </footer>
 
 <script>
-// ── CONFIG ──────────────────────────────────────────────────
-// Google Apps Script Web App URL - serves sheet data as JSON
-const API_URL = 'https://script.google.com/macros/s/AKfycbzhbtHQAYPmLmKzTQr3rnLVkFWCIFEP5PjkMwNiTzv0zViYHCVYncc3VxFPZycOss4O/exec';
+// ── CONFIG ───────────────────────────────────────────────────
+var API_URL = 'https://script.google.com/macros/s/AKfycbzhbtHQAYPmLmKzTQr3rnLVkFWCIFEP5PjkMwNiTzv0zViYHCVYncc3VxFPZycOss4O/exec';
 
-// Column indices remapped after Apps Script trimming
-// Apps Script keep = [0,1,10,13,15,16,20,25,26,27,28]
-// So new indices:      0 1  2  3  4  5  6  7  8  9 10
-var D_NAME  = 0;  // A  - Driver name
-var D_DATE  = 1;  // B  - Date
-var D_TYPE  = 2;  // K  - Type (helper filter)
-var D_STOPS = 3;  // N  - Stops done
-var D_PKGS  = 4;  // P  - Packages delivered
-var D_SPH   = 5;  // Q  - Stops per hour
+// Remapped indices after Apps Script trimming
+// keep=[0,1,10,13,15,16,20,25,26,27,28] → new idx 0-10
+var D_NAME=0, D_DATE=1, D_TYPE=2, D_STOPS=3, D_PKGS=4, D_SPH=5;
+var Y_NAME=6, Y_PKGS=7, Y_SPH=8, Y_OVERALL=9, Y_RANK=10;
 
-var Y_NAME    = 6;  // U  - Yearly name
-var Y_PKGS    = 7;  // Z  - Yearly packages
-var Y_SPH     = 8;  // AA - Yearly SPH
-var Y_OVERALL = 9;  // AB - Overall score
-var Y_RANK    = 10; // AC - Rank
-
-// ── INIT ────────────────────────────────────────────────────
+// ── INIT ─────────────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', function() {
-  var now = new Date();
   document.getElementById('dateBadge').textContent =
-    now.toLocaleDateString('en-US', {weekday:'short', month:'short', day:'numeric', year:'numeric'}).toUpperCase();
+    new Date().toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric',year:'numeric'}).toUpperCase();
   loadData();
 });
 
-// ── FETCH ───────────────────────────────────────────────────
+// ── FETCH ────────────────────────────────────────────────────
 function loadData() {
-  setStatus('loading', 'Fetching sheet data...');
+  setStatus('loading','Fetching sheet data...');
   fetch(API_URL)
-    .then(function(res) {
-      if (!res.ok) throw new Error('HTTP ' + res.status);
-      return res.json();
-    })
-    .then(function(data) {
-      if (!Array.isArray(data) || data.length < 2) throw new Error('No data rows returned');
-      // data[0] is the header row, data[1..] is the actual rows
+    .then(function(r){ if(!r.ok) throw new Error('HTTP '+r.status); return r.json(); })
+    .then(function(data){
+      if(!Array.isArray(data)||data.length<2) throw new Error('No data returned');
       processData(data.slice(1));
-      setStatus('ok', 'Loaded · Refreshed ' + new Date().toLocaleTimeString());
+      setStatus('ok','Loaded · Refreshed '+new Date().toLocaleTimeString());
     })
-    .catch(function(e) {
-      setStatus('err', 'Load failed: ' + e.message);
-      console.error(e);
-    });
+    .catch(function(e){ setStatus('err','Load failed: '+e.message); console.error(e); });
 }
 
-// ── PROCESS ─────────────────────────────────────────────────
+// ── PROCESS ──────────────────────────────────────────────────
 function processData(rows) {
+  var mobile = window.innerWidth < 600;
 
-  // Daily: filter out helpers and rows with no stops
-  var dailyRows = rows.filter(function(r) {
-    var name  = String(r[D_NAME]  || '').trim();
-    var type  = String(r[D_TYPE]  || '').toLowerCase();
-    var stops = num(r[D_STOPS]);
-    return name && !name.startsWith('#') && !type.includes('helper') && stops > 0;
+  // Daily rows — exclude helpers, blanks, #errors
+  var dailyRows = rows.filter(function(r){
+    var name = str(r[D_NAME]), type = str(r[D_TYPE]).toLowerCase();
+    return name && !name.startsWith('#') && !type.includes('helper') && num(r[D_STOPS])>0;
   });
 
-  // Yesterday's date key
-  var yest = new Date();
-  yest.setDate(yest.getDate() - 1);
-  var yestKey = (yest.getMonth()+1) + '/' + yest.getDate() + '/' + yest.getFullYear();
+  // Yesterday
+  var yest = new Date(); yest.setDate(yest.getDate()-1);
+  var yKey = (yest.getMonth()+1)+'/'+yest.getDate()+'/'+yest.getFullYear();
+  var top10 = dailyRows.filter(function(r){
+    var d = parseDate(str(r[D_DATE]));
+    return d && (d.getMonth()+1)+'/'+d.getDate()+'/'+d.getFullYear()===yKey;
+  }).sort(function(a,b){ return num(b[D_STOPS])-num(a[D_STOPS]); }).slice(0,10);
 
-  var yesterdayRows = dailyRows.filter(function(r) {
-    var d = parseSheetDate(String(r[D_DATE] || '').trim());
-    if (!d) return false;
-    return (d.getMonth()+1) + '/' + d.getDate() + '/' + d.getFullYear() === yestKey;
-  });
+  // Records
+  var sR   = dailyRows.length ? dailyRows.reduce(function(b,r){ return num(r[D_STOPS])>num(b[D_STOPS])?r:b; }) : null;
+  var pR   = dailyRows.length ? dailyRows.reduce(function(b,r){ return num(r[D_PKGS]) >num(b[D_PKGS]) ?r:b; }) : null;
+  var sphR = dailyRows.length ? dailyRows.reduce(function(b,r){ return num(r[D_SPH])  >num(b[D_SPH])  ?r:b; }) : null;
 
-  var top10Daily = yesterdayRows
-    .sort(function(a,b) { return num(b[D_STOPS]) - num(a[D_STOPS]); })
-    .slice(0, 10);
+  // Yearly — unique, no helpers, no #errors
+  var seen={};
+  var ytd = rows.filter(function(r){
+    var name=str(r[Y_NAME]), type=str(r[D_TYPE]).toLowerCase();
+    if(!name||name.startsWith('#')||type.includes('helper')) return false;
+    var k=name.toUpperCase(); if(seen[k]) return false; seen[k]=true; return true;
+  }).sort(function(a,b){
+    var ra=num(a[Y_RANK]),rb=num(b[Y_RANK]);
+    return (ra&&rb) ? ra-rb : num(b[Y_OVERALL])-num(a[Y_OVERALL]);
+  }).slice(0,10);
 
-  // All-time records from all daily data
-  var stopsRec = dailyRows.length ? dailyRows.reduce(function(b,r) { return num(r[D_STOPS]) > num(b[D_STOPS]) ? r : b; }) : null;
-  var pkgsRec  = dailyRows.length ? dailyRows.reduce(function(b,r) { return num(r[D_PKGS])  > num(b[D_PKGS])  ? r : b; }) : null;
-  var sphRec   = dailyRows.length ? dailyRows.reduce(function(b,r) { return num(r[D_SPH])   > num(b[D_SPH])   ? r : b; }) : null;
-
-  // Yearly: unique drivers, not helpers, sorted by rank then overall
-  var seen = {};
-  var yearlyRows = rows
-    .filter(function(r) {
-      var name = String(r[Y_NAME] || '').trim();
-      var type = String(r[D_TYPE] || '').toLowerCase();
-      if (!name || name === '#N/A' || name === 'N/A' || name === '#ERROR!' || name.startsWith('#')) return false;
-      if (type.includes('helper')) return false;
-      var key = name.toUpperCase();
-      if (seen[key]) return false;
-      seen[key] = true;
-      return true;
-    })
-    .sort(function(a,b) {
-      var ra = num(a[Y_RANK]), rb = num(b[Y_RANK]);
-      if (ra && rb) return ra - rb;
-      return num(b[Y_OVERALL]) - num(a[Y_OVERALL]);
-    })
-    .slice(0, 10);
-
-  // Update info labels
+  // Labels
   document.getElementById('dailyDateLabel').textContent =
-    yest.toLocaleDateString('en-US', {weekday:'long', month:'long', day:'numeric', year:'numeric'});
+    yest.toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric',year:'numeric'});
   document.getElementById('dailyCountLabel').textContent =
-    top10Daily.length ? top10Daily.length + ' drivers' : 'No data for yesterday';
+    top10.length ? top10.length+' drivers' : 'No data for yesterday';
 
-  renderDaily(top10Daily);
-  renderYTD(yearlyRows);
-  renderRecords(stopsRec, pkgsRec, sphRec);
+  renderDaily(top10, mobile);
+  renderYTD(ytd, mobile);
+  renderRecords(sR, pR, sphR);
 }
 
-// ── RENDER DAILY ────────────────────────────────────────────
-function renderDaily(rows) {
-  var isMobile = window.innerWidth <= 600;
-  var thead = document.querySelector('#dailyTable thead tr');
-  var tbody = document.getElementById('dailyBody');
+// ── RENDER DAILY ─────────────────────────────────────────────
+function renderDaily(rows, mobile) {
+  var head = document.getElementById('dailyHead');
+  var body = document.getElementById('dailyBody');
 
-  if (!rows.length) {
-    thead.innerHTML = isMobile
-      ? '<th>Driver</th><th>Stops</th><th>SPH</th>'
-      : '<th>Driver</th><th>Stops</th><th>Packages</th><th>SPH</th>';
-    tbody.innerHTML = '<tr><td colspan="' + (isMobile ? 3 : 4) + '"><div class="empty-state">No drivers found for yesterday (' + new Date(Date.now()-86400000).toLocaleDateString() + ')</div></td></tr>';
-    return;
-  }
-
-  if (isMobile) {
-    thead.innerHTML = '<th>Driver</th><th>Stops</th><th>SPH</th>';
-    tbody.innerHTML = rows.map(function(r, i) {
-      var stops = num(r[D_STOPS]);
-      var sph   = fmt(r[D_SPH], 2);
-      return '<tr>' +
-        '<td><div class="rank-cell"><span class="rank-num ' + rc(i) + '">' + (i+1) + '</span>' +
-        '<span class="driver-name">' + esc(r[D_NAME]) + '</span></div></td>' +
-        '<td>' + (i===0 ? '<span class="stat-tag">' + stops + '</span>' : stops) + '</td>' +
-        '<td>' + sph + '</td>' +
-        '</tr>';
+  if(mobile) {
+    // 3 cols: Driver | Stops | SPH
+    head.innerHTML =
+      '<th class="col-driver">Driver</th>'+
+      '<th class="col-num">Stops</th>'+
+      '<th class="col-num">SPH</th>';
+    if(!rows.length){
+      body.innerHTML='<tr><td colspan="3"><div class="empty-state">No data for '+new Date(Date.now()-86400000).toLocaleDateString()+'</div></td></tr>';
+      return;
+    }
+    body.innerHTML = rows.map(function(r,i){
+      return '<tr>'+
+        '<td><div class="rank-cell">'+
+          '<span class="rank-num '+rc(i)+'">'+(i+1)+'</span>'+
+          '<span class="driver-name">'+esc(r[D_NAME])+'</span>'+
+        '</div></td>'+
+        '<td>'+(i===0?'<span class="stat-tag">'+num(r[D_STOPS])+'</span>':num(r[D_STOPS]))+'</td>'+
+        '<td>'+fmt(r[D_SPH],2)+'</td>'+
+      '</tr>';
     }).join('');
   } else {
-    thead.innerHTML = '<th>Driver</th><th>Stops</th><th>Packages</th><th>SPH</th>';
-    tbody.innerHTML = rows.map(function(r, i) {
-      var stops = num(r[D_STOPS]);
-      var pkgs  = num(r[D_PKGS]);
-      var sph   = fmt(r[D_SPH], 2);
-      return '<tr>' +
-        '<td><div class="rank-cell"><span class="rank-num ' + rc(i) + '">' + (i+1) + '</span>' +
-        '<span class="driver-name">' + esc(r[D_NAME]) + '</span></div></td>' +
-        '<td>' + (i===0 ? '<span class="stat-tag">' + stops + '</span>' : stops) + '</td>' +
-        '<td>' + pkgs + '</td>' +
-        '<td>' + sph + '</td>' +
-        '</tr>';
+    // 4 cols: Driver | Stops | Pkgs | SPH
+    head.innerHTML =
+      '<th class="col-driver">Driver</th>'+
+      '<th class="col-num">Stops</th>'+
+      '<th class="col-num">Packages</th>'+
+      '<th class="col-num">SPH</th>';
+    if(!rows.length){
+      body.innerHTML='<tr><td colspan="4"><div class="empty-state">No data for '+new Date(Date.now()-86400000).toLocaleDateString()+'</div></td></tr>';
+      return;
+    }
+    body.innerHTML = rows.map(function(r,i){
+      return '<tr>'+
+        '<td><div class="rank-cell">'+
+          '<span class="rank-num '+rc(i)+'">'+(i+1)+'</span>'+
+          '<span class="driver-name">'+esc(r[D_NAME])+'</span>'+
+        '</div></td>'+
+        '<td>'+(i===0?'<span class="stat-tag">'+num(r[D_STOPS])+'</span>':num(r[D_STOPS]))+'</td>'+
+        '<td>'+num(r[D_PKGS])+'</td>'+
+        '<td>'+fmt(r[D_SPH],2)+'</td>'+
+      '</tr>';
     }).join('');
   }
 }
 
-// ── RENDER YTD ──────────────────────────────────────────────
-function renderYTD(rows) {
-  var isMobile = window.innerWidth <= 600;
-  var thead = document.querySelector('#ytdTable thead tr');
-  var tbody = document.getElementById('ytdBody');
+// ── RENDER YTD ───────────────────────────────────────────────
+function renderYTD(rows, mobile) {
+  var head = document.getElementById('ytdHead');
+  var body = document.getElementById('ytdBody');
 
-  if (!rows.length) {
-    thead.innerHTML = isMobile
-      ? '<th>Driver</th><th>Overall</th><th>Rank</th>'
-      : '<th>Driver</th><th>Packages</th><th>SPH</th><th>Overall</th><th>Rank</th>';
-    tbody.innerHTML = '<tr><td colspan="' + (isMobile ? 3 : 5) + '"><div class="empty-state">No yearly data found in columns U-AC</div></td></tr>';
-    return;
-  }
-
-  if (isMobile) {
-    thead.innerHTML = '<th>Driver</th><th>Overall</th><th>Rank</th>';
-    tbody.innerHTML = rows.map(function(r, i) {
-      var overall = fmt(r[Y_OVERALL], 2);
-      var rank    = num(r[Y_RANK]);
-      return '<tr>' +
-        '<td><div class="rank-cell"><span class="rank-num ' + rc(i) + '">' + (i+1) + '</span>' +
-        '<span class="driver-name">' + esc(r[Y_NAME]) + '</span></div></td>' +
-        '<td>' + (overall !== '--' ? '<span class="stat-tag">' + overall + '</span>' : '--') + '</td>' +
-        '<td>' + (rank || '--') + '</td>' +
-        '</tr>';
+  if(mobile) {
+    // 3 cols: Driver | Overall | Rank
+    head.innerHTML =
+      '<th class="col-driver">Driver</th>'+
+      '<th class="col-num">Overall</th>'+
+      '<th class="col-rank">Rank</th>';
+    if(!rows.length){
+      body.innerHTML='<tr><td colspan="3"><div class="empty-state">No yearly data found</div></td></tr>';
+      return;
+    }
+    body.innerHTML = rows.map(function(r,i){
+      var overall=fmt(r[Y_OVERALL],2), rank=num(r[Y_RANK]);
+      return '<tr>'+
+        '<td><div class="rank-cell">'+
+          '<span class="rank-num '+rc(i)+'">'+(i+1)+'</span>'+
+          '<span class="driver-name">'+esc(r[Y_NAME])+'</span>'+
+        '</div></td>'+
+        '<td>'+(overall!='--'?'<span class="stat-tag">'+overall+'</span>':'--')+'</td>'+
+        '<td>'+(rank||'--')+'</td>'+
+      '</tr>';
     }).join('');
   } else {
-    thead.innerHTML = '<th>Driver</th><th>Packages</th><th>SPH</th><th>Overall</th><th>Rank</th>';
-    tbody.innerHTML = rows.map(function(r, i) {
-      var pkgs    = fmt(r[Y_PKGS]);
-      var sph     = fmt(r[Y_SPH], 2);
-      var overall = fmt(r[Y_OVERALL], 2);
-      var rank    = num(r[Y_RANK]);
-      return '<tr>' +
-        '<td><div class="rank-cell"><span class="rank-num ' + rc(i) + '">' + (i+1) + '</span>' +
-        '<span class="driver-name">' + esc(r[Y_NAME]) + '</span></div></td>' +
-        '<td>' + pkgs + '</td>' +
-        '<td>' + sph  + '</td>' +
-        '<td>' + (overall !== '--' ? '<span class="stat-tag">' + overall + '</span>' : '--') + '</td>' +
-        '<td>' + (rank || '--') + '</td>' +
-        '</tr>';
+    // 5 cols: Driver | Pkgs | SPH | Overall | Rank
+    head.innerHTML =
+      '<th class="col-driver">Driver</th>'+
+      '<th class="col-num">Packages</th>'+
+      '<th class="col-num">SPH</th>'+
+      '<th class="col-num">Overall</th>'+
+      '<th class="col-rank">Rank</th>';
+    if(!rows.length){
+      body.innerHTML='<tr><td colspan="5"><div class="empty-state">No yearly data found</div></td></tr>';
+      return;
+    }
+    body.innerHTML = rows.map(function(r,i){
+      var overall=fmt(r[Y_OVERALL],2), rank=num(r[Y_RANK]);
+      return '<tr>'+
+        '<td><div class="rank-cell">'+
+          '<span class="rank-num '+rc(i)+'">'+(i+1)+'</span>'+
+          '<span class="driver-name">'+esc(r[Y_NAME])+'</span>'+
+        '</div></td>'+
+        '<td>'+fmt(r[Y_PKGS])+'</td>'+
+        '<td>'+fmt(r[Y_SPH],2)+'</td>'+
+        '<td>'+(overall!='--'?'<span class="stat-tag">'+overall+'</span>':'--')+'</td>'+
+        '<td>'+(rank||'--')+'</td>'+
+      '</tr>';
     }).join('');
   }
 }
 
-// ── RENDER RECORDS ──────────────────────────────────────────
-function renderRecords(sR, pR, sphR) {
-  var defs = [
-    { icon:'&#128683;', lbl:'Most Stops &middot; Single Day',    val: sR   ? num(sR[D_STOPS])  : '--', name: sR   ? sR[D_NAME]   : 'No data', date: sR   ? formatRecordDate(sR[D_DATE])   : '' },
-    { icon:'&#128230;', lbl:'Most Packages &middot; Single Day', val: pR   ? num(pR[D_PKGS])   : '--', name: pR   ? pR[D_NAME]   : 'No data', date: pR   ? formatRecordDate(pR[D_DATE])   : '' },
-    { icon:'&#9889;',   lbl:'Best SPH &middot; Single Day',      val: sphR ? num(sphR[D_SPH])  : '--', name: sphR ? sphR[D_NAME] : 'No data', date: sphR ? formatRecordDate(sphR[D_DATE]) : '' },
+// ── RENDER RECORDS ───────────────────────────────────────────
+function renderRecords(sR,pR,sphR) {
+  var defs=[
+    {icon:'&#128683;',lbl:'Most Stops &middot; Single Day',   val:sR  ?num(sR[D_STOPS]) :'--',name:sR  ?sR[D_NAME]  :'No data',date:sR  ?fmtDate(sR[D_DATE])  :''},
+    {icon:'&#128230;',lbl:'Most Packages &middot; Single Day',val:pR  ?num(pR[D_PKGS])  :'--',name:pR  ?pR[D_NAME]  :'No data',date:pR  ?fmtDate(pR[D_DATE])  :''},
+    {icon:'&#9889;',  lbl:'Best SPH &middot; Single Day',     val:sphR?num(sphR[D_SPH]) :'--',name:sphR?sphR[D_NAME]:'No data',date:sphR?fmtDate(sphR[D_DATE]):''},
   ];
-  document.getElementById('recordsGrid').innerHTML = defs.map(function(d) {
-    return '<div class="record-item">' +
-      '<span class="record-icon">' + d.icon + '</span>' +
-      '<div class="record-lbl">' + d.lbl + '</div>' +
-      '<div class="record-val">' + d.val + '</div>' +
-      '<div class="record-name">' + esc(d.name) + '</div>' +
-      (d.date ? '<div class="record-date">' + esc(d.date) + '</div>' : '') +
-      '</div>';
+  document.getElementById('recordsGrid').innerHTML=defs.map(function(d){
+    return '<div class="record-item">'+
+      '<span class="record-icon">'+d.icon+'</span>'+
+      '<div class="record-lbl">'+d.lbl+'</div>'+
+      '<div class="record-val">'+d.val+'</div>'+
+      '<div class="record-name">'+esc(d.name)+'</div>'+
+      (d.date?'<div class="record-date">'+esc(d.date)+'</div>':'')+
+    '</div>';
   }).join('');
 }
 
 // ── UTILS ────────────────────────────────────────────────────
-function rc(i) { return i===0?'gold':i===1?'silver':i===2?'bronze':''; }
-
-function num(v) {
-  var n = parseFloat(String(v||'').replace(/,/g,''));
-  return isNaN(n) ? 0 : n;
+function rc(i){ return i===0?'gold':i===1?'silver':i===2?'bronze':''; }
+function str(v){ return String(v==null?'':v).trim(); }
+function num(v){ var n=parseFloat(str(v).replace(/,/g,'')); return isNaN(n)?0:n; }
+function fmt(v,dec){ var n=num(v); if(!n) return '--'; return dec!=null?n.toFixed(dec):n; }
+function parseDate(s){
+  if(!s) return null;
+  var p=s.split('/');
+  return p.length===3?new Date(+p[2],+p[0]-1,+p[1]):new Date(s);
 }
-function fmt(v, decimals) {
-  var n = num(v);
-  if (!n) return '--';
-  return decimals !== undefined ? n.toFixed(decimals) : n;
+function fmtDate(s){
+  if(!s) return '';
+  var d=new Date(str(s));
+  if(!isNaN(d)) return d.toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'});
+  return str(s);
 }
-
-function formatRecordDate(s) {
-  if (!s) return '';
-  var str = String(s);
-  // Handle ISO date from Google Sheets e.g. "2026-01-09T08:00:00.000Z"
-  if (str.includes('T')) {
-    var d = new Date(str);
-    if (!isNaN(d)) return d.toLocaleDateString('en-US', {month:'short', day:'numeric', year:'numeric'});
-  }
-  return str;
+function setStatus(state,msg){
+  document.getElementById('statusDot').className='dot '+state;
+  document.getElementById('statusText').textContent=msg;
 }
-function parseSheetDate(s) {
-  if (!s) return null;
-  var p = s.split('/');
-  if (p.length === 3) return new Date(parseInt(p[2]), parseInt(p[0])-1, parseInt(p[1]));
-  return new Date(s);
-}
-
-function setStatus(state, msg) {
-  document.getElementById('statusDot').className    = 'dot ' + state;
-  document.getElementById('statusText').textContent = msg;
-}
-
-function esc(s) {
-  return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-}
+function esc(s){ return str(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
 </script>
 
 <script>
-var obs = new IntersectionObserver(function(entries) {
-  entries.forEach(function(e) { if (e.isIntersecting) e.target.classList.add('visible'); });
-}, { threshold: 0.05 });
-document.querySelectorAll('.section').forEach(function(s) { obs.observe(s); });
+var obs=new IntersectionObserver(function(e){
+  e.forEach(function(x){ if(x.isIntersecting) x.target.classList.add('visible'); });
+},{threshold:0.05});
+document.querySelectorAll('.section').forEach(function(s){ obs.observe(s); });
 </script>
 </body>
 </html>
