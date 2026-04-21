@@ -34,9 +34,9 @@ body {
   font-size: 15px;
   line-height: 1.7;
   -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
 }
 
-/* HERO */
 .hero {
   position: relative;
   min-height: 36vh;
@@ -49,16 +49,18 @@ body {
   overflow: hidden;
   background: var(--dark);
 }
+
 .hero::before {
   content: '';
   position: absolute;
   inset: 0;
   background:
     radial-gradient(ellipse 80% 55% at 50% 0%, rgba(245,197,24,0.13) 0%, transparent 68%),
-    repeating-linear-gradient(0deg,  transparent, transparent 39px, rgba(255,255,255,0.018) 40px),
+    repeating-linear-gradient(0deg, transparent, transparent 39px, rgba(255,255,255,0.018) 40px),
     repeating-linear-gradient(90deg, transparent, transparent 39px, rgba(255,255,255,0.018) 40px);
   pointer-events: none;
 }
+
 .hero-badge {
   display: inline-flex;
   align-items: center;
@@ -77,6 +79,7 @@ body {
   z-index: 1;
   animation: fadeUp 0.65s ease both;
 }
+
 .hero h1 {
   font-family: 'Bebas Neue', sans-serif;
   font-size: clamp(52px, 10vw, 110px);
@@ -86,10 +89,12 @@ body {
   z-index: 1;
   animation: fadeUp 0.65s 0.1s ease both;
 }
+
 .hero h1 span {
   display:block;
   color:var(--gold);
 }
+
 .hero-sub {
   margin-top: 22px;
   font-size: 15px;
@@ -100,6 +105,7 @@ body {
   z-index: 1;
   animation: fadeUp 0.65s 0.2s ease both;
 }
+
 .hero-meta {
   margin-top: 20px;
   font-family: 'DM Mono', monospace;
@@ -111,39 +117,20 @@ body {
   z-index: 1;
   animation: fadeUp 0.65s 0.3s ease both;
 }
-.hero-refresh {
-  background: var(--gold);
-  color: #000;
-  border: none;
-  padding: 8px 22px;
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 15px;
-  letter-spacing: 1.5px;
-  border-radius: 2px;
-  cursor: pointer;
-  transition: background .15s, transform .1s;
-  position: relative;
-  z-index: 1;
-  animation: fadeUp 0.65s 0.35s ease both;
-  margin-top: 22px;
-}
-.hero-refresh:hover { background: #ffd83a; }
-.hero-refresh:active { transform: scale(.97); }
 
-/* WRAPPER */
 .wrapper {
   max-width: 1000px;
   margin: 0 auto;
   padding: 0 28px 100px;
 }
 
-/* SECTION */
 .section {
   margin-top: 72px;
   opacity: 0;
   transform: translateY(18px);
   transition: opacity 0.45s ease, transform 0.45s ease;
 }
+
 .section.visible {
   opacity:1;
   transform:translateY(0);
@@ -160,12 +147,14 @@ body {
   align-items: center;
   gap: 14px;
 }
+
 .section-label::after {
   content:'';
   flex:1;
   height:1px;
   background:var(--border);
 }
+
 .section-title {
   font-family: 'Bebas Neue', sans-serif;
   font-size: clamp(34px, 6vw, 58px);
@@ -174,7 +163,6 @@ body {
   letter-spacing: 0.02em;
 }
 
-/* STATUS */
 .status-bar {
   display: flex;
   align-items: center;
@@ -187,6 +175,7 @@ body {
   font-size: 11.5px;
   color: var(--muted);
 }
+
 .dot {
   width:7px;
   height:7px;
@@ -194,19 +183,25 @@ body {
   background:var(--muted);
   flex-shrink:0;
 }
-.dot.ok      { background:var(--success-tx); box-shadow:0 0 6px rgba(76,175,125,.5); }
-.dot.err     { background:var(--danger-tx);  box-shadow:0 0 6px rgba(224,82,82,.5); }
-.dot.loading { background:var(--gold); animation:pulse 1s infinite; }
-@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.3} }
 
-/* CARD */
+.dot.ok { background:var(--success-tx); box-shadow:0 0 6px rgba(76,175,125,.5); }
+.dot.err { background:var(--danger-tx); box-shadow:0 0 6px rgba(224,82,82,.5); }
+.dot.loading { background:var(--gold); animation:pulse 1s infinite; }
+
+@keyframes pulse {
+  0%,100% { opacity:1; }
+  50% { opacity:.3; }
+}
+
 .card {
   background: var(--card);
   border: 1px solid var(--border);
   border-radius: 5px;
   padding: 24px 26px;
 }
+
 .card + .card { margin-top: 10px; }
+
 .card-title {
   font-family: 'Bebas Neue', sans-serif;
   font-size: 19px;
@@ -217,6 +212,7 @@ body {
   align-items: center;
   gap: 10px;
 }
+
 .ci {
   width:26px;
   height:26px;
@@ -228,6 +224,7 @@ body {
   align-items:center;
   justify-content:center;
 }
+
 .ci svg {
   width:14px;
   height:14px;
@@ -238,27 +235,24 @@ body {
   stroke-linejoin:round;
 }
 
-/* TABLE WRAP */
-.table-wrap {
-  width: 100%;
-}
-
-/* INFO GRID */
 .info-grid {
   display:grid;
   grid-template-columns:1fr 1fr;
   gap:13px;
   margin-bottom:13px;
 }
-@media(max-width:560px) {
+
+@media (max-width:560px) {
   .info-grid { grid-template-columns:1fr; }
 }
+
 .info-item {
   background:rgba(255,255,255,0.025);
   border:1px solid var(--border);
   border-radius:4px;
   padding:16px 18px;
 }
+
 .info-item .lbl {
   font-family:'DM Mono',monospace;
   font-size:9.5px;
@@ -267,6 +261,7 @@ body {
   color:var(--muted);
   margin-bottom:5px;
 }
+
 .info-item .val {
   font-size:15px;
   font-weight:600;
@@ -274,11 +269,17 @@ body {
   line-height:1.4;
 }
 
-/* LEADERBOARD TABLE */
+.table-shell {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
 .leaderboard {
   width:100%;
   border-collapse:collapse;
 }
+
 .leaderboard thead th {
   text-align:left;
   font-family:'DM Mono',monospace;
@@ -288,20 +289,24 @@ body {
   color:var(--muted);
   padding:9px 14px;
   border-bottom:1px solid var(--border);
-  white-space: nowrap;
 }
+
 .leaderboard thead th:not(:first-child) { text-align:right; }
+
 .leaderboard tbody tr {
   border-bottom:1px solid rgba(42,44,49,.7);
   transition:background .12s;
 }
+
 .leaderboard tbody tr:last-child { border-bottom:none; }
 .leaderboard tbody tr:hover { background:var(--gold-bg); }
+
 .leaderboard tbody td {
   padding:11px 14px;
   font-size:14px;
   vertical-align:middle;
 }
+
 .leaderboard tbody td:not(:first-child) {
   text-align:right;
   font-family:'DM Mono',monospace;
@@ -316,6 +321,7 @@ body {
   gap:12px;
   min-width: 0;
 }
+
 .rank-num {
   font-family:'Bebas Neue',sans-serif;
   font-size:26px;
@@ -323,9 +329,9 @@ body {
   min-width:28px;
   text-align:center;
   line-height:1;
-  flex-shrink: 0;
 }
-.rank-num.gold   { color:var(--gold); text-shadow:0 0 14px rgba(245,197,24,.55); }
+
+.rank-num.gold { color:var(--gold); text-shadow:0 0 14px rgba(245,197,24,.55); }
 .rank-num.silver { color:#c0c0c0; }
 .rank-num.bronze { color:#cd7f32; }
 
@@ -334,8 +340,6 @@ body {
   font-size:14px;
   color:var(--white);
   min-width: 0;
-  overflow: hidden;
-  text-overflow: ellipsis;
 }
 
 .stat-tag {
@@ -348,164 +352,17 @@ body {
   background:var(--gold-bg);
   color:var(--gold);
   border:1px solid var(--gold-bd);
+  white-space: nowrap;
 }
 
-/* RECORDS GRID */
 .records-grid {
   display:grid;
   grid-template-columns:repeat(3,1fr);
   gap:13px;
 }
-@media(max-width:640px) {
+
+@media (max-width:640px) {
   .records-grid { grid-template-columns:1fr; }
-}
-
-/* MOBILE */
-@media(max-width:600px) {
-  .wrapper {
-    padding: 0 12px 80px;
-  }
-
-  .hero {
-    padding: 44px 16px 36px;
-    min-height: auto;
-  }
-
-  .hero-badge {
-    font-size: 9px;
-    padding: 5px 11px;
-    margin-bottom: 16px;
-    letter-spacing: 0.14em;
-  }
-
-  .hero-sub {
-    font-size: 13px;
-    margin-top: 12px;
-    max-width: 100%;
-  }
-
-  .hero-meta {
-    font-size: 9px;
-    letter-spacing: 0.08em;
-    line-height: 1.5;
-    padding: 0 6px;
-  }
-
-  .hero-refresh {
-    padding: 10px 24px;
-    font-size: 14px;
-    margin-top: 14px;
-  }
-
-  .section {
-    margin-top: 40px;
-  }
-
-  .section-title {
-    margin-bottom: 12px;
-  }
-
-  .card {
-    padding: 14px 12px;
-  }
-
-  .card-title {
-    font-size: 14px;
-    margin-bottom: 10px;
-    gap: 7px;
-  }
-
-  .ci {
-    width:22px;
-    height:22px;
-  }
-
-  .ci svg {
-    width:11px;
-    height:11px;
-  }
-
-  .info-grid {
-    gap:8px;
-    margin-bottom:10px;
-  }
-
-  .info-item {
-    padding:10px 12px;
-  }
-
-  .info-item .lbl { font-size:8px; }
-  .info-item .val { font-size:13px; }
-
-  .table-wrap {
-    overflow-x: auto;
-    overflow-y: hidden;
-    -webkit-overflow-scrolling: touch;
-    border-radius: 4px;
-  }
-
-  .leaderboard {
-    width: 100%;
-    min-width: 320px;
-    table-layout: auto;
-  }
-
-  .leaderboard thead th {
-    padding: 7px 8px;
-    font-size: 8px;
-    letter-spacing: 0.06em;
-  }
-
-  .leaderboard tbody td {
-    padding: 8px 8px;
-    font-size: 12px;
-  }
-
-  .leaderboard tbody td:not(:first-child) {
-    font-size: 12px;
-  }
-
-  .leaderboard tbody td:first-child {
-    white-space: normal;
-  }
-
-  .rank-num {
-    font-size:18px;
-    min-width:18px;
-  }
-
-  .rank-cell {
-    gap:6px;
-  }
-
-  .driver-name {
-    font-size:12px;
-    white-space: nowrap;
-    max-width: min(44vw, 210px);
-    display:block;
-  }
-
-  .records-grid {
-    grid-template-columns:1fr;
-    gap:10px;
-  }
-
-  .record-val { font-size:34px; }
-
-  .status-bar {
-    font-size:10px;
-    padding:8px 12px;
-  }
-
-  .footer {
-    padding:28px 16px;
-    font-size:12px;
-  }
-
-  .section-label {
-    font-size:9px;
-    letter-spacing:0.2em;
-  }
 }
 
 .record-item {
@@ -516,12 +373,15 @@ body {
   padding:20px;
   transition:border-top-color .2s;
 }
+
 .record-item:hover { border-top-color:var(--gold); }
+
 .record-icon {
   font-size:18px;
   margin-bottom:8px;
   display:block;
 }
+
 .record-lbl {
   font-family:'DM Mono',monospace;
   font-size:9.5px;
@@ -530,6 +390,7 @@ body {
   color:var(--muted);
   margin-bottom:6px;
 }
+
 .record-val {
   font-family:'Bebas Neue',sans-serif;
   font-size:44px;
@@ -537,11 +398,13 @@ body {
   line-height:1;
   margin-bottom:5px;
 }
+
 .record-name {
   font-size:14px;
   font-weight:600;
   color:var(--white);
 }
+
 .record-date {
   font-size:11.5px;
   color:var(--muted);
@@ -558,7 +421,6 @@ body {
   letter-spacing:0.1em;
 }
 
-/* FOOTER */
 .footer {
   border-top:1px solid var(--border);
   padding:44px 28px;
@@ -566,6 +428,7 @@ body {
   color:var(--muted);
   font-size:13px;
 }
+
 .footer-logo {
   font-family:'Bebas Neue',sans-serif;
   font-size:28px;
@@ -573,11 +436,137 @@ body {
   color:var(--white);
   margin-bottom:7px;
 }
+
 .footer-logo span { color:var(--gold); }
+
+@media (max-width:768px) {
+  .wrapper { padding: 0 18px 84px; }
+  .section { margin-top: 52px; }
+  .card { padding: 18px; }
+  .hero { padding: 52px 18px 42px; min-height: auto; }
+  .hero-meta { max-width: 100%; line-height: 1.8; }
+}
+
+@media (max-width:600px) {
+  .wrapper { padding: 0 14px 76px; }
+  .hero { padding: 42px 16px 34px; }
+  .hero-badge {
+    font-size: 8.5px;
+    padding: 5px 10px;
+    margin-bottom: 16px;
+    letter-spacing: 0.14em;
+  }
+  .hero h1 {
+    font-size: clamp(40px, 18vw, 60px);
+    line-height: 0.92;
+  }
+  .hero-sub {
+    font-size: 13px;
+    margin-top: 12px;
+    max-width: 30ch;
+  }
+  .hero-meta {
+    margin-top: 14px;
+    font-size: 9px;
+    letter-spacing: 0.08em;
+    line-height: 1.7;
+    padding: 0 8px;
+  }
+  .section { margin-top: 36px; }
+  .section-title {
+    margin-bottom: 12px;
+    font-size: clamp(28px, 9vw, 40px);
+  }
+  .section-label {
+    font-size: 8.5px;
+    letter-spacing: 0.16em;
+    gap: 10px;
+  }
+  .status-bar {
+    padding: 10px 12px;
+    font-size: 10px;
+    line-height: 1.5;
+  }
+  .card {
+    padding: 14px 12px;
+    overflow: hidden;
+  }
+  .card-title {
+    font-size: 14px;
+    margin-bottom: 10px;
+    gap: 7px;
+    line-height: 1.2;
+  }
+  .ci { width:22px; height:22px; }
+  .ci svg { width:11px; height:11px; }
+  .info-grid {
+    gap: 8px;
+    margin-bottom: 10px;
+  }
+  .info-item { padding: 10px 12px; }
+  .info-item .lbl { font-size: 8px; }
+  .info-item .val { font-size: 13px; }
+  .leaderboard { table-layout: fixed; }
+  .leaderboard thead th {
+    padding: 8px 4px;
+    font-size: 7.5px;
+    letter-spacing: 0.06em;
+  }
+  .leaderboard tbody td {
+    padding: 9px 4px;
+    font-size: 12px;
+  }
+  .leaderboard tbody td:not(:first-child) { font-size: 11px; }
+  .leaderboard th:first-child,
+  .leaderboard td:first-child { width: 52%; }
+  .rank-num {
+    font-size: 18px;
+    min-width: 18px;
+  }
+  .rank-cell {
+    gap: 7px;
+    align-items: flex-start;
+  }
+  .driver-name {
+    font-size: 12px;
+    line-height: 1.25;
+    white-space: normal;
+    overflow: visible;
+    text-overflow: clip;
+    max-width: none;
+    display: block;
+    overflow-wrap: anywhere;
+  }
+  .stat-tag {
+    font-size: 9px;
+    padding: 2px 6px;
+  }
+  .records-grid { gap: 10px; }
+  .record-item { padding: 16px; }
+  .record-val { font-size: 34px; }
+  .record-name { line-height: 1.35; }
+  .record-date {
+    font-size: 10px;
+    line-height: 1.5;
+  }
+  .empty-state {
+    padding: 1.5rem 0.75rem;
+    font-size: 10px;
+    line-height: 1.5;
+  }
+  .footer {
+    padding: 28px 16px;
+    font-size: 12px;
+  }
+  .footer p {
+    line-height: 1.7;
+    word-break: break-word;
+  }
+}
 
 @keyframes fadeUp {
   from { opacity:0; transform:translateY(16px); }
-  to   { opacity:1; transform:translateY(0); }
+  to { opacity:1; transform:translateY(0); }
 }
 </style>
 </head>
@@ -588,7 +577,6 @@ body {
   <h1>Performance<span>Leaderboard</span></h1>
   <p class="hero-sub">Live driver rankings for DSJ5 — pulled directly from the ONTH data sheet.</p>
   <p class="hero-meta">DSJ5 &nbsp;&middot;&nbsp; Fresno, CA &nbsp;&middot;&nbsp; <span id="dateBadge"></span></p>
-  <button class="hero-refresh" onclick="loadData()">&#8635; REFRESH</button>
 </section>
 
 <div class="wrapper">
@@ -600,11 +588,9 @@ body {
     </div>
   </div>
 
-  <!-- YESTERDAY TOP 10 -->
   <div class="section">
     <div class="section-label">Daily Rankings</div>
     <div class="section-title">Yesterday &middot; Top 10</div>
-
     <div class="info-grid">
       <div class="info-item">
         <div class="lbl">Date</div>
@@ -615,24 +601,16 @@ body {
         <div class="val" id="dailyCountLabel">--</div>
       </div>
     </div>
-
     <div class="card">
       <div class="card-title">
-        <span class="ci">
-          <svg viewBox="0 0 24 24">
-            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
-          </svg>
-        </span>
+        <span class="ci"><svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></span>
         Top 10 Drivers &mdash; Stops Completed
       </div>
-
-      <div class="table-wrap">
+      <div class="table-shell">
         <table class="leaderboard" id="dailyTable">
-          <thead>
-            <tr>
-              <th>Driver</th><th>Stops</th><th>Packages</th><th>SPH</th>
-            </tr>
-          </thead>
+          <thead><tr>
+            <th>Driver</th><th>Stops</th><th>Packages</th><th>SPH</th>
+          </tr></thead>
           <tbody id="dailyBody">
             <tr><td colspan="4"><div class="empty-state">Loading...</div></td></tr>
           </tbody>
@@ -641,30 +619,19 @@ body {
     </div>
   </div>
 
-  <!-- YTD TOP 10 -->
   <div class="section">
     <div class="section-label">Year-to-Date Rankings</div>
     <div class="section-title">2026 &middot; Top 10</div>
-
     <div class="card">
       <div class="card-title">
-        <span class="ci">
-          <svg viewBox="0 0 24 24">
-            <line x1="18" y1="20" x2="18" y2="10"/>
-            <line x1="12" y1="20" x2="12" y2="4"/>
-            <line x1="6" y1="20" x2="6" y2="14"/>
-          </svg>
-        </span>
+        <span class="ci"><svg viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></span>
         Top 10 Drivers &mdash; Overall Score
       </div>
-
-      <div class="table-wrap">
+      <div class="table-shell">
         <table class="leaderboard" id="ytdTable">
-          <thead>
-            <tr>
-              <th>Driver</th><th>Packages</th><th>SPH</th><th>Overall</th><th>Rank</th>
-            </tr>
-          </thead>
+          <thead><tr>
+            <th>Driver</th><th>Packages</th><th>SPH</th><th>Overall</th><th>Rank</th>
+          </tr></thead>
           <tbody id="ytdBody">
             <tr><td colspan="5"><div class="empty-state">Loading...</div></td></tr>
           </tbody>
@@ -673,29 +640,13 @@ body {
     </div>
   </div>
 
-  <!-- RECORDS -->
   <div class="section">
     <div class="section-label">All-Time Records</div>
     <div class="section-title">2026 Company Records</div>
     <div class="records-grid" id="recordsGrid">
-      <div class="record-item">
-        <span class="record-icon">&#128683;</span>
-        <div class="record-lbl">Most Stops &middot; Single Day</div>
-        <div class="record-val">--</div>
-        <div class="record-name">Loading...</div>
-      </div>
-      <div class="record-item">
-        <span class="record-icon">&#128230;</span>
-        <div class="record-lbl">Most Packages &middot; Single Day</div>
-        <div class="record-val">--</div>
-        <div class="record-name">Loading...</div>
-      </div>
-      <div class="record-item">
-        <span class="record-icon">&#9889;</span>
-        <div class="record-lbl">Best SPH &middot; Single Day</div>
-        <div class="record-val">--</div>
-        <div class="record-name">Loading...</div>
-      </div>
+      <div class="record-item"><span class="record-icon">&#128683;</span><div class="record-lbl">Most Stops &middot; Single Day</div><div class="record-val">--</div><div class="record-name">Loading...</div></div>
+      <div class="record-item"><span class="record-icon">&#128230;</span><div class="record-lbl">Most Packages &middot; Single Day</div><div class="record-val">--</div><div class="record-name">Loading...</div></div>
+      <div class="record-item"><span class="record-icon">&#9889;</span><div class="record-lbl">Best SPH &middot; Single Day</div><div class="record-val">--</div><div class="record-name">Loading...</div></div>
     </div>
   </div>
 
@@ -704,65 +655,55 @@ body {
 <footer class="footer">
   <div class="footer-logo">On The <span>Level</span> Logistics</div>
   <p>825 N Clovis Ave &nbsp;&middot;&nbsp; Fresno, CA &nbsp;&middot;&nbsp; DSJ5</p>
-  <p style="margin-top:20px;font-size:10.5px;font-family:'DM Mono',monospace;letter-spacing:0.12em;color:#3e3f44;">
-    ONTH INTERNAL USE ONLY &nbsp;&middot;&nbsp; DATA: GOOGLE SHEETS
-  </p>
+  <p style="margin-top:20px;font-size:10.5px;font-family:'DM Mono',monospace;letter-spacing:0.12em;color:#3e3f44;">ONTH INTERNAL USE ONLY &nbsp;&middot;&nbsp; DATA: GOOGLE SHEETS</p>
 </footer>
 
 <script>
-// ── CONFIG ──────────────────────────────────────────────────
 const API_URL = 'https://script.google.com/macros/s/AKfycbzhbtHQAYPmLmKzTQr3rnLVkFWCIFEP5PjkMwNiTzv0zViYHCVYncc3VxFPZycOss4O/exec';
-const MOBILE_BREAKPOINT = 600;
 
-// Column indices remapped after Apps Script trimming
-// Apps Script keep = [0,1,10,13,15,16,20,25,26,27,28]
-// So new indices:      0 1  2  3  4  5  6  7  8  9 10
-var D_NAME  = 0;  // A  - Driver name
-var D_DATE  = 1;  // B  - Date
-var D_TYPE  = 2;  // K  - Type (helper filter)
-var D_STOPS = 3;  // N  - Stops done
-var D_PKGS  = 4;  // P  - Packages delivered
-var D_SPH   = 5;  // Q  - Stops per hour
+var D_NAME  = 0;
+var D_DATE  = 1;
+var D_TYPE  = 2;
+var D_STOPS = 3;
+var D_PKGS  = 4;
+var D_SPH   = 5;
 
-var Y_NAME    = 6;  // U  - Yearly name
-var Y_PKGS    = 7;  // Z  - Yearly packages
-var Y_SPH     = 8;  // AA - Yearly SPH
-var Y_OVERALL = 9;  // AB - Overall score
-var Y_RANK    = 10; // AC - Rank
+var Y_NAME    = 6;
+var Y_PKGS    = 7;
+var Y_SPH     = 8;
+var Y_OVERALL = 9;
+var Y_RANK    = 10;
 
-var lastRenderedIsMobile = isMobileView();
-var renderCache = null;
+var dashboardState = {
+  daily: [],
+  yearly: [],
+  stopsRec: null,
+  pkgsRec: null,
+  sphRec: null
+};
 
-// ── INIT ────────────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', function() {
-  updateDateBadge();
+  var now = new Date();
+  document.getElementById('dateBadge').textContent =
+    now.toLocaleDateString('en-US', { weekday:'short', month:'short', day:'numeric', year:'numeric' }).toUpperCase();
   loadData();
-
-  window.addEventListener('resize', debounce(function() {
-    var mobileNow = isMobileView();
-    if (mobileNow !== lastRenderedIsMobile && renderCache) {
-      lastRenderedIsMobile = mobileNow;
-      renderFromCache();
-    }
-  }, 120));
 });
 
-// ── FETCH ───────────────────────────────────────────────────
+window.addEventListener('resize', debounce(function() {
+  renderFromState();
+}, 120));
+
 function loadData() {
   setStatus('loading', 'Fetching sheet data...');
-
   fetch(API_URL)
     .then(function(res) {
       if (!res.ok) throw new Error('HTTP ' + res.status);
       return res.json();
     })
     .then(function(data) {
-      if (!Array.isArray(data) || data.length < 2) {
-        throw new Error('No data rows returned');
-      }
-
+      if (!Array.isArray(data) || data.length < 2) throw new Error('No data rows returned');
       processData(data.slice(1));
-      setStatus('ok', 'Loaded · Refreshed ' + new Date().toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' }));
+      setStatus('ok', 'Loaded · Refreshed ' + new Date().toLocaleTimeString());
     })
     .catch(function(e) {
       setStatus('err', 'Load failed: ' + e.message);
@@ -770,236 +711,163 @@ function loadData() {
     });
 }
 
-// ── PROCESS ─────────────────────────────────────────────────
 function processData(rows) {
   var dailyRows = rows.filter(function(r) {
-    var name  = String(r[D_NAME] || '').trim();
-    var type  = String(r[D_TYPE] || '').toLowerCase();
+    var name = String(r[D_NAME] || '').trim();
+    var type = String(r[D_TYPE] || '').toLowerCase();
     var stops = num(r[D_STOPS]);
     return name && !name.startsWith('#') && !type.includes('helper') && stops > 0;
   });
 
   var yest = new Date();
   yest.setDate(yest.getDate() - 1);
-  var yestKey = makeDateKey(yest);
+  var yestKey = (yest.getMonth() + 1) + '/' + yest.getDate() + '/' + yest.getFullYear();
 
   var yesterdayRows = dailyRows.filter(function(r) {
-    var d = parseSheetDate(r[D_DATE]);
-    return d ? makeDateKey(d) === yestKey : false;
+    var d = parseSheetDate(String(r[D_DATE] || '').trim());
+    if (!d) return false;
+    return (d.getMonth() + 1) + '/' + d.getDate() + '/' + d.getFullYear() === yestKey;
   });
 
   var top10Daily = yesterdayRows
     .sort(function(a, b) { return num(b[D_STOPS]) - num(a[D_STOPS]); })
     .slice(0, 10);
 
-  var stopsRec = dailyRows.length
-    ? dailyRows.reduce(function(best, r) { return num(r[D_STOPS]) > num(best[D_STOPS]) ? r : best; })
-    : null;
-
-  var pkgsRec = dailyRows.length
-    ? dailyRows.reduce(function(best, r) { return num(r[D_PKGS]) > num(best[D_PKGS]) ? r : best; })
-    : null;
-
-  var sphRec = dailyRows.length
-    ? dailyRows.reduce(function(best, r) { return num(r[D_SPH]) > num(best[D_SPH]) ? r : best; })
-    : null;
+  var stopsRec = dailyRows.length ? dailyRows.reduce(function(b, r) { return num(r[D_STOPS]) > num(b[D_STOPS]) ? r : b; }) : null;
+  var pkgsRec  = dailyRows.length ? dailyRows.reduce(function(b, r) { return num(r[D_PKGS]) > num(b[D_PKGS]) ? r : b; }) : null;
+  var sphRec   = dailyRows.length ? dailyRows.reduce(function(b, r) { return num(r[D_SPH]) > num(b[D_SPH]) ? r : b; }) : null;
 
   var seen = {};
   var yearlyRows = rows
     .filter(function(r) {
       var name = String(r[Y_NAME] || '').trim();
       var type = String(r[D_TYPE] || '').toLowerCase();
-
-      if (!name || name === '#N/A' || name === 'N/A' || name === '#ERROR!' || name.startsWith('#')) {
-        return false;
-      }
+      if (!name || name === '#N/A' || name === 'N/A' || name === '#ERROR!' || name.startsWith('#')) return false;
       if (type.includes('helper')) return false;
-
       var key = name.toUpperCase();
       if (seen[key]) return false;
       seen[key] = true;
       return true;
     })
     .sort(function(a, b) {
-      var ra = numOrNull(a[Y_RANK]);
-      var rb = numOrNull(b[Y_RANK]);
-
-      if (ra !== null && rb !== null) return ra - rb;
-      if (ra !== null) return -1;
-      if (rb !== null) return 1;
-
+      var ra = num(a[Y_RANK]);
+      var rb = num(b[Y_RANK]);
+      if (ra && rb) return ra - rb;
       return num(b[Y_OVERALL]) - num(a[Y_OVERALL]);
     })
     .slice(0, 10);
 
-  renderCache = {
-    yest: yest,
-    top10Daily: top10Daily,
-    yearlyRows: yearlyRows,
-    stopsRec: stopsRec,
-    pkgsRec: pkgsRec,
-    sphRec: sphRec
-  };
-
-  lastRenderedIsMobile = isMobileView();
-  renderFromCache();
-}
-
-function renderFromCache() {
-  if (!renderCache) return;
+  dashboardState.daily = top10Daily;
+  dashboardState.yearly = yearlyRows;
+  dashboardState.stopsRec = stopsRec;
+  dashboardState.pkgsRec = pkgsRec;
+  dashboardState.sphRec = sphRec;
 
   document.getElementById('dailyDateLabel').textContent =
-    renderCache.yest.toLocaleDateString('en-US', {
-      weekday: 'long',
-      month: 'long',
-      day: 'numeric',
-      year: 'numeric'
-    });
-
+    yest.toLocaleDateString('en-US', { weekday:'long', month:'long', day:'numeric', year:'numeric' });
   document.getElementById('dailyCountLabel').textContent =
-    renderCache.top10Daily.length
-      ? renderCache.top10Daily.length + ' drivers'
-      : 'No data for yesterday';
+    top10Daily.length ? top10Daily.length + ' drivers' : 'No data for yesterday';
 
-  renderDaily(renderCache.top10Daily);
-  renderYTD(renderCache.yearlyRows);
-  renderRecords(renderCache.stopsRec, renderCache.pkgsRec, renderCache.sphRec);
+  renderFromState();
 }
 
-// ── RENDER DAILY ────────────────────────────────────────────
+function renderFromState() {
+  renderDaily(dashboardState.daily);
+  renderYTD(dashboardState.yearly);
+  renderRecords(dashboardState.stopsRec, dashboardState.pkgsRec, dashboardState.sphRec);
+}
+
 function renderDaily(rows) {
-  var mobile = isMobileView();
+  var isMobile = window.innerWidth <= 600;
   var thead = document.querySelector('#dailyTable thead tr');
   var tbody = document.getElementById('dailyBody');
 
   if (!rows.length) {
-    thead.innerHTML = mobile
+    thead.innerHTML = isMobile
       ? '<th>Driver</th><th>Stops</th><th>SPH</th>'
       : '<th>Driver</th><th>Stops</th><th>Packages</th><th>SPH</th>';
-
-    tbody.innerHTML =
-      '<tr><td colspan="' + (mobile ? 3 : 4) + '"><div class="empty-state">No drivers found for yesterday (' +
-      new Date(Date.now() - 86400000).toLocaleDateString() +
-      ')</div></td></tr>';
+    tbody.innerHTML = '<tr><td colspan="' + (isMobile ? 3 : 4) + '"><div class="empty-state">No drivers found for yesterday (' + new Date(Date.now() - 86400000).toLocaleDateString() + ')</div></td></tr>';
     return;
   }
 
-  if (mobile) {
+  if (isMobile) {
     thead.innerHTML = '<th>Driver</th><th>Stops</th><th>SPH</th>';
-
     tbody.innerHTML = rows.map(function(r, i) {
       var stops = num(r[D_STOPS]);
-      var sph   = fmt(r[D_SPH], 2);
-
+      var sph = fmt(r[D_SPH], 2);
       return '<tr>' +
-        '<td><div class="rank-cell">' +
-          '<span class="rank-num ' + rc(i) + '">' + (i + 1) + '</span>' +
-          '<span class="driver-name">' + esc(r[D_NAME]) + '</span>' +
-        '</div></td>' +
+        '<td><div class="rank-cell"><span class="rank-num ' + rc(i) + '">' + (i + 1) + '</span>' +
+        '<span class="driver-name">' + esc(r[D_NAME]) + '</span></div></td>' +
         '<td>' + (i === 0 ? '<span class="stat-tag">' + stops + '</span>' : stops) + '</td>' +
         '<td>' + sph + '</td>' +
-      '</tr>';
+        '</tr>';
     }).join('');
   } else {
     thead.innerHTML = '<th>Driver</th><th>Stops</th><th>Packages</th><th>SPH</th>';
-
     tbody.innerHTML = rows.map(function(r, i) {
       var stops = num(r[D_STOPS]);
-      var pkgs  = num(r[D_PKGS]);
-      var sph   = fmt(r[D_SPH], 2);
-
+      var pkgs = num(r[D_PKGS]);
+      var sph = fmt(r[D_SPH], 2);
       return '<tr>' +
-        '<td><div class="rank-cell">' +
-          '<span class="rank-num ' + rc(i) + '">' + (i + 1) + '</span>' +
-          '<span class="driver-name">' + esc(r[D_NAME]) + '</span>' +
-        '</div></td>' +
+        '<td><div class="rank-cell"><span class="rank-num ' + rc(i) + '">' + (i + 1) + '</span>' +
+        '<span class="driver-name">' + esc(r[D_NAME]) + '</span></div></td>' +
         '<td>' + (i === 0 ? '<span class="stat-tag">' + stops + '</span>' : stops) + '</td>' +
         '<td>' + pkgs + '</td>' +
         '<td>' + sph + '</td>' +
-      '</tr>';
+        '</tr>';
     }).join('');
   }
 }
 
-// ── RENDER YTD ──────────────────────────────────────────────
 function renderYTD(rows) {
-  var mobile = isMobileView();
+  var isMobile = window.innerWidth <= 600;
   var thead = document.querySelector('#ytdTable thead tr');
   var tbody = document.getElementById('ytdBody');
 
   if (!rows.length) {
-    thead.innerHTML = mobile
+    thead.innerHTML = isMobile
       ? '<th>Driver</th><th>Overall</th><th>Rank</th>'
       : '<th>Driver</th><th>Packages</th><th>SPH</th><th>Overall</th><th>Rank</th>';
-
-    tbody.innerHTML =
-      '<tr><td colspan="' + (mobile ? 3 : 5) + '"><div class="empty-state">No yearly data found in columns U-AC</div></td></tr>';
+    tbody.innerHTML = '<tr><td colspan="' + (isMobile ? 3 : 5) + '"><div class="empty-state">No yearly data found in columns U-AC</div></td></tr>';
     return;
   }
 
-  if (mobile) {
+  if (isMobile) {
     thead.innerHTML = '<th>Driver</th><th>Overall</th><th>Rank</th>';
-
     tbody.innerHTML = rows.map(function(r, i) {
       var overall = fmt(r[Y_OVERALL], 2);
-      var rank    = fmtIntOrDash(r[Y_RANK]);
-
+      var rank = num(r[Y_RANK]);
       return '<tr>' +
-        '<td><div class="rank-cell">' +
-          '<span class="rank-num ' + rc(i) + '">' + (i + 1) + '</span>' +
-          '<span class="driver-name">' + esc(r[Y_NAME]) + '</span>' +
-        '</div></td>' +
+        '<td><div class="rank-cell"><span class="rank-num ' + rc(i) + '">' + (i + 1) + '</span>' +
+        '<span class="driver-name">' + esc(r[Y_NAME]) + '</span></div></td>' +
         '<td>' + (overall !== '--' ? '<span class="stat-tag">' + overall + '</span>' : '--') + '</td>' +
-        '<td>' + rank + '</td>' +
-      '</tr>';
+        '<td>' + (rank || '--') + '</td>' +
+        '</tr>';
     }).join('');
   } else {
     thead.innerHTML = '<th>Driver</th><th>Packages</th><th>SPH</th><th>Overall</th><th>Rank</th>';
-
     tbody.innerHTML = rows.map(function(r, i) {
-      var pkgs    = fmt(r[Y_PKGS]);
-      var sph     = fmt(r[Y_SPH], 2);
+      var pkgs = fmt(r[Y_PKGS]);
+      var sph = fmt(r[Y_SPH], 2);
       var overall = fmt(r[Y_OVERALL], 2);
-      var rank    = fmtIntOrDash(r[Y_RANK]);
-
+      var rank = num(r[Y_RANK]);
       return '<tr>' +
-        '<td><div class="rank-cell">' +
-          '<span class="rank-num ' + rc(i) + '">' + (i + 1) + '</span>' +
-          '<span class="driver-name">' + esc(r[Y_NAME]) + '</span>' +
-        '</div></td>' +
+        '<td><div class="rank-cell"><span class="rank-num ' + rc(i) + '">' + (i + 1) + '</span>' +
+        '<span class="driver-name">' + esc(r[Y_NAME]) + '</span></div></td>' +
         '<td>' + pkgs + '</td>' +
         '<td>' + sph + '</td>' +
         '<td>' + (overall !== '--' ? '<span class="stat-tag">' + overall + '</span>' : '--') + '</td>' +
-        '<td>' + rank + '</td>' +
-      '</tr>';
+        '<td>' + (rank || '--') + '</td>' +
+        '</tr>';
     }).join('');
   }
 }
 
-// ── RENDER RECORDS ──────────────────────────────────────────
 function renderRecords(sR, pR, sphR) {
   var defs = [
-    {
-      icon:'&#128683;',
-      lbl:'Most Stops &middot; Single Day',
-      val: sR ? fmt(sR[D_STOPS]) : '--',
-      name: sR ? sR[D_NAME] : 'No data',
-      date: sR ? formatRecordDate(sR[D_DATE]) : ''
-    },
-    {
-      icon:'&#128230;',
-      lbl:'Most Packages &middot; Single Day',
-      val: pR ? fmt(pR[D_PKGS]) : '--',
-      name: pR ? pR[D_NAME] : 'No data',
-      date: pR ? formatRecordDate(pR[D_DATE]) : ''
-    },
-    {
-      icon:'&#9889;',
-      lbl:'Best SPH &middot; Single Day',
-      val: sphR ? fmt(sphR[D_SPH], 2) : '--',
-      name: sphR ? sphR[D_NAME] : 'No data',
-      date: sphR ? formatRecordDate(sphR[D_DATE]) : ''
-    }
+    { icon:'&#128683;', lbl:'Most Stops &middot; Single Day', val: sR ? num(sR[D_STOPS]) : '--', name: sR ? sR[D_NAME] : 'No data', date: sR ? formatRecordDate(sR[D_DATE]) : '' },
+    { icon:'&#128230;', lbl:'Most Packages &middot; Single Day', val: pR ? num(pR[D_PKGS]) : '--', name: pR ? pR[D_NAME] : 'No data', date: pR ? formatRecordDate(pR[D_DATE]) : '' },
+    { icon:'&#9889;', lbl:'Best SPH &middot; Single Day', val: sphR ? num(sphR[D_SPH]) : '--', name: sphR ? sphR[D_NAME] : 'No data', date: sphR ? formatRecordDate(sphR[D_DATE]) : '' }
   ];
 
   document.getElementById('recordsGrid').innerHTML = defs.map(function(d) {
@@ -1009,80 +877,38 @@ function renderRecords(sR, pR, sphR) {
       '<div class="record-val">' + d.val + '</div>' +
       '<div class="record-name">' + esc(d.name) + '</div>' +
       (d.date ? '<div class="record-date">' + esc(d.date) + '</div>' : '') +
-    '</div>';
+      '</div>';
   }).join('');
 }
 
-// ── UTILS ───────────────────────────────────────────────────
-function isMobileView() {
-  return window.innerWidth <= MOBILE_BREAKPOINT;
-}
-
-function updateDateBadge() {
-  var now = new Date();
-  document.getElementById('dateBadge').textContent =
-    now.toLocaleDateString('en-US', {
-      weekday:'short',
-      month:'short',
-      day:'numeric',
-      year:'numeric'
-    }).toUpperCase();
-}
-
-function rc(i) {
-  return i === 0 ? 'gold' : i === 1 ? 'silver' : i === 2 ? 'bronze' : '';
-}
+function rc(i) { return i === 0 ? 'gold' : i === 1 ? 'silver' : i === 2 ? 'bronze' : ''; }
 
 function num(v) {
-  var n = parseFloat(String(v == null ? '' : v).replace(/,/g, ''));
+  var n = parseFloat(String(v || '').replace(/,/g, ''));
   return isNaN(n) ? 0 : n;
 }
 
-function numOrNull(v) {
-  var str = String(v == null ? '' : v).replace(/,/g, '').trim();
-  if (!str) return null;
-  var n = parseFloat(str);
-  return isNaN(n) ? null : n;
-}
-
 function fmt(v, decimals) {
-  var n = numOrNull(v);
-  if (n === null) return '--';
-  return decimals !== undefined ? n.toFixed(decimals) : String(n);
+  var n = num(v);
+  if (!n) return '--';
+  return decimals !== undefined ? n.toFixed(decimals) : n;
 }
 
-function fmtIntOrDash(v) {
-  var n = numOrNull(v);
-  return n === null ? '--' : String(Math.round(n));
-}
-
-function makeDateKey(d) {
-  return d.getFullYear() + '-' +
-    String(d.getMonth() + 1).padStart(2, '0') + '-' +
-    String(d.getDate()).padStart(2, '0');
-}
-
-function formatRecordDate(value) {
-  var d = parseSheetDate(value);
-  if (!d) return String(value || '');
-  return d.toLocaleDateString('en-US', { month:'short', day:'numeric', year:'numeric' });
-}
-
-function parseSheetDate(value) {
-  if (value == null || value === '') return null;
-
-  if (value instanceof Date && !isNaN(value)) return value;
-
-  var s = String(value).trim();
-  if (!s) return null;
-
-  if (/^\d{1,2}\/\d{1,2}\/\d{4}$/.test(s)) {
-    var p = s.split('/');
-    return new Date(Number(p[2]), Number(p[0]) - 1, Number(p[1]));
+function formatRecordDate(s) {
+  if (!s) return '';
+  var str = String(s);
+  if (str.includes('T')) {
+    var d = new Date(str);
+    if (!isNaN(d)) return d.toLocaleDateString('en-US', { month:'short', day:'numeric', year:'numeric' });
   }
+  return str;
+}
 
-  var d = new Date(s);
-  return isNaN(d) ? null : d;
+function parseSheetDate(s) {
+  if (!s) return null;
+  var p = s.split('/');
+  if (p.length === 3) return new Date(parseInt(p[2], 10), parseInt(p[0], 10) - 1, parseInt(p[1], 10));
+  return new Date(s);
 }
 
 function setStatus(state, msg) {
@@ -1091,18 +917,14 @@ function setStatus(state, msg) {
 }
 
 function esc(s) {
-  return String(s || '')
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;');
+  return String(s || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 }
 
-function debounce(fn, wait) {
+function debounce(fn, delay) {
   var t;
   return function() {
     clearTimeout(t);
-    var args = arguments;
-    t = setTimeout(function() { fn.apply(null, args); }, wait);
+    t = setTimeout(fn, delay);
   };
 }
 </script>
@@ -1118,6 +940,5 @@ document.querySelectorAll('.section').forEach(function(s) {
   obs.observe(s);
 });
 </script>
-
 </body>
 </html>
