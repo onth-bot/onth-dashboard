@@ -189,6 +189,62 @@ body {
 /* RECORDS GRID */
 .records-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:13px; }
 @media(max-width:640px){ .records-grid{ grid-template-columns:1fr; } }
+
+/* ── MOBILE ─────────────────────────────────────────── */
+@media(max-width:600px) {
+  /* Wrapper padding */
+  .wrapper { padding: 0 16px 80px; }
+
+  /* Hero tighter */
+  .hero { padding: 48px 16px 40px; min-height: auto; }
+  .hero-badge { font-size:9px; padding:6px 12px; margin-bottom:20px; }
+  .hero-sub { font-size:13px; margin-top:14px; }
+  .hero-meta { font-size:9.5px; }
+  .hero-refresh { padding:10px 24px; font-size:14px; margin-top:18px; }
+
+  /* Sections */
+  .section { margin-top:48px; }
+  .section-title { margin-bottom:16px; }
+
+  /* Card padding */
+  .card { padding:16px; }
+  .card-title { font-size:15px; margin-bottom:12px; }
+
+  /* Info grid single col on small screens */
+  .info-grid { grid-template-columns:1fr 1fr; gap:8px; margin-bottom:10px; }
+  .info-item { padding:12px 14px; }
+  .info-item .val { font-size:13px; }
+
+  /* Daily table — hide Packages column, keep Driver/Stops/SPH */
+  .leaderboard thead th.col-pkgs,
+  .leaderboard tbody td.col-pkgs { display:none; }
+
+  /* YTD table — hide Packages and SPH, keep Driver/Overall/Rank */
+  .leaderboard thead th.col-ytd-pkgs,
+  .leaderboard thead th.col-ytd-sph,
+  .leaderboard tbody td.col-ytd-pkgs,
+  .leaderboard tbody td.col-ytd-sph { display:none; }
+
+  /* Tighter table cells */
+  .leaderboard thead th { padding:8px 8px; font-size:8.5px; letter-spacing:0.12em; }
+  .leaderboard tbody td { padding:9px 8px; font-size:13px; }
+  .leaderboard tbody td:not(:first-child) { font-size:12px; }
+
+  /* Rank number smaller */
+  .rank-num { font-size:20px; min-width:22px; }
+  .rank-cell { gap:8px; }
+  .driver-name { font-size:13px; }
+
+  /* Records stack as 1 col */
+  .records-grid { grid-template-columns:1fr; gap:10px; }
+  .record-val { font-size:36px; }
+
+  /* Status bar */
+  .status-bar { font-size:10.5px; padding:8px 12px; }
+
+  /* Footer */
+  .footer { padding:32px 16px; }
+}
 .record-item {
   background:rgba(255,255,255,0.025); border:1px solid var(--border);
   border-top:2px solid var(--gold-bd);
@@ -254,7 +310,7 @@ body {
       </div>
       <table class="leaderboard">
         <thead><tr>
-          <th>Driver</th><th>Stops</th><th>Packages</th><th>SPH</th>
+          <th>Driver</th><th>Stops</th><th class="col-pkgs">Packages</th><th>SPH</th>
         </tr></thead>
         <tbody id="dailyBody">
           <tr><td colspan="4"><div class="empty-state">Loading...</div></td></tr>
@@ -274,7 +330,7 @@ body {
       </div>
       <table class="leaderboard">
         <thead><tr>
-          <th>Driver</th><th>Packages</th><th>SPH</th><th>Overall</th><th>Rank</th>
+          <th>Driver</th><th class="col-ytd-pkgs">Packages</th><th class="col-ytd-sph">SPH</th><th>Overall</th><th>Rank</th>
         </tr></thead>
         <tbody id="ytdBody">
           <tr><td colspan="5"><div class="empty-state">Loading...</div></td></tr>
@@ -359,7 +415,7 @@ function processData(rows) {
     var name  = String(r[D_NAME]  || '').trim();
     var type  = String(r[D_TYPE]  || '').toLowerCase();
     var stops = num(r[D_STOPS]);
-    return name && !type.includes('helper') && stops > 0;
+    return name && !name.startsWith('#') && !type.includes('helper') && stops > 0;
   });
 
   // Yesterday's date key
@@ -388,7 +444,7 @@ function processData(rows) {
     .filter(function(r) {
       var name = String(r[Y_NAME] || '').trim();
       var type = String(r[D_TYPE] || '').toLowerCase();
-      if (!name || name === '#N/A' || name.toUpperCase() === 'N/A') return false;
+      if (!name || name === '#N/A' || name === 'N/A' || name === '#ERROR!' || name.startsWith('#')) return false;
       if (type.includes('helper')) return false;
       var key = name.toUpperCase();
       if (seen[key]) return false;
@@ -449,8 +505,8 @@ function renderYTD(rows) {
     return '<tr>' +
       '<td><div class="rank-cell"><span class="rank-num ' + rc(i) + '">' + (i+1) + '</span>' +
       '<span class="driver-name">' + esc(r[Y_NAME]) + '</span></div></td>' +
-      '<td>' + pkgs + '</td>' +
-      '<td>' + sph  + '</td>' +
+      '<td class="col-ytd-pkgs">' + pkgs + '</td>' +
+      '<td class="col-ytd-sph">' + sph  + '</td>' +
       '<td>' + (overall !== '--' ? '<span class="stat-tag">' + overall + '</span>' : '--') + '</td>' +
       '<td>' + (rank || '--') + '</td>' +
       '</tr>';
