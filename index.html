@@ -384,8 +384,8 @@ body {
           <th class="col-driver">Driver</th>
           <th class="col-num">Pkgs</th>
           <th class="col-num">SPH</th>
-          <th class="col-num ytd-hide">Overall</th>
-          <th class="col-rank">Rank</th>
+          <th class="col-num">Overall</th>
+          <th class="col-rank ytd-hide">Rank</th>
         </tr></thead>
         <tbody id="ytdBody">
           <tr><td colspan="5"><div class="empty-state">Loading...</div></td></tr>
@@ -538,8 +538,8 @@ function renderYTD(rows) {
       '</div></td>'+
       '<td>'+fmt(r[Y_PKGS])+'</td>'+
       '<td>'+fmt(r[Y_SPH],2)+'</td>'+
-      '<td class="ytd-hide">'+(overall!='--'?'<span class="stat-tag">'+overall+'</span>':'--')+'</td>'+
-      '<td>'+fmt(r[Y_RANK])+'</td>'+
+      '<td>'+(overall!='--'?'<span class="stat-tag">'+overall+'</span>':'--')+'</td>'+
+      '<td class="ytd-hide">'+fmt(r[Y_RANK])+'</td>'+
     '</tr>';
   }).join('');
 }
