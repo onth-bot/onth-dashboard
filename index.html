@@ -24,7 +24,6 @@
   --danger-bd:  rgba(224,82,82,0.28);
   --danger-tx:  #f0a0a0;
 }
-
 *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
 html { scroll-behavior:smooth; }
 body {
@@ -34,539 +33,216 @@ body {
   font-size: 15px;
   line-height: 1.7;
   -webkit-font-smoothing: antialiased;
-  overflow-x: hidden;
 }
 
+/* HERO */
 .hero {
   position: relative;
   min-height: 36vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  display: flex; flex-direction: column;
+  justify-content: center; align-items: center;
   text-align: center;
   padding: 64px 24px 52px;
   overflow: hidden;
   background: var(--dark);
 }
-
 .hero::before {
-  content: '';
-  position: absolute;
-  inset: 0;
+  content: ''; position: absolute; inset: 0;
   background:
     radial-gradient(ellipse 80% 55% at 50% 0%, rgba(245,197,24,0.13) 0%, transparent 68%),
-    repeating-linear-gradient(0deg, transparent, transparent 39px, rgba(255,255,255,0.018) 40px),
+    repeating-linear-gradient(0deg,  transparent, transparent 39px, rgba(255,255,255,0.018) 40px),
     repeating-linear-gradient(90deg, transparent, transparent 39px, rgba(255,255,255,0.018) 40px);
   pointer-events: none;
 }
-
 .hero-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
+  display: inline-flex; align-items: center; gap: 8px;
   font-family: 'DM Mono', monospace;
-  font-size: 10.5px;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  color: var(--gold);
-  border: 1px solid var(--gold-bd);
-  background: var(--gold-bg);
-  padding: 7px 18px;
-  border-radius: 2px;
-  margin-bottom: 28px;
-  position: relative;
-  z-index: 1;
+  font-size: 10.5px; letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--gold); border: 1px solid var(--gold-bd); background: var(--gold-bg);
+  padding: 7px 18px; border-radius: 2px; margin-bottom: 28px;
+  position: relative; z-index: 1;
   animation: fadeUp 0.65s ease both;
 }
-
 .hero h1 {
   font-family: 'Bebas Neue', sans-serif;
   font-size: clamp(52px, 10vw, 110px);
-  line-height: 0.9;
-  letter-spacing: 0.025em;
-  position: relative;
-  z-index: 1;
+  line-height: 0.9; letter-spacing: 0.025em;
+  position: relative; z-index: 1;
   animation: fadeUp 0.65s 0.1s ease both;
 }
-
-.hero h1 span {
-  display:block;
-  color:var(--gold);
-}
-
+.hero h1 span { display:block; color:var(--gold); }
 .hero-sub {
-  margin-top: 22px;
-  font-size: 15px;
-  color: var(--muted);
-  max-width: 440px;
-  line-height: 1.65;
-  position: relative;
-  z-index: 1;
+  margin-top: 22px; font-size: 15px; color: var(--muted);
+  max-width: 440px; line-height: 1.65;
+  position: relative; z-index: 1;
   animation: fadeUp 0.65s 0.2s ease both;
 }
-
 .hero-meta {
-  margin-top: 20px;
-  font-family: 'DM Mono', monospace;
-  font-size: 10.5px;
-  letter-spacing: 0.18em;
-  color: var(--muted);
-  text-transform: uppercase;
-  position: relative;
-  z-index: 1;
+  margin-top: 20px; font-family: 'DM Mono', monospace;
+  font-size: 10.5px; letter-spacing: 0.18em; color: var(--muted); text-transform: uppercase;
+  position: relative; z-index: 1;
   animation: fadeUp 0.65s 0.3s ease both;
 }
-
-.wrapper {
-  max-width: 1000px;
-  margin: 0 auto;
-  padding: 0 28px 100px;
+.hero-refresh {
+  background: var(--gold); color: #000; border: none;
+  padding: 8px 22px; font-family: 'Bebas Neue', sans-serif;
+  font-size: 15px; letter-spacing: 1.5px; border-radius: 2px;
+  cursor: pointer; transition: background .15s, transform .1s;
+  position: relative; z-index: 1;
+  animation: fadeUp 0.65s 0.35s ease both;
+  margin-top: 22px;
 }
+.hero-refresh:hover { background: #ffd83a; }
+.hero-refresh:active { transform: scale(.97); }
 
+/* WRAPPER */
+.wrapper { max-width: 1000px; margin: 0 auto; padding: 0 28px 100px; }
+
+/* SECTION */
 .section {
   margin-top: 72px;
-  opacity: 0;
-  transform: translateY(18px);
+  opacity: 0; transform: translateY(18px);
   transition: opacity 0.45s ease, transform 0.45s ease;
 }
-
-.section.visible {
-  opacity:1;
-  transform:translateY(0);
-}
+.section.visible { opacity:1; transform:translateY(0); }
 
 .section-label {
   font-family: 'DM Mono', monospace;
-  font-size: 10px;
-  letter-spacing: 0.28em;
-  text-transform: uppercase;
-  color: var(--gold);
-  margin-bottom: 13px;
-  display: flex;
-  align-items: center;
-  gap: 14px;
+  font-size: 10px; letter-spacing: 0.28em; text-transform: uppercase;
+  color: var(--gold); margin-bottom: 13px;
+  display: flex; align-items: center; gap: 14px;
 }
-
-.section-label::after {
-  content:'';
-  flex:1;
-  height:1px;
-  background:var(--border);
-}
-
+.section-label::after { content:''; flex:1; height:1px; background:var(--border); }
 .section-title {
   font-family: 'Bebas Neue', sans-serif;
   font-size: clamp(34px, 6vw, 58px);
-  line-height: 1;
-  margin-bottom: 22px;
-  letter-spacing: 0.02em;
+  line-height: 1; margin-bottom: 22px; letter-spacing: 0.02em;
 }
 
+/* STATUS */
 .status-bar {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: 3px;
-  padding: 10px 16px;
-  font-family: 'DM Mono', monospace;
-  font-size: 11.5px;
-  color: var(--muted);
+  display: flex; align-items: center; gap: 10px;
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: 3px; padding: 10px 16px;
+  font-family: 'DM Mono', monospace; font-size: 11.5px; color: var(--muted);
 }
-
-.dot {
-  width:7px;
-  height:7px;
-  border-radius:50%;
-  background:var(--muted);
-  flex-shrink:0;
-}
-
-.dot.ok { background:var(--success-tx); box-shadow:0 0 6px rgba(76,175,125,.5); }
-.dot.err { background:var(--danger-tx); box-shadow:0 0 6px rgba(224,82,82,.5); }
+.dot { width:7px; height:7px; border-radius:50%; background:var(--muted); flex-shrink:0; }
+.dot.ok      { background:var(--success-tx); box-shadow:0 0 6px rgba(76,175,125,.5); }
+.dot.err     { background:var(--danger-tx);  box-shadow:0 0 6px rgba(224,82,82,.5); }
 .dot.loading { background:var(--gold); animation:pulse 1s infinite; }
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.3} }
 
-@keyframes pulse {
-  0%,100% { opacity:1; }
-  50% { opacity:.3; }
-}
-
+/* CARD */
 .card {
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: 5px;
-  padding: 24px 26px;
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: 5px; padding: 24px 26px;
 }
-
 .card + .card { margin-top: 10px; }
-
 .card-title {
   font-family: 'Bebas Neue', sans-serif;
-  font-size: 19px;
-  letter-spacing: 0.07em;
-  color: var(--gold);
-  margin-bottom: 16px;
-  display: flex;
-  align-items: center;
-  gap: 10px;
+  font-size: 19px; letter-spacing: 0.07em; color: var(--gold);
+  margin-bottom: 16px; display: flex; align-items: center; gap: 10px;
 }
-
 .ci {
-  width:26px;
-  height:26px;
-  flex-shrink:0;
-  background:var(--gold-bg);
-  border:1px solid var(--gold-bd);
-  border-radius:4px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
+  width:26px; height:26px; flex-shrink:0;
+  background:var(--gold-bg); border:1px solid var(--gold-bd);
+  border-radius:4px; display:flex; align-items:center; justify-content:center;
 }
+.ci svg { width:14px; height:14px; stroke:var(--gold); fill:none; stroke-width:1.9; stroke-linecap:round; stroke-linejoin:round; }
 
-.ci svg {
-  width:14px;
-  height:14px;
-  stroke:var(--gold);
-  fill:none;
-  stroke-width:1.9;
-  stroke-linecap:round;
-  stroke-linejoin:round;
-}
-
-.info-grid {
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:13px;
-  margin-bottom:13px;
-}
-
-@media (max-width:560px) {
-  .info-grid { grid-template-columns:1fr; }
-}
-
+/* INFO GRID */
+.info-grid { display:grid; grid-template-columns:1fr 1fr; gap:13px; margin-bottom:13px; }
+@media(max-width:560px){ .info-grid{ grid-template-columns:1fr; } }
 .info-item {
-  background:rgba(255,255,255,0.025);
-  border:1px solid var(--border);
-  border-radius:4px;
-  padding:16px 18px;
+  background:rgba(255,255,255,0.025); border:1px solid var(--border);
+  border-radius:4px; padding:16px 18px;
 }
+.info-item .lbl { font-family:'DM Mono',monospace; font-size:9.5px; letter-spacing:0.2em; text-transform:uppercase; color:var(--muted); margin-bottom:5px; }
+.info-item .val { font-size:15px; font-weight:600; color:var(--white); line-height:1.4; }
 
-.info-item .lbl {
-  font-family:'DM Mono',monospace;
-  font-size:9.5px;
-  letter-spacing:0.2em;
-  text-transform:uppercase;
-  color:var(--muted);
-  margin-bottom:5px;
-}
-
-.info-item .val {
-  font-size:15px;
-  font-weight:600;
-  color:var(--white);
-  line-height:1.4;
-}
-
-.table-shell {
-  width: 100%;
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
-}
-
-.leaderboard {
-  width:100%;
-  border-collapse:collapse;
-}
-
+/* LEADERBOARD TABLE */
+.leaderboard { width:100%; border-collapse:collapse; }
 .leaderboard thead th {
-  text-align:left;
-  font-family:'DM Mono',monospace;
-  font-size:9.5px;
-  letter-spacing:0.2em;
-  text-transform:uppercase;
-  color:var(--muted);
-  padding:9px 14px;
-  border-bottom:1px solid var(--border);
+  text-align:left; font-family:'DM Mono',monospace; font-size:9.5px;
+  letter-spacing:0.2em; text-transform:uppercase; color:var(--muted);
+  padding:9px 14px; border-bottom:1px solid var(--border);
 }
-
 .leaderboard thead th:not(:first-child) { text-align:right; }
-
-.leaderboard tbody tr {
-  border-bottom:1px solid rgba(42,44,49,.7);
-  transition:background .12s;
-}
-
+.leaderboard tbody tr { border-bottom:1px solid rgba(42,44,49,.7); transition:background .12s; }
 .leaderboard tbody tr:last-child { border-bottom:none; }
 .leaderboard tbody tr:hover { background:var(--gold-bg); }
+.leaderboard tbody td { padding:11px 14px; font-size:14px; vertical-align:middle; }
+.leaderboard tbody td:not(:first-child) { text-align:right; font-family:'DM Mono',monospace; font-size:13px; color:#c8c8c8; }
 
-.leaderboard tbody td {
-  padding:11px 14px;
-  font-size:14px;
-  vertical-align:middle;
-}
-
-.leaderboard tbody td:not(:first-child) {
-  text-align:right;
-  font-family:'DM Mono',monospace;
-  font-size:13px;
-  color:#c8c8c8;
-  white-space: nowrap;
-}
-
-.rank-cell {
-  display:flex;
-  align-items:center;
-  gap:12px;
-  min-width: 0;
-}
-
-.rank-num {
-  font-family:'Bebas Neue',sans-serif;
-  font-size:26px;
-  color:var(--muted);
-  min-width:28px;
-  text-align:center;
-  line-height:1;
-}
-
-.rank-num.gold { color:var(--gold); text-shadow:0 0 14px rgba(245,197,24,.55); }
+.rank-cell { display:flex; align-items:center; gap:12px; }
+.rank-num { font-family:'Bebas Neue',sans-serif; font-size:26px; color:var(--muted); min-width:28px; text-align:center; line-height:1; }
+.rank-num.gold   { color:var(--gold); text-shadow:0 0 14px rgba(245,197,24,.55); }
 .rank-num.silver { color:#c0c0c0; }
 .rank-num.bronze { color:#cd7f32; }
-
-.driver-name {
-  font-weight:600;
-  font-size:14px;
-  color:var(--white);
-  min-width: 0;
-}
-
+.driver-name { font-weight:600; font-size:14px; color:var(--white); }
 .stat-tag {
-  display:inline-block;
-  font-family:'DM Mono',monospace;
-  font-size:10px;
-  padding:3px 9px;
-  border-radius:2px;
-  letter-spacing:0.06em;
-  background:var(--gold-bg);
-  color:var(--gold);
-  border:1px solid var(--gold-bd);
-  white-space: nowrap;
+  display:inline-block; font-family:'DM Mono',monospace; font-size:10px;
+  padding:3px 9px; border-radius:2px; letter-spacing:0.06em;
+  background:var(--gold-bg); color:var(--gold); border:1px solid var(--gold-bd);
 }
 
-.records-grid {
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:13px;
-}
+/* RECORDS GRID */
+.records-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:13px; }
+@media(max-width:640px){ .records-grid{ grid-template-columns:1fr; } }
 
-@media (max-width:640px) {
-  .records-grid { grid-template-columns:1fr; }
-}
-
-.record-item {
-  background:rgba(255,255,255,0.025);
-  border:1px solid var(--border);
-  border-top:2px solid var(--gold-bd);
-  border-radius:4px;
-  padding:20px;
-  transition:border-top-color .2s;
-}
-
-.record-item:hover { border-top-color:var(--gold); }
-
-.record-icon {
-  font-size:18px;
-  margin-bottom:8px;
-  display:block;
-}
-
-.record-lbl {
-  font-family:'DM Mono',monospace;
-  font-size:9.5px;
-  letter-spacing:0.2em;
-  text-transform:uppercase;
-  color:var(--muted);
-  margin-bottom:6px;
-}
-
-.record-val {
-  font-family:'Bebas Neue',sans-serif;
-  font-size:44px;
-  color:var(--gold);
-  line-height:1;
-  margin-bottom:5px;
-}
-
-.record-name {
-  font-size:14px;
-  font-weight:600;
-  color:var(--white);
-}
-
-.record-date {
-  font-size:11.5px;
-  color:var(--muted);
-  font-family:'DM Mono',monospace;
-  margin-top:3px;
-}
-
-.empty-state {
-  padding:2.5rem;
-  text-align:center;
-  color:var(--muted);
-  font-family:'DM Mono',monospace;
-  font-size:11.5px;
-  letter-spacing:0.1em;
-}
-
-.footer {
-  border-top:1px solid var(--border);
-  padding:44px 28px;
-  text-align:center;
-  color:var(--muted);
-  font-size:13px;
-}
-
-.footer-logo {
-  font-family:'Bebas Neue',sans-serif;
-  font-size:28px;
-  letter-spacing:0.06em;
-  color:var(--white);
-  margin-bottom:7px;
-}
-
-.footer-logo span { color:var(--gold); }
-
-@media (max-width:768px) {
-  .wrapper { padding: 0 18px 84px; }
-  .section { margin-top: 52px; }
-  .card { padding: 18px; }
-  .hero { padding: 52px 18px 42px; min-height: auto; }
-  .hero-meta { max-width: 100%; line-height: 1.8; }
-}
-
-@media (max-width:600px) {
-  .wrapper { padding: 0 14px 76px; }
-  .hero { padding: 42px 16px 34px; }
-  .hero-badge {
-    font-size: 8.5px;
-    padding: 5px 10px;
-    margin-bottom: 16px;
-    letter-spacing: 0.14em;
-  }
-  .hero h1 {
-    font-size: clamp(40px, 18vw, 60px);
-    line-height: 0.92;
-  }
-  .hero-sub {
-    font-size: 13px;
-    margin-top: 12px;
-    max-width: 30ch;
-  }
-  .hero-meta {
-    margin-top: 14px;
-    font-size: 9px;
-    letter-spacing: 0.08em;
-    line-height: 1.7;
-    padding: 0 8px;
-  }
-  .section { margin-top: 36px; }
-  .section-title {
-    margin-bottom: 12px;
-    font-size: clamp(28px, 9vw, 40px);
-  }
-  .section-label {
-    font-size: 8.5px;
-    letter-spacing: 0.16em;
-    gap: 10px;
-  }
-  .status-bar {
-    padding: 10px 12px;
-    font-size: 10px;
-    line-height: 1.5;
-  }
-  .card {
-    padding: 14px 12px;
-    overflow: hidden;
-  }
-  .card-title {
-    font-size: 14px;
-    margin-bottom: 10px;
-    gap: 7px;
-    line-height: 1.2;
-  }
+/* ── MOBILE ─────────────────────────────────────────── */
+@media(max-width:600px) {
+  .wrapper { padding: 0 12px 80px; }
+  .hero { padding: 44px 16px 36px; min-height:auto; }
+  .hero-badge { font-size:9px; padding:5px 11px; margin-bottom:16px; letter-spacing:0.14em; }
+  .hero-sub { font-size:13px; margin-top:12px; }
+  .hero-meta { font-size:9px; letter-spacing:0.1em; }
+  .hero-refresh { padding:10px 24px; font-size:14px; margin-top:14px; }
+  .section { margin-top:40px; }
+  .section-title { margin-bottom:12px; }
+  .card { padding:14px 10px; overflow:hidden; }
+  .card-title { font-size:14px; margin-bottom:10px; gap:7px; }
   .ci { width:22px; height:22px; }
   .ci svg { width:11px; height:11px; }
-  .info-grid {
-    gap: 8px;
-    margin-bottom: 10px;
-  }
-  .info-item { padding: 10px 12px; }
-  .info-item .lbl { font-size: 8px; }
-  .info-item .val { font-size: 13px; }
-  .leaderboard { table-layout: fixed; }
-  .leaderboard thead th {
-    padding: 8px 4px;
-    font-size: 7.5px;
-    letter-spacing: 0.06em;
-  }
-  .leaderboard tbody td {
-    padding: 9px 4px;
-    font-size: 12px;
-  }
-  .leaderboard tbody td:not(:first-child) { font-size: 11px; }
-  .leaderboard th:first-child,
-  .leaderboard td:first-child { width: 52%; }
-  .rank-num {
-    font-size: 18px;
-    min-width: 18px;
-  }
-  .rank-cell {
-    gap: 7px;
-    align-items: flex-start;
-  }
-  .driver-name {
-    font-size: 12px;
-    line-height: 1.25;
-    white-space: normal;
-    overflow: visible;
-    text-overflow: clip;
-    max-width: none;
-    display: block;
-    overflow-wrap: anywhere;
-  }
-  .stat-tag {
-    font-size: 9px;
-    padding: 2px 6px;
-  }
-  .records-grid { gap: 10px; }
-  .record-item { padding: 16px; }
-  .record-val { font-size: 34px; }
-  .record-name { line-height: 1.35; }
-  .record-date {
-    font-size: 10px;
-    line-height: 1.5;
-  }
-  .empty-state {
-    padding: 1.5rem 0.75rem;
-    font-size: 10px;
-    line-height: 1.5;
-  }
-  .footer {
-    padding: 28px 16px;
-    font-size: 12px;
-  }
-  .footer p {
-    line-height: 1.7;
-    word-break: break-word;
-  }
+  .info-grid { gap:8px; margin-bottom:10px; }
+  .info-item { padding:10px 12px; }
+  .info-item .lbl { font-size:8px; }
+  .info-item .val { font-size:13px; }
+  .leaderboard { table-layout:fixed; width:100%; }
+  .leaderboard thead th { padding:7px 6px; font-size:8px; letter-spacing:0.08em; }
+  .leaderboard tbody td { padding:8px 6px; font-size:13px; }
+  .leaderboard tbody td:not(:first-child) { font-size:12px; }
+  .rank-num { font-size:18px; min-width:18px; }
+  .rank-cell { gap:6px; }
+  .driver-name { font-size:12px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:145px; display:block; }
+  .records-grid { grid-template-columns:1fr; gap:10px; }
+  .record-val { font-size:34px; }
+  .status-bar { font-size:10px; padding:8px 12px; }
+  .footer { padding:28px 16px; font-size:12px; }
+  .section-label { font-size:9px; letter-spacing:0.2em; }
 }
+.record-item {
+  background:rgba(255,255,255,0.025); border:1px solid var(--border);
+  border-top:2px solid var(--gold-bd);
+  border-radius:4px; padding:20px; transition:border-top-color .2s;
+}
+.record-item:hover { border-top-color:var(--gold); }
+.record-icon { font-size:18px; margin-bottom:8px; display:block; }
+.record-lbl  { font-family:'DM Mono',monospace; font-size:9.5px; letter-spacing:0.2em; text-transform:uppercase; color:var(--muted); margin-bottom:6px; }
+.record-val  { font-family:'Bebas Neue',sans-serif; font-size:44px; color:var(--gold); line-height:1; margin-bottom:5px; }
+.record-name { font-size:14px; font-weight:600; color:var(--white); }
+.record-date { font-size:11.5px; color:var(--muted); font-family:'DM Mono',monospace; margin-top:3px; }
+
+.empty-state { padding:2.5rem; text-align:center; color:var(--muted); font-family:'DM Mono',monospace; font-size:11.5px; letter-spacing:0.1em; }
+
+/* FOOTER */
+.footer { border-top:1px solid var(--border); padding:44px 28px; text-align:center; color:var(--muted); font-size:13px; }
+.footer-logo { font-family:'Bebas Neue',sans-serif; font-size:28px; letter-spacing:0.06em; color:var(--white); margin-bottom:7px; }
+.footer-logo span { color:var(--gold); }
 
 @keyframes fadeUp {
   from { opacity:0; transform:translateY(16px); }
-  to { opacity:1; transform:translateY(0); }
+  to   { opacity:1; transform:translateY(0); }
 }
 </style>
 </head>
@@ -577,6 +253,7 @@ body {
   <h1>Performance<span>Leaderboard</span></h1>
   <p class="hero-sub">Live driver rankings for DSJ5 — pulled directly from the ONTH data sheet.</p>
   <p class="hero-meta">DSJ5 &nbsp;&middot;&nbsp; Fresno, CA &nbsp;&middot;&nbsp; <span id="dateBadge"></span></p>
+  <button class="hero-refresh" onclick="loadData()">&#8635; REFRESH</button>
 </section>
 
 <div class="wrapper">
@@ -588,6 +265,7 @@ body {
     </div>
   </div>
 
+  <!-- YESTERDAY TOP 10 -->
   <div class="section">
     <div class="section-label">Daily Rankings</div>
     <div class="section-title">Yesterday &middot; Top 10</div>
@@ -606,19 +284,18 @@ body {
         <span class="ci"><svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></span>
         Top 10 Drivers &mdash; Stops Completed
       </div>
-      <div class="table-shell">
-        <table class="leaderboard" id="dailyTable">
-          <thead><tr>
-            <th>Driver</th><th>Stops</th><th>Packages</th><th>SPH</th>
-          </tr></thead>
-          <tbody id="dailyBody">
-            <tr><td colspan="4"><div class="empty-state">Loading...</div></td></tr>
-          </tbody>
-        </table>
-      </div>
+      <table class="leaderboard" id="dailyTable">
+        <thead><tr>
+          <th>Driver</th><th>Stops</th><th>Packages</th><th>SPH</th>
+        </tr></thead>
+        <tbody id="dailyBody">
+          <tr><td colspan="4"><div class="empty-state">Loading...</div></td></tr>
+        </tbody>
+      </table>
     </div>
   </div>
 
+  <!-- YTD TOP 10 -->
   <div class="section">
     <div class="section-label">Year-to-Date Rankings</div>
     <div class="section-title">2026 &middot; Top 10</div>
@@ -627,19 +304,18 @@ body {
         <span class="ci"><svg viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></span>
         Top 10 Drivers &mdash; Overall Score
       </div>
-      <div class="table-shell">
-        <table class="leaderboard" id="ytdTable">
-          <thead><tr>
-            <th>Driver</th><th>Packages</th><th>SPH</th><th>Overall</th><th>Rank</th>
-          </tr></thead>
-          <tbody id="ytdBody">
-            <tr><td colspan="5"><div class="empty-state">Loading...</div></td></tr>
-          </tbody>
-        </table>
-      </div>
+      <table class="leaderboard" id="ytdTable">
+        <thead><tr>
+          <th>Driver</th><th>Packages</th><th>SPH</th><th>Overall</th><th>Rank</th>
+        </tr></thead>
+        <tbody id="ytdBody">
+          <tr><td colspan="5"><div class="empty-state">Loading...</div></td></tr>
+        </tbody>
+      </table>
     </div>
   </div>
 
+  <!-- RECORDS -->
   <div class="section">
     <div class="section-label">All-Time Records</div>
     <div class="section-title">2026 Company Records</div>
@@ -659,40 +335,35 @@ body {
 </footer>
 
 <script>
+// ── CONFIG ──────────────────────────────────────────────────
+// Google Apps Script Web App URL - serves sheet data as JSON
 const API_URL = 'https://script.google.com/macros/s/AKfycbzhbtHQAYPmLmKzTQr3rnLVkFWCIFEP5PjkMwNiTzv0zViYHCVYncc3VxFPZycOss4O/exec';
 
-var D_NAME  = 0;
-var D_DATE  = 1;
-var D_TYPE  = 2;
-var D_STOPS = 3;
-var D_PKGS  = 4;
-var D_SPH   = 5;
+// Column indices remapped after Apps Script trimming
+// Apps Script keep = [0,1,10,13,15,16,20,25,26,27,28]
+// So new indices:      0 1  2  3  4  5  6  7  8  9 10
+var D_NAME  = 0;  // A  - Driver name
+var D_DATE  = 1;  // B  - Date
+var D_TYPE  = 2;  // K  - Type (helper filter)
+var D_STOPS = 3;  // N  - Stops done
+var D_PKGS  = 4;  // P  - Packages delivered
+var D_SPH   = 5;  // Q  - Stops per hour
 
-var Y_NAME    = 6;
-var Y_PKGS    = 7;
-var Y_SPH     = 8;
-var Y_OVERALL = 9;
-var Y_RANK    = 10;
+var Y_NAME    = 6;  // U  - Yearly name
+var Y_PKGS    = 7;  // Z  - Yearly packages
+var Y_SPH     = 8;  // AA - Yearly SPH
+var Y_OVERALL = 9;  // AB - Overall score
+var Y_RANK    = 10; // AC - Rank
 
-var dashboardState = {
-  daily: [],
-  yearly: [],
-  stopsRec: null,
-  pkgsRec: null,
-  sphRec: null
-};
-
+// ── INIT ────────────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', function() {
   var now = new Date();
   document.getElementById('dateBadge').textContent =
-    now.toLocaleDateString('en-US', { weekday:'short', month:'short', day:'numeric', year:'numeric' }).toUpperCase();
+    now.toLocaleDateString('en-US', {weekday:'short', month:'short', day:'numeric', year:'numeric'}).toUpperCase();
   loadData();
 });
 
-window.addEventListener('resize', debounce(function() {
-  renderFromState();
-}, 120));
-
+// ── FETCH ───────────────────────────────────────────────────
 function loadData() {
   setStatus('loading', 'Fetching sheet data...');
   fetch(API_URL)
@@ -702,6 +373,7 @@ function loadData() {
     })
     .then(function(data) {
       if (!Array.isArray(data) || data.length < 2) throw new Error('No data rows returned');
+      // data[0] is the header row, data[1..] is the actual rows
       processData(data.slice(1));
       setStatus('ok', 'Loaded · Refreshed ' + new Date().toLocaleTimeString());
     })
@@ -711,32 +383,38 @@ function loadData() {
     });
 }
 
+// ── PROCESS ─────────────────────────────────────────────────
 function processData(rows) {
+
+  // Daily: filter out helpers and rows with no stops
   var dailyRows = rows.filter(function(r) {
-    var name = String(r[D_NAME] || '').trim();
-    var type = String(r[D_TYPE] || '').toLowerCase();
+    var name  = String(r[D_NAME]  || '').trim();
+    var type  = String(r[D_TYPE]  || '').toLowerCase();
     var stops = num(r[D_STOPS]);
     return name && !name.startsWith('#') && !type.includes('helper') && stops > 0;
   });
 
+  // Yesterday's date key
   var yest = new Date();
   yest.setDate(yest.getDate() - 1);
-  var yestKey = (yest.getMonth() + 1) + '/' + yest.getDate() + '/' + yest.getFullYear();
+  var yestKey = (yest.getMonth()+1) + '/' + yest.getDate() + '/' + yest.getFullYear();
 
   var yesterdayRows = dailyRows.filter(function(r) {
     var d = parseSheetDate(String(r[D_DATE] || '').trim());
     if (!d) return false;
-    return (d.getMonth() + 1) + '/' + d.getDate() + '/' + d.getFullYear() === yestKey;
+    return (d.getMonth()+1) + '/' + d.getDate() + '/' + d.getFullYear() === yestKey;
   });
 
   var top10Daily = yesterdayRows
-    .sort(function(a, b) { return num(b[D_STOPS]) - num(a[D_STOPS]); })
+    .sort(function(a,b) { return num(b[D_STOPS]) - num(a[D_STOPS]); })
     .slice(0, 10);
 
-  var stopsRec = dailyRows.length ? dailyRows.reduce(function(b, r) { return num(r[D_STOPS]) > num(b[D_STOPS]) ? r : b; }) : null;
-  var pkgsRec  = dailyRows.length ? dailyRows.reduce(function(b, r) { return num(r[D_PKGS]) > num(b[D_PKGS]) ? r : b; }) : null;
-  var sphRec   = dailyRows.length ? dailyRows.reduce(function(b, r) { return num(r[D_SPH]) > num(b[D_SPH]) ? r : b; }) : null;
+  // All-time records from all daily data
+  var stopsRec = dailyRows.length ? dailyRows.reduce(function(b,r) { return num(r[D_STOPS]) > num(b[D_STOPS]) ? r : b; }) : null;
+  var pkgsRec  = dailyRows.length ? dailyRows.reduce(function(b,r) { return num(r[D_PKGS])  > num(b[D_PKGS])  ? r : b; }) : null;
+  var sphRec   = dailyRows.length ? dailyRows.reduce(function(b,r) { return num(r[D_SPH])   > num(b[D_SPH])   ? r : b; }) : null;
 
+  // Yearly: unique drivers, not helpers, sorted by rank then overall
   var seen = {};
   var yearlyRows = rows
     .filter(function(r) {
@@ -749,34 +427,25 @@ function processData(rows) {
       seen[key] = true;
       return true;
     })
-    .sort(function(a, b) {
-      var ra = num(a[Y_RANK]);
-      var rb = num(b[Y_RANK]);
+    .sort(function(a,b) {
+      var ra = num(a[Y_RANK]), rb = num(b[Y_RANK]);
       if (ra && rb) return ra - rb;
       return num(b[Y_OVERALL]) - num(a[Y_OVERALL]);
     })
     .slice(0, 10);
 
-  dashboardState.daily = top10Daily;
-  dashboardState.yearly = yearlyRows;
-  dashboardState.stopsRec = stopsRec;
-  dashboardState.pkgsRec = pkgsRec;
-  dashboardState.sphRec = sphRec;
-
+  // Update info labels
   document.getElementById('dailyDateLabel').textContent =
-    yest.toLocaleDateString('en-US', { weekday:'long', month:'long', day:'numeric', year:'numeric' });
+    yest.toLocaleDateString('en-US', {weekday:'long', month:'long', day:'numeric', year:'numeric'});
   document.getElementById('dailyCountLabel').textContent =
     top10Daily.length ? top10Daily.length + ' drivers' : 'No data for yesterday';
 
-  renderFromState();
+  renderDaily(top10Daily);
+  renderYTD(yearlyRows);
+  renderRecords(stopsRec, pkgsRec, sphRec);
 }
 
-function renderFromState() {
-  renderDaily(dashboardState.daily);
-  renderYTD(dashboardState.yearly);
-  renderRecords(dashboardState.stopsRec, dashboardState.pkgsRec, dashboardState.sphRec);
-}
-
+// ── RENDER DAILY ────────────────────────────────────────────
 function renderDaily(rows) {
   var isMobile = window.innerWidth <= 600;
   var thead = document.querySelector('#dailyTable thead tr');
@@ -786,7 +455,7 @@ function renderDaily(rows) {
     thead.innerHTML = isMobile
       ? '<th>Driver</th><th>Stops</th><th>SPH</th>'
       : '<th>Driver</th><th>Stops</th><th>Packages</th><th>SPH</th>';
-    tbody.innerHTML = '<tr><td colspan="' + (isMobile ? 3 : 4) + '"><div class="empty-state">No drivers found for yesterday (' + new Date(Date.now() - 86400000).toLocaleDateString() + ')</div></td></tr>';
+    tbody.innerHTML = '<tr><td colspan="' + (isMobile ? 3 : 4) + '"><div class="empty-state">No drivers found for yesterday (' + new Date(Date.now()-86400000).toLocaleDateString() + ')</div></td></tr>';
     return;
   }
 
@@ -794,11 +463,11 @@ function renderDaily(rows) {
     thead.innerHTML = '<th>Driver</th><th>Stops</th><th>SPH</th>';
     tbody.innerHTML = rows.map(function(r, i) {
       var stops = num(r[D_STOPS]);
-      var sph = fmt(r[D_SPH], 2);
+      var sph   = fmt(r[D_SPH], 2);
       return '<tr>' +
-        '<td><div class="rank-cell"><span class="rank-num ' + rc(i) + '">' + (i + 1) + '</span>' +
+        '<td><div class="rank-cell"><span class="rank-num ' + rc(i) + '">' + (i+1) + '</span>' +
         '<span class="driver-name">' + esc(r[D_NAME]) + '</span></div></td>' +
-        '<td>' + (i === 0 ? '<span class="stat-tag">' + stops + '</span>' : stops) + '</td>' +
+        '<td>' + (i===0 ? '<span class="stat-tag">' + stops + '</span>' : stops) + '</td>' +
         '<td>' + sph + '</td>' +
         '</tr>';
     }).join('');
@@ -806,12 +475,12 @@ function renderDaily(rows) {
     thead.innerHTML = '<th>Driver</th><th>Stops</th><th>Packages</th><th>SPH</th>';
     tbody.innerHTML = rows.map(function(r, i) {
       var stops = num(r[D_STOPS]);
-      var pkgs = num(r[D_PKGS]);
-      var sph = fmt(r[D_SPH], 2);
+      var pkgs  = num(r[D_PKGS]);
+      var sph   = fmt(r[D_SPH], 2);
       return '<tr>' +
-        '<td><div class="rank-cell"><span class="rank-num ' + rc(i) + '">' + (i + 1) + '</span>' +
+        '<td><div class="rank-cell"><span class="rank-num ' + rc(i) + '">' + (i+1) + '</span>' +
         '<span class="driver-name">' + esc(r[D_NAME]) + '</span></div></td>' +
-        '<td>' + (i === 0 ? '<span class="stat-tag">' + stops + '</span>' : stops) + '</td>' +
+        '<td>' + (i===0 ? '<span class="stat-tag">' + stops + '</span>' : stops) + '</td>' +
         '<td>' + pkgs + '</td>' +
         '<td>' + sph + '</td>' +
         '</tr>';
@@ -819,6 +488,7 @@ function renderDaily(rows) {
   }
 }
 
+// ── RENDER YTD ──────────────────────────────────────────────
 function renderYTD(rows) {
   var isMobile = window.innerWidth <= 600;
   var thead = document.querySelector('#ytdTable thead tr');
@@ -836,9 +506,9 @@ function renderYTD(rows) {
     thead.innerHTML = '<th>Driver</th><th>Overall</th><th>Rank</th>';
     tbody.innerHTML = rows.map(function(r, i) {
       var overall = fmt(r[Y_OVERALL], 2);
-      var rank = num(r[Y_RANK]);
+      var rank    = num(r[Y_RANK]);
       return '<tr>' +
-        '<td><div class="rank-cell"><span class="rank-num ' + rc(i) + '">' + (i + 1) + '</span>' +
+        '<td><div class="rank-cell"><span class="rank-num ' + rc(i) + '">' + (i+1) + '</span>' +
         '<span class="driver-name">' + esc(r[Y_NAME]) + '</span></div></td>' +
         '<td>' + (overall !== '--' ? '<span class="stat-tag">' + overall + '</span>' : '--') + '</td>' +
         '<td>' + (rank || '--') + '</td>' +
@@ -847,15 +517,15 @@ function renderYTD(rows) {
   } else {
     thead.innerHTML = '<th>Driver</th><th>Packages</th><th>SPH</th><th>Overall</th><th>Rank</th>';
     tbody.innerHTML = rows.map(function(r, i) {
-      var pkgs = fmt(r[Y_PKGS]);
-      var sph = fmt(r[Y_SPH], 2);
+      var pkgs    = fmt(r[Y_PKGS]);
+      var sph     = fmt(r[Y_SPH], 2);
       var overall = fmt(r[Y_OVERALL], 2);
-      var rank = num(r[Y_RANK]);
+      var rank    = num(r[Y_RANK]);
       return '<tr>' +
-        '<td><div class="rank-cell"><span class="rank-num ' + rc(i) + '">' + (i + 1) + '</span>' +
+        '<td><div class="rank-cell"><span class="rank-num ' + rc(i) + '">' + (i+1) + '</span>' +
         '<span class="driver-name">' + esc(r[Y_NAME]) + '</span></div></td>' +
         '<td>' + pkgs + '</td>' +
-        '<td>' + sph + '</td>' +
+        '<td>' + sph  + '</td>' +
         '<td>' + (overall !== '--' ? '<span class="stat-tag">' + overall + '</span>' : '--') + '</td>' +
         '<td>' + (rank || '--') + '</td>' +
         '</tr>';
@@ -863,13 +533,13 @@ function renderYTD(rows) {
   }
 }
 
+// ── RENDER RECORDS ──────────────────────────────────────────
 function renderRecords(sR, pR, sphR) {
   var defs = [
-    { icon:'&#128683;', lbl:'Most Stops &middot; Single Day', val: sR ? num(sR[D_STOPS]) : '--', name: sR ? sR[D_NAME] : 'No data', date: sR ? formatRecordDate(sR[D_DATE]) : '' },
-    { icon:'&#128230;', lbl:'Most Packages &middot; Single Day', val: pR ? num(pR[D_PKGS]) : '--', name: pR ? pR[D_NAME] : 'No data', date: pR ? formatRecordDate(pR[D_DATE]) : '' },
-    { icon:'&#9889;', lbl:'Best SPH &middot; Single Day', val: sphR ? num(sphR[D_SPH]) : '--', name: sphR ? sphR[D_NAME] : 'No data', date: sphR ? formatRecordDate(sphR[D_DATE]) : '' }
+    { icon:'&#128683;', lbl:'Most Stops &middot; Single Day',    val: sR   ? num(sR[D_STOPS])  : '--', name: sR   ? sR[D_NAME]   : 'No data', date: sR   ? formatRecordDate(sR[D_DATE])   : '' },
+    { icon:'&#128230;', lbl:'Most Packages &middot; Single Day', val: pR   ? num(pR[D_PKGS])   : '--', name: pR   ? pR[D_NAME]   : 'No data', date: pR   ? formatRecordDate(pR[D_DATE])   : '' },
+    { icon:'&#9889;',   lbl:'Best SPH &middot; Single Day',      val: sphR ? num(sphR[D_SPH])  : '--', name: sphR ? sphR[D_NAME] : 'No data', date: sphR ? formatRecordDate(sphR[D_DATE]) : '' },
   ];
-
   document.getElementById('recordsGrid').innerHTML = defs.map(function(d) {
     return '<div class="record-item">' +
       '<span class="record-icon">' + d.icon + '</span>' +
@@ -881,13 +551,13 @@ function renderRecords(sR, pR, sphR) {
   }).join('');
 }
 
-function rc(i) { return i === 0 ? 'gold' : i === 1 ? 'silver' : i === 2 ? 'bronze' : ''; }
+// ── UTILS ────────────────────────────────────────────────────
+function rc(i) { return i===0?'gold':i===1?'silver':i===2?'bronze':''; }
 
 function num(v) {
-  var n = parseFloat(String(v || '').replace(/,/g, ''));
+  var n = parseFloat(String(v||'').replace(/,/g,''));
   return isNaN(n) ? 0 : n;
 }
-
 function fmt(v, decimals) {
   var n = num(v);
   if (!n) return '--';
@@ -897,48 +567,35 @@ function fmt(v, decimals) {
 function formatRecordDate(s) {
   if (!s) return '';
   var str = String(s);
+  // Handle ISO date from Google Sheets e.g. "2026-01-09T08:00:00.000Z"
   if (str.includes('T')) {
     var d = new Date(str);
-    if (!isNaN(d)) return d.toLocaleDateString('en-US', { month:'short', day:'numeric', year:'numeric' });
+    if (!isNaN(d)) return d.toLocaleDateString('en-US', {month:'short', day:'numeric', year:'numeric'});
   }
   return str;
 }
-
 function parseSheetDate(s) {
   if (!s) return null;
   var p = s.split('/');
-  if (p.length === 3) return new Date(parseInt(p[2], 10), parseInt(p[0], 10) - 1, parseInt(p[1], 10));
+  if (p.length === 3) return new Date(parseInt(p[2]), parseInt(p[0])-1, parseInt(p[1]));
   return new Date(s);
 }
 
 function setStatus(state, msg) {
-  document.getElementById('statusDot').className = 'dot ' + state;
+  document.getElementById('statusDot').className    = 'dot ' + state;
   document.getElementById('statusText').textContent = msg;
 }
 
 function esc(s) {
-  return String(s || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-}
-
-function debounce(fn, delay) {
-  var t;
-  return function() {
-    clearTimeout(t);
-    t = setTimeout(fn, delay);
-  };
+  return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
 }
 </script>
 
 <script>
 var obs = new IntersectionObserver(function(entries) {
-  entries.forEach(function(e) {
-    if (e.isIntersecting) e.target.classList.add('visible');
-  });
+  entries.forEach(function(e) { if (e.isIntersecting) e.target.classList.add('visible'); });
 }, { threshold: 0.05 });
-
-document.querySelectorAll('.section').forEach(function(s) {
-  obs.observe(s);
-});
+document.querySelectorAll('.section').forEach(function(s) { obs.observe(s); });
 </script>
 </body>
 </html>
