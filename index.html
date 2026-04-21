@@ -185,19 +185,6 @@ body {
   .links-grid { grid-template-columns:1fr; }
 }
 
-/* ── STATUS BAR ──────────────────────────────────────────── */
-.status-bar {
-  display:flex; align-items:center; gap:9px;
-  background:var(--card); border:1px solid var(--border);
-  border-radius:3px; padding:9px 14px;
-  font-family:'DM Mono',monospace; font-size:11px; color:var(--muted);
-}
-.dot { width:7px; height:7px; border-radius:50%; background:var(--muted); flex-shrink:0; }
-.dot.ok      { background:var(--green); box-shadow:0 0 6px rgba(76,175,125,.5); }
-.dot.err     { background:var(--red);   box-shadow:0 0 6px rgba(224,82,82,.5); }
-.dot.loading { background:var(--gold);  animation:pulse 1s infinite; }
-@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.3} }
-
 /* ── INFO GRID ───────────────────────────────────────────── */
 .info-grid {
   display:grid; grid-template-columns:1fr 1fr;
@@ -539,11 +526,6 @@ function processData(rows) {
     return d && (d.getMonth()+1)+'/'+d.getDate()+'/'+d.getFullYear()===yKey;
   }).sort(function(a,b){ return num(b[D_STOPS])-num(a[D_STOPS]); }).slice(0,10);
 
-  // All-time records
-  var sR  =dailyRows.length?dailyRows.reduce(function(b,r){ return num(r[D_STOPS])>num(b[D_STOPS])?r:b; }):null;
-  var pR  =dailyRows.length?dailyRows.reduce(function(b,r){ return num(r[D_PKGS]) >num(b[D_PKGS]) ?r:b; }):null;
-  var sphR=dailyRows.length?dailyRows.reduce(function(b,r){ return num(r[D_SPH])  >num(b[D_SPH])  ?r:b; }):null;
-
   // Yearly — unique drivers, no helpers, no errors
   var seen={};
   var ytd=rows.filter(function(r){
@@ -674,10 +656,6 @@ function fmtDate(s){
   if(!s) return '';
   var d=new Date(str(s));
   return !isNaN(d)?d.toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'}):str(s);
-}
-function setStatus(state,msg){
-  document.getElementById('statusDot').className='dot '+state;
-  document.getElementById('statusText').textContent=msg;
 }
 function esc(s){ return str(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
 </script>
