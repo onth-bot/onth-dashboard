@@ -258,6 +258,29 @@ body {
 }
 .footer-logo span { color:var(--gold); }
 
+/* ── MOBILE: hide less critical columns to prevent overflow ─ */
+/* YTD: hide Pkgs + SPH on small screens, keep Driver/Overall/Rank */
+@media(max-width:519px) {
+  .ytd-hide   { display:none; }
+  .daily-hide  { display:none; }
+
+  /* Tighten number columns on mobile */
+  .leaderboard .col-num  { width:54px; }
+  .leaderboard .col-rank { width:42px; }
+
+  /* Smaller rank number */
+  .rank-num { font-size:18px; min-width:18px; }
+  .rank-cell { gap:6px; }
+  .driver-name { font-size:12px; }
+  .leaderboard tbody td { padding:9px 6px; font-size:12px; }
+  .leaderboard thead th { padding:7px 6px; font-size:8px; }
+  .leaderboard tbody td:not(:first-child) { font-size:11px; }
+
+  /* Card padding tighter */
+  .card { padding:14px 10px; }
+  .wrapper { padding:0 12px 80px; }
+}
+
 /* ── TABLET (520px+) ─────────────────────────────────────── */
 @media(min-width:520px) {
   .records-grid { grid-template-columns:repeat(3,1fr); }
@@ -337,7 +360,7 @@ body {
         <thead><tr id="dailyHead">
           <th class="col-driver">Driver</th>
           <th class="col-num">Stops</th>
-          <th class="col-num">Pkgs</th>
+          <th class="col-num daily-hide">Pkgs</th>
           <th class="col-num">SPH</th>
         </tr></thead>
         <tbody id="dailyBody">
@@ -361,7 +384,7 @@ body {
           <th class="col-driver">Driver</th>
           <th class="col-num">Pkgs</th>
           <th class="col-num">SPH</th>
-          <th class="col-num">Overall</th>
+          <th class="col-num ytd-hide">Overall</th>
           <th class="col-rank">Rank</th>
         </tr></thead>
         <tbody id="ytdBody">
@@ -492,7 +515,7 @@ function renderDaily(rows) {
         '<span class="driver-name">'+esc(r[D_NAME])+'</span>'+
       '</div></td>'+
       '<td>'+(i===0?'<span class="stat-tag">'+num(r[D_STOPS])+'</span>':num(r[D_STOPS]))+'</td>'+
-      '<td>'+num(r[D_PKGS])+'</td>'+
+      '<td class="daily-hide">'+num(r[D_PKGS])+'</td>'+
       '<td>'+fmt(r[D_SPH],2)+'</td>'+
     '</tr>';
   }).join('');
@@ -515,7 +538,7 @@ function renderYTD(rows) {
       '</div></td>'+
       '<td>'+fmt(r[Y_PKGS])+'</td>'+
       '<td>'+fmt(r[Y_SPH],2)+'</td>'+
-      '<td>'+(overall!='--'?'<span class="stat-tag">'+overall+'</span>':'--')+'</td>'+
+      '<td class="ytd-hide">'+(overall!='--'?'<span class="stat-tag">'+overall+'</span>':'--')+'</td>'+
       '<td>'+fmt(r[Y_RANK])+'</td>'+
     '</tr>';
   }).join('');
