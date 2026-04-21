@@ -103,6 +103,30 @@ body {
   margin:0 auto; padding:0 16px 80px;
 }
 
+  /* ── RECORD PODIUM ───────────────────────────────────────── */
+.record-podium {
+  margin-top:10px;
+  border-top:1px solid var(--border);
+  padding-top:8px;
+  display:flex; flex-direction:column; gap:5px;
+}
+.podium-row {
+  display:flex; align-items:center; gap:8px;
+  font-size:12px;
+}
+.podium-rank {
+  font-family:'Bebas Neue',sans-serif; font-size:14px;
+  color:var(--muted); min-width:14px; text-align:center;
+}
+.podium-name {
+  flex:1; color:var(--white); font-weight:500;
+  white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+}
+.podium-val {
+  font-family:'DM Mono',monospace; font-size:11px;
+  color:var(--gold);
+}
+
 /* ── SECTION ─────────────────────────────────────────────── */
 .section {
   margin-top:52px;
@@ -538,7 +562,7 @@ function processData(rows) {
 
   renderDaily(top10);
   renderYTD(ytd);
-  renderRecords(sR,pR,sphR);
+  renderRecords(dailyRows);
 }
 
 // ── RENDER DAILY ─────────────────────────────────────────────
@@ -587,23 +611,55 @@ function renderYTD(rows) {
 }
 
 // ── RENDER RECORDS ───────────────────────────────────────────
-function renderRecords(sR,pR,sphR) {
-  var defs=[
-    {icon:'&#128683;',lbl:'Most Stops &middot; Single Day',   val:sR  ?num(sR[D_STOPS]) :'--',name:sR  ?sR[D_NAME]  :'No data',date:sR  ?fmtDate(sR[D_DATE])  :''},
-    {icon:'&#128230;',lbl:'Most Packages &middot; Single Day',val:pR  ?num(pR[D_PKGS])  :'--',name:pR  ?pR[D_NAME]  :'No data',date:pR  ?fmtDate(pR[D_DATE])  :''},
-    {icon:'&#9889;',  lbl:'Best SPH &middot; Single Day',     val:sphR?fmt(sphR[D_SPH],2):'--',name:sphR?sphR[D_NAME]:'No data',date:sphR?fmtDate(sphR[D_DATE]):''},
+function renderRecords(dailyRows) {
+  var categories = [
+    {
+      icon:'<line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/>',
+      lbl:'Most Stops &middot; Single Day',
+      key:D_STOPS, fmt:function(r){ return num(r[D_STOPS]); }
+    },
+    {
+      icon:'<path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>',
+      lbl:'Most Packages &middot; Single Day',
+      key:D_PKGS, fmt:function(r){ return num(r[D_PKGS]); }
+    },
+    {
+      icon:'<polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>',
+      lbl:'Best SPH &middot; Single Day',
+      key:D_SPH, fmt:function(r){ return fmt(r[D_SPH],2); }
+    }
   ];
-  document.getElementById('recordsGrid').innerHTML=defs.map(function(d){
+
+  document.getElementById('recordsGrid').innerHTML = categories.map(function(cat) {
+    var sorted = dailyRows.slice().sort(function(a,b){
+      return num(b[cat.key]) - num(a[cat.key]);
+    }).slice(0,3);
+
+    var top = sorted[0] || null;
+    var rest = sorted.slice(1);
+
     return '<div class="record-item">'+
-      '<span class="record-icon">'+d.icon+'</span>'+
-      '<div class="record-lbl">'+d.lbl+'</div>'+
-      '<div class="record-val">'+d.val+'</div>'+
-      '<div class="record-name">'+esc(d.name)+'</div>'+
-      (d.date?'<div class="record-date">'+esc(d.date)+'</div>':'')+
+      '<span class="ci" style="margin-bottom:8px;display:inline-flex;"><svg viewBox="0 0 24 24" style="width:12px;height:12px;stroke:var(--gold);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;">'+cat.icon+'</svg></span>'+
+      '<div class="record-lbl">'+cat.lbl+'</div>'+
+      (top ?
+        '<div class="record-val">'+cat.fmt(top)+'</div>'+
+        '<div class="record-name">'+esc(top[D_NAME])+'</div>'+
+        '<div class="record-date">'+fmtDate(top[D_DATE])+'</div>'
+      : '<div class="record-val">--</div><div class="record-name">No data</div>')+
+      (rest.length ?
+        '<div class="record-podium">'+
+          rest.map(function(r,i){
+            return '<div class="podium-row">'+
+              '<span class="podium-rank">'+(i+2)+'</span>'+
+              '<span class="podium-name">'+esc(r[D_NAME])+'</span>'+
+              '<span class="podium-val">'+cat.fmt(r)+'</span>'+
+            '</div>';
+          }).join('')+
+        '</div>'
+      : '')+
     '</div>';
   }).join('');
 }
-
 // ── UTILS ────────────────────────────────────────────────────
 function rc(i){ return i===0?'gold':i===1?'silver':i===2?'bronze':''; }
 function str(v){ return String(v==null?'':v).trim(); }
