@@ -192,58 +192,75 @@ body {
 
 /* ── MOBILE ─────────────────────────────────────────── */
 @media(max-width:600px) {
-  /* Wrapper padding */
-  .wrapper { padding: 0 16px 80px; }
+  /* Wrapper */
+  .wrapper { padding: 0 12px 80px; }
 
-  /* Hero tighter */
-  .hero { padding: 48px 16px 40px; min-height: auto; }
-  .hero-badge { font-size:9px; padding:6px 12px; margin-bottom:20px; }
-  .hero-sub { font-size:13px; margin-top:14px; }
-  .hero-meta { font-size:9.5px; }
-  .hero-refresh { padding:10px 24px; font-size:14px; margin-top:18px; }
+  /* Hero */
+  .hero { padding: 44px 16px 36px; min-height: auto; }
+  .hero-badge { font-size:9px; padding:6px 12px; margin-bottom:18px; letter-spacing:0.16em; }
+  .hero-sub { font-size:13px; margin-top:12px; }
+  .hero-meta { font-size:9px; letter-spacing:0.12em; }
+  .hero-refresh { padding:10px 24px; font-size:14px; margin-top:16px; }
 
   /* Sections */
-  .section { margin-top:48px; }
-  .section-title { margin-bottom:16px; }
+  .section { margin-top:44px; }
+  .section-title { margin-bottom:14px; }
 
-  /* Card padding */
-  .card { padding:16px; }
-  .card-title { font-size:15px; margin-bottom:12px; }
+  /* Card */
+  .card { padding:14px 12px; }
+  .card-title { font-size:14px; margin-bottom:10px; gap:8px; }
+  .ci { width:22px; height:22px; }
+  .ci svg { width:12px; height:12px; }
 
-  /* Info grid single col on small screens */
+  /* Info grid */
   .info-grid { grid-template-columns:1fr 1fr; gap:8px; margin-bottom:10px; }
-  .info-item { padding:12px 14px; }
+  .info-item { padding:10px 12px; }
+  .info-item .lbl { font-size:8.5px; }
   .info-item .val { font-size:13px; }
 
-  /* Daily table — hide Packages column, keep Driver/Stops/SPH */
+  /* Hide packages on daily, packages+sph on YTD */
   .leaderboard thead th.col-pkgs,
-  .leaderboard tbody td.col-pkgs { display:none; }
-
-  /* YTD table — hide Packages and SPH, keep Driver/Overall/Rank */
+  .leaderboard tbody td.col-pkgs,
   .leaderboard thead th.col-ytd-pkgs,
   .leaderboard thead th.col-ytd-sph,
   .leaderboard tbody td.col-ytd-pkgs,
   .leaderboard tbody td.col-ytd-sph { display:none; }
 
-  /* Tighter table cells */
-  .leaderboard thead th { padding:8px 8px; font-size:8.5px; letter-spacing:0.12em; }
-  .leaderboard tbody td { padding:9px 8px; font-size:13px; }
+  /* Table layout — prevent overflow */
+  .leaderboard { table-layout:fixed; width:100%; }
+
+  /* Column widths — driver gets most space, numbers fixed width */
+  .leaderboard thead th:first-child,
+  .leaderboard tbody td:first-child { width:auto; }
+  .leaderboard thead th:not(:first-child),
+  .leaderboard tbody td:not(:first-child) { width:56px; }
+
+  /* Cell sizing */
+  .leaderboard thead th { padding:7px 6px; font-size:8px; letter-spacing:0.1em; }
+  .leaderboard tbody td { padding:9px 6px; font-size:13px; }
   .leaderboard tbody td:not(:first-child) { font-size:12px; }
 
-  /* Rank number smaller */
-  .rank-num { font-size:20px; min-width:22px; }
-  .rank-cell { gap:8px; }
-  .driver-name { font-size:13px; }
+  /* Rank + name */
+  .rank-num { font-size:18px; min-width:20px; }
+  .rank-cell { gap:7px; }
+  .driver-name {
+    font-size:12.5px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 160px;
+    display: block;
+  }
 
-  /* Records stack as 1 col */
+  /* Records */
   .records-grid { grid-template-columns:1fr; gap:10px; }
   .record-val { font-size:36px; }
 
-  /* Status bar */
-  .status-bar { font-size:10.5px; padding:8px 12px; }
+  /* Status */
+  .status-bar { font-size:10px; padding:8px 12px; }
 
   /* Footer */
-  .footer { padding:32px 16px; }
+  .footer { padding:28px 16px; font-size:12px; }
 }
 .record-item {
   background:rgba(255,255,255,0.025); border:1px solid var(--border);
