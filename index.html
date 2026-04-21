@@ -103,7 +103,6 @@ body {
   margin-top: 72px;
   opacity: 0; transform: translateY(18px);
   transition: opacity 0.45s ease, transform 0.45s ease;
-  will-change: transform, opacity;
 }
 .section.visible { opacity:1; transform:translateY(0); }
 
@@ -135,12 +134,8 @@ body {
 
 /* CARD */
 .card {
-  background: rgba(24, 25, 29, 0.65);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(42, 44, 49, 0.8);
-  border-radius: 8px;
-  padding: 24px 26px;
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: 5px; padding: 24px 26px;
 }
 .card + .card { margin-top: 10px; }
 .card-title {
@@ -193,6 +188,39 @@ body {
 
 /* RECORDS GRID */
 .records-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:13px; }
+@media(max-width:640px){ .records-grid{ grid-template-columns:1fr; } }
+
+/* ── MOBILE ─────────────────────────────────────────── */
+@media(max-width:600px) {
+  .wrapper { padding: 0 12px 80px; }
+  .hero { padding: 44px 16px 36px; min-height:auto; }
+  .hero-badge { font-size:9px; padding:5px 11px; margin-bottom:16px; letter-spacing:0.14em; }
+  .hero-sub { font-size:13px; margin-top:12px; }
+  .hero-meta { font-size:9px; letter-spacing:0.1em; }
+  .hero-refresh { padding:10px 24px; font-size:14px; margin-top:14px; }
+  .section { margin-top:40px; }
+  .section-title { margin-bottom:12px; }
+  .card { padding:14px 10px; overflow:hidden; }
+  .card-title { font-size:14px; margin-bottom:10px; gap:7px; }
+  .ci { width:22px; height:22px; }
+  .ci svg { width:11px; height:11px; }
+  .info-grid { gap:8px; margin-bottom:10px; }
+  .info-item { padding:10px 12px; }
+  .info-item .lbl { font-size:8px; }
+  .info-item .val { font-size:13px; }
+  .leaderboard { table-layout:fixed; width:100%; }
+  .leaderboard thead th { padding:7px 6px; font-size:8px; letter-spacing:0.08em; }
+  .leaderboard tbody td { padding:8px 6px; font-size:13px; }
+  .leaderboard tbody td:not(:first-child) { font-size:12px; }
+  .rank-num { font-size:18px; min-width:18px; }
+  .rank-cell { gap:6px; }
+  .driver-name { font-size:12px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:145px; display:block; }
+  .records-grid { grid-template-columns:1fr; gap:10px; }
+  .record-val { font-size:34px; }
+  .status-bar { font-size:10px; padding:8px 12px; }
+  .footer { padding:28px 16px; font-size:12px; }
+  .section-label { font-size:9px; letter-spacing:0.2em; }
+}
 .record-item {
   background:rgba(255,255,255,0.025); border:1px solid var(--border);
   border-top:2px solid var(--gold-bd);
@@ -206,74 +234,6 @@ body {
 .record-date { font-size:11.5px; color:var(--muted); font-family:'DM Mono',monospace; margin-top:3px; }
 
 .empty-state { padding:2.5rem; text-align:center; color:var(--muted); font-family:'DM Mono',monospace; font-size:11.5px; letter-spacing:0.1em; }
-
-/* ── MOBILE OVERRIDES ─────────────────────────────────────────── */
-@media(max-width:600px) {
-  .wrapper { padding: 0 12px 80px; }
-  .hero { padding: 44px 16px 36px; min-height:auto; }
-  .hero-badge { font-size:9px; padding:5px 11px; margin-bottom:16px; letter-spacing:0.14em; }
-  .hero-sub { font-size:13px; margin-top:12px; }
-  .hero-meta { font-size:9px; letter-spacing:0.1em; }
-  .hero-refresh { padding:10px 24px; font-size:14px; margin-top:14px; }
-  .section { margin-top:40px; }
-  .section-title { margin-bottom:12px; }
-  
-  .card { 
-    padding: 20px 16px; 
-    border-radius: 6px; 
-    overflow: hidden; 
-  }
-  .card-title { font-size:14px; margin-bottom:10px; gap:7px; }
-  .ci { width:22px; height:22px; }
-  .ci svg { width:11px; height:11px; }
-  
-  .info-grid { gap:8px; margin-bottom:10px; }
-  .info-item { padding:10px 12px; }
-  .info-item .lbl { font-size:8px; }
-  .info-item .val { font-size:13px; }
-  
-  .leaderboard { table-layout:fixed; width:100%; }
-  .leaderboard thead th { padding:7px 6px; font-size:8px; letter-spacing:0.08em; }
-  .leaderboard tbody td { 
-    padding: 12px 8px; 
-    font-size: 13px; 
-  }
-  .leaderboard tbody td:not(:first-child) { font-size:13px; }
-  
-  .rank-num { font-size:18px; min-width:18px; }
-  .rank-cell { gap:6px; }
-  
-  .driver-name { 
-    font-size: 13px; 
-    white-space: nowrap; 
-    overflow: hidden; 
-    text-overflow: ellipsis; 
-    max-width: 32vw; 
-    display: block; 
-  }
-  
-  .records-grid { grid-template-columns:1fr; gap:8px; }
-  .record-item {
-    padding: 14px 16px;
-    display: grid;
-    grid-template-columns: auto 1fr auto;
-    align-items: center;
-    gap: 12px;
-  }
-  .record-icon { font-size:20px; margin-bottom:0; }
-  .record-lbl { margin-bottom:2px; font-size: 8.5px; }
-  .record-val { font-size:28px; margin-bottom:0; text-align:right; }
-  .record-name { grid-column: 2 / 4; text-align: right; margin-top: -6px; }
-  .record-date { display: none; }
-  
-  .status-bar { 
-    font-size: 11.5px; 
-    padding: 10px 14px; 
-    justify-content: center;
-  }
-  .footer { padding:28px 16px; font-size:12px; }
-  .section-label { font-size:9px; letter-spacing:0.2em; }
-}
 
 /* FOOTER */
 .footer { border-top:1px solid var(--border); padding:44px 28px; text-align:center; color:var(--muted); font-size:13px; }
@@ -292,7 +252,7 @@ body {
   <div class="hero-badge">Driver Performance Dashboard</div>
   <h1>Performance<span>Leaderboard</span></h1>
   <p class="hero-sub">Live driver rankings for DSJ5 — pulled directly from the ONTH data sheet.</p>
-  <p class="hero-meta">DSJ5 &nbsp;&middot;&nbsp; FRESNO, CA &nbsp;&middot;&nbsp; <span id="dateBadge"></span></p>
+  <p class="hero-meta">DSJ5 &nbsp;&middot;&nbsp; Fresno, CA &nbsp;&middot;&nbsp; <span id="dateBadge"></span></p>
   <button class="hero-refresh" onclick="loadData()">&#8635; REFRESH</button>
 </section>
 
@@ -305,6 +265,7 @@ body {
     </div>
   </div>
 
+  <!-- YESTERDAY TOP 10 -->
   <div class="section">
     <div class="section-label">Daily Rankings</div>
     <div class="section-title">Yesterday &middot; Top 10</div>
@@ -334,6 +295,7 @@ body {
     </div>
   </div>
 
+  <!-- YTD TOP 10 -->
   <div class="section">
     <div class="section-label">Year-to-Date Rankings</div>
     <div class="section-title">2026 &middot; Top 10</div>
@@ -353,6 +315,7 @@ body {
     </div>
   </div>
 
+  <!-- RECORDS -->
   <div class="section">
     <div class="section-label">All-Time Records</div>
     <div class="section-title">2026 Company Records</div>
@@ -367,17 +330,21 @@ body {
 
 <footer class="footer">
   <div class="footer-logo">On The <span>Level</span> Logistics</div>
-  <p>825 N CLOVIS AVE &nbsp;&middot;&nbsp; FRESNO, CA &nbsp;&middot;&nbsp; DSJ5</p>
+  <p>825 N Clovis Ave &nbsp;&middot;&nbsp; Fresno, CA &nbsp;&middot;&nbsp; DSJ5</p>
   <p style="margin-top:20px;font-size:10.5px;font-family:'DM Mono',monospace;letter-spacing:0.12em;color:#3e3f44;">ONTH INTERNAL USE ONLY &nbsp;&middot;&nbsp; DATA: GOOGLE SHEETS</p>
 </footer>
 
 <script>
 // ── CONFIG ──────────────────────────────────────────────────
+// Google Apps Script Web App URL - serves sheet data as JSON
 const API_URL = 'https://script.google.com/macros/s/AKfycbzhbtHQAYPmLmKzTQr3rnLVkFWCIFEP5PjkMwNiTzv0zViYHCVYncc3VxFPZycOss4O/exec';
 
+// Column indices remapped after Apps Script trimming
+// Apps Script keep = [0,1,10,13,15,16,20,25,26,27,28]
+// So new indices:      0 1  2  3  4  5  6  7  8  9 10
 var D_NAME  = 0;  // A  - Driver name
 var D_DATE  = 1;  // B  - Date
-var D_TYPE  = 2;  // K  - Type
+var D_TYPE  = 2;  // K  - Type (helper filter)
 var D_STOPS = 3;  // N  - Stops done
 var D_PKGS  = 4;  // P  - Packages delivered
 var D_SPH   = 5;  // Q  - Stops per hour
@@ -406,6 +373,7 @@ function loadData() {
     })
     .then(function(data) {
       if (!Array.isArray(data) || data.length < 2) throw new Error('No data rows returned');
+      // data[0] is the header row, data[1..] is the actual rows
       processData(data.slice(1));
       setStatus('ok', 'Loaded · Refreshed ' + new Date().toLocaleTimeString());
     })
@@ -417,6 +385,8 @@ function loadData() {
 
 // ── PROCESS ─────────────────────────────────────────────────
 function processData(rows) {
+
+  // Daily: filter out helpers and rows with no stops
   var dailyRows = rows.filter(function(r) {
     var name  = String(r[D_NAME]  || '').trim();
     var type  = String(r[D_TYPE]  || '').toLowerCase();
@@ -424,35 +394,27 @@ function processData(rows) {
     return name && !name.startsWith('#') && !type.includes('helper') && stops > 0;
   });
 
-  // Dynamic Date Logic: Find the most recent date in the dataset
-  var latestDate = null;
-  dailyRows.forEach(function(r) {
-    var d = parseSheetDate(String(r[D_DATE] || '').trim());
-    if (d && (!latestDate || d > latestDate)) {
-      latestDate = d;
-    }
-  });
+  // Yesterday's date key
+  var yest = new Date();
+  yest.setDate(yest.getDate() - 1);
+  var yestKey = (yest.getMonth()+1) + '/' + yest.getDate() + '/' + yest.getFullYear();
 
-  var yesterdayRows = [];
-  var targetDateKey = '--';
-  
-  if (latestDate) {
-    targetDateKey = (latestDate.getMonth()+1) + '/' + latestDate.getDate() + '/' + latestDate.getFullYear();
-    yesterdayRows = dailyRows.filter(function(r) {
-      var d = parseSheetDate(String(r[D_DATE] || '').trim());
-      if (!d) return false;
-      return (d.getMonth()+1) + '/' + d.getDate() + '/' + d.getFullYear() === targetDateKey;
-    });
-  }
+  var yesterdayRows = dailyRows.filter(function(r) {
+    var d = parseSheetDate(String(r[D_DATE] || '').trim());
+    if (!d) return false;
+    return (d.getMonth()+1) + '/' + d.getDate() + '/' + d.getFullYear() === yestKey;
+  });
 
   var top10Daily = yesterdayRows
     .sort(function(a,b) { return num(b[D_STOPS]) - num(a[D_STOPS]); })
     .slice(0, 10);
 
+  // All-time records from all daily data
   var stopsRec = dailyRows.length ? dailyRows.reduce(function(b,r) { return num(r[D_STOPS]) > num(b[D_STOPS]) ? r : b; }) : null;
   var pkgsRec  = dailyRows.length ? dailyRows.reduce(function(b,r) { return num(r[D_PKGS])  > num(b[D_PKGS])  ? r : b; }) : null;
   var sphRec   = dailyRows.length ? dailyRows.reduce(function(b,r) { return num(r[D_SPH])   > num(b[D_SPH])   ? r : b; }) : null;
 
+  // Yearly: unique drivers, not helpers, sorted by rank then overall
   var seen = {};
   var yearlyRows = rows
     .filter(function(r) {
@@ -472,21 +434,19 @@ function processData(rows) {
     })
     .slice(0, 10);
 
-  document.getElementById('dailyDateLabel').textContent = latestDate 
-    ? latestDate.toLocaleDateString('en-US', {weekday:'long', month:'long', day:'numeric', year:'numeric'}) 
-    : '--';
-    
-  document.getElementById('dailyCountLabel').textContent = top10Daily.length 
-    ? top10Daily.length + ' drivers' 
-    : 'No data for ' + targetDateKey;
+  // Update info labels
+  document.getElementById('dailyDateLabel').textContent =
+    yest.toLocaleDateString('en-US', {weekday:'long', month:'long', day:'numeric', year:'numeric'});
+  document.getElementById('dailyCountLabel').textContent =
+    top10Daily.length ? top10Daily.length + ' drivers' : 'No data for yesterday';
 
-  renderDaily(top10Daily, targetDateKey);
+  renderDaily(top10Daily);
   renderYTD(yearlyRows);
   renderRecords(stopsRec, pkgsRec, sphRec);
 }
 
 // ── RENDER DAILY ────────────────────────────────────────────
-function renderDaily(rows, targetDateKey) {
+function renderDaily(rows) {
   var isMobile = window.innerWidth <= 600;
   var thead = document.querySelector('#dailyTable thead tr');
   var tbody = document.getElementById('dailyBody');
@@ -495,7 +455,7 @@ function renderDaily(rows, targetDateKey) {
     thead.innerHTML = isMobile
       ? '<th>Driver</th><th>Stops</th><th>SPH</th>'
       : '<th>Driver</th><th>Stops</th><th>Packages</th><th>SPH</th>';
-    tbody.innerHTML = '<tr><td colspan="' + (isMobile ? 3 : 4) + '"><div class="empty-state">No drivers found for ' + targetDateKey + '</div></td></tr>';
+    tbody.innerHTML = '<tr><td colspan="' + (isMobile ? 3 : 4) + '"><div class="empty-state">No drivers found for yesterday (' + new Date(Date.now()-86400000).toLocaleDateString() + ')</div></td></tr>';
     return;
   }
 
@@ -506,7 +466,7 @@ function renderDaily(rows, targetDateKey) {
       var sph   = fmt(r[D_SPH], 2);
       return '<tr>' +
         '<td><div class="rank-cell"><span class="rank-num ' + rc(i) + '">' + (i+1) + '</span>' +
-        '<span class="driver-name">' + esc(formatDriverName(r[D_NAME])) + '</span></div></td>' +
+        '<span class="driver-name">' + esc(r[D_NAME]) + '</span></div></td>' +
         '<td>' + (i===0 ? '<span class="stat-tag">' + stops + '</span>' : stops) + '</td>' +
         '<td>' + sph + '</td>' +
         '</tr>';
@@ -519,7 +479,7 @@ function renderDaily(rows, targetDateKey) {
       var sph   = fmt(r[D_SPH], 2);
       return '<tr>' +
         '<td><div class="rank-cell"><span class="rank-num ' + rc(i) + '">' + (i+1) + '</span>' +
-        '<span class="driver-name">' + esc(formatDriverName(r[D_NAME])) + '</span></div></td>' +
+        '<span class="driver-name">' + esc(r[D_NAME]) + '</span></div></td>' +
         '<td>' + (i===0 ? '<span class="stat-tag">' + stops + '</span>' : stops) + '</td>' +
         '<td>' + pkgs + '</td>' +
         '<td>' + sph + '</td>' +
@@ -549,7 +509,7 @@ function renderYTD(rows) {
       var rank    = num(r[Y_RANK]);
       return '<tr>' +
         '<td><div class="rank-cell"><span class="rank-num ' + rc(i) + '">' + (i+1) + '</span>' +
-        '<span class="driver-name">' + esc(formatDriverName(r[Y_NAME])) + '</span></div></td>' +
+        '<span class="driver-name">' + esc(r[Y_NAME]) + '</span></div></td>' +
         '<td>' + (overall !== '--' ? '<span class="stat-tag">' + overall + '</span>' : '--') + '</td>' +
         '<td>' + (rank || '--') + '</td>' +
         '</tr>';
@@ -563,7 +523,7 @@ function renderYTD(rows) {
       var rank    = num(r[Y_RANK]);
       return '<tr>' +
         '<td><div class="rank-cell"><span class="rank-num ' + rc(i) + '">' + (i+1) + '</span>' +
-        '<span class="driver-name">' + esc(formatDriverName(r[Y_NAME])) + '</span></div></td>' +
+        '<span class="driver-name">' + esc(r[Y_NAME]) + '</span></div></td>' +
         '<td>' + pkgs + '</td>' +
         '<td>' + sph  + '</td>' +
         '<td>' + (overall !== '--' ? '<span class="stat-tag">' + overall + '</span>' : '--') + '</td>' +
@@ -585,29 +545,19 @@ function renderRecords(sR, pR, sphR) {
       '<span class="record-icon">' + d.icon + '</span>' +
       '<div class="record-lbl">' + d.lbl + '</div>' +
       '<div class="record-val">' + d.val + '</div>' +
-      '<div class="record-name">' + esc(formatDriverName(d.name)) + '</div>' +
+      '<div class="record-name">' + esc(d.name) + '</div>' +
       (d.date ? '<div class="record-date">' + esc(d.date) + '</div>' : '') +
       '</div>';
   }).join('');
 }
 
 // ── UTILS ────────────────────────────────────────────────────
-// First Initial + Last Name formatter
-function formatDriverName(fullName) {
-  var parts = String(fullName || '').trim().split(' ');
-  if (parts.length < 2) return String(fullName || '').trim();
-  var firstInitial = parts[0].charAt(0).toUpperCase();
-  var lastName = parts[parts.length - 1]; 
-  return firstInitial + ' ' + lastName;
-}
-
 function rc(i) { return i===0?'gold':i===1?'silver':i===2?'bronze':''; }
 
 function num(v) {
   var n = parseFloat(String(v||'').replace(/,/g,''));
   return isNaN(n) ? 0 : n;
 }
-
 function fmt(v, decimals) {
   var n = num(v);
   if (!n) return '--';
@@ -617,13 +567,13 @@ function fmt(v, decimals) {
 function formatRecordDate(s) {
   if (!s) return '';
   var str = String(s);
+  // Handle ISO date from Google Sheets e.g. "2026-01-09T08:00:00.000Z"
   if (str.includes('T')) {
     var d = new Date(str);
     if (!isNaN(d)) return d.toLocaleDateString('en-US', {month:'short', day:'numeric', year:'numeric'});
   }
   return str;
 }
-
 function parseSheetDate(s) {
   if (!s) return null;
   var p = s.split('/');
