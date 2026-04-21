@@ -304,7 +304,7 @@ body {
   <h1>Performance<span>Leaderboard</span></h1>
   <p class="hero-sub">Live driver rankings for DSJ5 — pulled from the ONTH data sheet.</p>
   <p class="hero-meta">DSJ5 &nbsp;&middot;&nbsp; Fresno, CA &nbsp;&middot;&nbsp; <span id="dateBadge"></span></p>
-  <button class="hero-refresh" onclick="loadData()">&#8635; REFRESH</button>
+
 </section>
 
 <div class="wrapper">
@@ -477,6 +477,11 @@ function processData(rows) {
   document.getElementById('dailyCountLabel').textContent =
     top10.length ? top10.length+' drivers' : 'No data for yesterday';
 
+  // Cache for resize re-renders
+  _lastDaily = top10;
+  _lastYTD   = ytd;
+  _lastMobile = mobile;
+
   renderDaily(top10, mobile);
   renderYTD(ytd, mobile);
   renderRecords(sR, pR, sphR);
@@ -604,7 +609,7 @@ function renderRecords(sR,pR,sphR) {
   }).join('');
 }
 
-// ── UTILS ────────────────────────────────────────────────────
+// -- UTILS
 function rc(i){ return i===0?'gold':i===1?'silver':i===2?'bronze':''; }
 function str(v){ return String(v==null?'':v).trim(); }
 function num(v){ var n=parseFloat(str(v).replace(/,/g,'')); return isNaN(n)?0:n; }
@@ -620,11 +625,31 @@ function fmtDate(s){
   if(!isNaN(d)) return d.toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'});
   return str(s);
 }
+function isMobile(){ return window.innerWidth < 600; }
 function setStatus(state,msg){
   document.getElementById('statusDot').className='dot '+state;
   document.getElementById('statusText').textContent=msg;
 }
 function esc(s){ return str(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+// Cache for resize handler
+var _lastMobile = isMobile();
+var _lastDaily  = [];
+var _lastYTD    = [];
+
+// Re-render tables if screen crosses mobile breakpoint (e.g. rotation)
+var _resizeTimer;
+window.addEventListener('resize', function(){
+  clearTimeout(_resizeTimer);
+  _resizeTimer = setTimeout(function(){
+    var nowMobile = isMobile();
+    if(nowMobile !== _lastMobile && (_lastDaily.length || _lastYTD.length)){
+      _lastMobile = nowMobile;
+      renderDaily(_lastDaily, nowMobile);
+      renderYTD(_lastYTD, nowMobile);
+    }
+  }, 150);
+});
 </script>
 
 <script>
