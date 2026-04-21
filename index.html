@@ -307,21 +307,21 @@ body {
 // Google Apps Script Web App URL - serves sheet data as JSON
 const API_URL = 'https://script.google.com/macros/s/AKfycbzhbtHQAYPmLmKzTQr3rnLVkFWCIFEP5PjkMwNiTzv0zViYHCVYncc3VxFPZycOss4O/exec';
 
-// Column indices (0-based). Row 0 = header, data starts row 1.
-// Daily columns: A=0 B=1 K=10 N=13 P=15 Q=16
-var D_NAME  = 0;
-var D_DATE  = 1;
-var D_TYPE  = 10;
-var D_STOPS = 13;
-var D_PKGS  = 15;
-var D_SPH   = 16;
+// Column indices remapped after Apps Script trimming
+// Apps Script keep = [0,1,10,13,15,16,20,25,26,27,28]
+// So new indices:      0 1  2  3  4  5  6  7  8  9 10
+var D_NAME  = 0;  // A  - Driver name
+var D_DATE  = 1;  // B  - Date
+var D_TYPE  = 2;  // K  - Type (helper filter)
+var D_STOPS = 3;  // N  - Stops done
+var D_PKGS  = 4;  // P  - Packages delivered
+var D_SPH   = 5;  // Q  - Stops per hour
 
-// Yearly columns: U=20 Z=25 AA=26 AB=27 AC=28
-var Y_NAME    = 20;
-var Y_PKGS    = 25;
-var Y_SPH     = 26;
-var Y_OVERALL = 27;
-var Y_RANK    = 28;
+var Y_NAME    = 6;  // U  - Yearly name
+var Y_PKGS    = 7;  // Z  - Yearly packages
+var Y_SPH     = 8;  // AA - Yearly SPH
+var Y_OVERALL = 9;  // AB - Overall score
+var Y_RANK    = 10; // AC - Rank
 
 // ── INIT ────────────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', function() {
