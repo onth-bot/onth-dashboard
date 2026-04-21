@@ -192,75 +192,34 @@ body {
 
 /* ── MOBILE ─────────────────────────────────────────── */
 @media(max-width:600px) {
-  /* Wrapper */
   .wrapper { padding: 0 12px 80px; }
-
-  /* Hero */
-  .hero { padding: 44px 16px 36px; min-height: auto; }
-  .hero-badge { font-size:9px; padding:6px 12px; margin-bottom:18px; letter-spacing:0.16em; }
+  .hero { padding: 44px 16px 36px; min-height:auto; }
+  .hero-badge { font-size:9px; padding:5px 11px; margin-bottom:16px; letter-spacing:0.14em; }
   .hero-sub { font-size:13px; margin-top:12px; }
-  .hero-meta { font-size:9px; letter-spacing:0.12em; }
-  .hero-refresh { padding:10px 24px; font-size:14px; margin-top:16px; }
-
-  /* Sections */
-  .section { margin-top:44px; }
-  .section-title { margin-bottom:14px; }
-
-  /* Card */
-  .card { padding:14px 12px; }
-  .card-title { font-size:14px; margin-bottom:10px; gap:8px; }
+  .hero-meta { font-size:9px; letter-spacing:0.1em; }
+  .hero-refresh { padding:10px 24px; font-size:14px; margin-top:14px; }
+  .section { margin-top:40px; }
+  .section-title { margin-bottom:12px; }
+  .card { padding:14px 10px; overflow:hidden; }
+  .card-title { font-size:14px; margin-bottom:10px; gap:7px; }
   .ci { width:22px; height:22px; }
-  .ci svg { width:12px; height:12px; }
-
-  /* Info grid */
-  .info-grid { grid-template-columns:1fr 1fr; gap:8px; margin-bottom:10px; }
+  .ci svg { width:11px; height:11px; }
+  .info-grid { gap:8px; margin-bottom:10px; }
   .info-item { padding:10px 12px; }
-  .info-item .lbl { font-size:8.5px; }
+  .info-item .lbl { font-size:8px; }
   .info-item .val { font-size:13px; }
-
-  /* Hide packages on daily, packages+sph on YTD */
-  .leaderboard thead th.col-pkgs,
-  .leaderboard tbody td.col-pkgs,
-  .leaderboard thead th.col-ytd-pkgs,
-  .leaderboard thead th.col-ytd-sph,
-  .leaderboard tbody td.col-ytd-pkgs,
-  .leaderboard tbody td.col-ytd-sph { display:none; }
-
-  /* Table layout — prevent overflow */
   .leaderboard { table-layout:fixed; width:100%; }
-
-  /* Column widths — driver gets most space, numbers fixed width */
-  .leaderboard thead th:first-child,
-  .leaderboard tbody td:first-child { width:auto; }
-  .leaderboard thead th:not(:first-child),
-  .leaderboard tbody td:not(:first-child) { width:56px; }
-
-  /* Cell sizing */
-  .leaderboard thead th { padding:7px 6px; font-size:8px; letter-spacing:0.1em; }
-  .leaderboard tbody td { padding:9px 6px; font-size:13px; }
+  .leaderboard thead th { padding:7px 6px; font-size:8px; letter-spacing:0.08em; }
+  .leaderboard tbody td { padding:8px 6px; font-size:13px; }
   .leaderboard tbody td:not(:first-child) { font-size:12px; }
-
-  /* Rank + name */
-  .rank-num { font-size:18px; min-width:20px; }
-  .rank-cell { gap:7px; }
-  .driver-name {
-    font-size:12.5px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    max-width: 160px;
-    display: block;
-  }
-
-  /* Records */
+  .rank-num { font-size:18px; min-width:18px; }
+  .rank-cell { gap:6px; }
+  .driver-name { font-size:12px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:145px; display:block; }
   .records-grid { grid-template-columns:1fr; gap:10px; }
-  .record-val { font-size:36px; }
-
-  /* Status */
+  .record-val { font-size:34px; }
   .status-bar { font-size:10px; padding:8px 12px; }
-
-  /* Footer */
   .footer { padding:28px 16px; font-size:12px; }
+  .section-label { font-size:9px; letter-spacing:0.2em; }
 }
 .record-item {
   background:rgba(255,255,255,0.025); border:1px solid var(--border);
@@ -325,9 +284,9 @@ body {
         <span class="ci"><svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></span>
         Top 10 Drivers &mdash; Stops Completed
       </div>
-      <table class="leaderboard">
+      <table class="leaderboard" id="dailyTable">
         <thead><tr>
-          <th>Driver</th><th>Stops</th><th class="col-pkgs">Packages</th><th>SPH</th>
+          <th>Driver</th><th>Stops</th><th>Packages</th><th>SPH</th>
         </tr></thead>
         <tbody id="dailyBody">
           <tr><td colspan="4"><div class="empty-state">Loading...</div></td></tr>
@@ -345,9 +304,9 @@ body {
         <span class="ci"><svg viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></span>
         Top 10 Drivers &mdash; Overall Score
       </div>
-      <table class="leaderboard">
+      <table class="leaderboard" id="ytdTable">
         <thead><tr>
-          <th>Driver</th><th class="col-ytd-pkgs">Packages</th><th class="col-ytd-sph">SPH</th><th>Overall</th><th>Rank</th>
+          <th>Driver</th><th>Packages</th><th>SPH</th><th>Overall</th><th>Rank</th>
         </tr></thead>
         <tbody id="ytdBody">
           <tr><td colspan="5"><div class="empty-state">Loading...</div></td></tr>
@@ -510,20 +469,39 @@ function renderDaily(rows) {
 // ── RENDER YTD ──────────────────────────────────────────────
 function renderYTD(rows) {
   var tbody = document.getElementById('ytdBody');
+  var thead = document.querySelector('#ytdTable thead tr');
+  var isMobile = window.innerWidth <= 600;
+
   if (!rows.length) {
-    tbody.innerHTML = '<tr><td colspan="5"><div class="empty-state">No yearly data found in columns U-AC</div></td></tr>';
+    tbody.innerHTML = '<tr><td colspan="' + (isMobile ? 3 : 5) + '"><div class="empty-state">No yearly data found in columns U-AC</div></td></tr>';
     return;
   }
+
+  // Set headers based on screen size
+  if (isMobile) {
+    thead.innerHTML = '<th>Driver</th><th>Overall</th><th>Rank</th>';
+  } else {
+    thead.innerHTML = '<th>Driver</th><th>Packages</th><th>SPH</th><th>Overall</th><th>Rank</th>';
+  }
+
   tbody.innerHTML = rows.map(function(r, i) {
     var pkgs    = fmt(r[Y_PKGS]);
     var sph     = fmt(r[Y_SPH], 2);
     var overall = fmt(r[Y_OVERALL], 2);
     var rank    = num(r[Y_RANK]);
+    if (isMobile) {
+      return '<tr>' +
+        '<td><div class="rank-cell"><span class="rank-num ' + rc(i) + '">' + (i+1) + '</span>' +
+        '<span class="driver-name">' + esc(r[Y_NAME]) + '</span></div></td>' +
+        '<td>' + (overall !== '--' ? '<span class="stat-tag">' + overall + '</span>' : '--') + '</td>' +
+        '<td>' + (rank || '--') + '</td>' +
+        '</tr>';
+    }
     return '<tr>' +
       '<td><div class="rank-cell"><span class="rank-num ' + rc(i) + '">' + (i+1) + '</span>' +
       '<span class="driver-name">' + esc(r[Y_NAME]) + '</span></div></td>' +
-      '<td class="col-ytd-pkgs">' + pkgs + '</td>' +
-      '<td class="col-ytd-sph">' + sph  + '</td>' +
+      '<td>' + pkgs + '</td>' +
+      '<td>' + sph  + '</td>' +
       '<td>' + (overall !== '--' ? '<span class="stat-tag">' + overall + '</span>' : '--') + '</td>' +
       '<td>' + (rank || '--') + '</td>' +
       '</tr>';
