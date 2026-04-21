@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ONTH · Driver Performance Dashboard</title>
+<title>ONTH Driver Performance Dashboard</title>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 :root {
@@ -17,18 +17,12 @@
   --gold-bd:    rgba(245,197,24,0.22);
   --white:      #f0efe8;
   --muted:      #78797f;
-  --danger-bg:  rgba(224,82,82,0.10);
-  --danger-bd:  rgba(224,82,82,0.28);
-  --danger-tx:  #f0a0a0;
-  --warn-bg:    rgba(240,124,46,0.10);
-  --warn-bd:    rgba(240,124,46,0.28);
-  --warn-tx:    #f5b880;
-  --info-bg:    rgba(245,197,24,0.07);
-  --info-bd:    rgba(245,197,24,0.22);
-  --info-tx:    #e0cc78;
   --success-bg: rgba(76,175,125,0.10);
   --success-bd: rgba(76,175,125,0.28);
   --success-tx: #72dda0;
+  --danger-bg:  rgba(224,82,82,0.10);
+  --danger-bd:  rgba(224,82,82,0.28);
+  --danger-tx:  #f0a0a0;
 }
 *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
 html { scroll-behavior:smooth; }
@@ -41,10 +35,10 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-/* ── HERO ── */
+/* HERO */
 .hero {
   position: relative;
-  min-height: 38vh;
+  min-height: 36vh;
   display: flex; flex-direction: column;
   justify-content: center; align-items: center;
   text-align: center;
@@ -69,7 +63,6 @@ body {
   position: relative; z-index: 1;
   animation: fadeUp 0.65s ease both;
 }
-.hero-badge svg { width:11px; height:11px; stroke:var(--gold); fill:none; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; }
 .hero h1 {
   font-family: 'Bebas Neue', sans-serif;
   font-size: clamp(52px, 10vw, 110px);
@@ -89,37 +82,23 @@ body {
   font-size: 10.5px; letter-spacing: 0.18em; color: var(--muted); text-transform: uppercase;
   position: relative; z-index: 1;
   animation: fadeUp 0.65s 0.3s ease both;
-  display: flex; align-items: center; gap: 14px;
 }
 .hero-refresh {
   background: var(--gold); color: #000; border: none;
-  padding: 7px 18px; font-family: 'Bebas Neue', sans-serif;
+  padding: 8px 22px; font-family: 'Bebas Neue', sans-serif;
   font-size: 15px; letter-spacing: 1.5px; border-radius: 2px;
   cursor: pointer; transition: background .15s, transform .1s;
   position: relative; z-index: 1;
   animation: fadeUp 0.65s 0.35s ease both;
-  margin-top: 20px;
+  margin-top: 22px;
 }
 .hero-refresh:hover { background: #ffd83a; }
 .hero-refresh:active { transform: scale(.97); }
 
-/* ── STATUS BAR ── */
-.status-bar {
-  display: flex; align-items: center; gap: 10px;
-  background: var(--card); border: 1px solid var(--border);
-  border-radius: 3px; padding: 10px 16px; margin-bottom: 0;
-  font-family: 'DM Mono', monospace; font-size: 11.5px; color: var(--muted);
-}
-.status-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--muted); flex-shrink: 0; }
-.status-dot.ok      { background: var(--success-tx); box-shadow: 0 0 6px rgba(76,175,125,.5); }
-.status-dot.err     { background: var(--danger-tx);  box-shadow: 0 0 6px rgba(224,82,82,.5); }
-.status-dot.loading { background: var(--gold); animation: pulse 1s infinite; }
-@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.3} }
-
-/* ── WRAPPER ── */
+/* WRAPPER */
 .wrapper { max-width: 1000px; margin: 0 auto; padding: 0 28px 100px; }
 
-/* ── SECTION ── */
+/* SECTION */
 .section {
   margin-top: 72px;
   opacity: 0; transform: translateY(18px);
@@ -140,7 +119,20 @@ body {
   line-height: 1; margin-bottom: 22px; letter-spacing: 0.02em;
 }
 
-/* ── CARDS ── */
+/* STATUS */
+.status-bar {
+  display: flex; align-items: center; gap: 10px;
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: 3px; padding: 10px 16px;
+  font-family: 'DM Mono', monospace; font-size: 11.5px; color: var(--muted);
+}
+.dot { width:7px; height:7px; border-radius:50%; background:var(--muted); flex-shrink:0; }
+.dot.ok      { background:var(--success-tx); box-shadow:0 0 6px rgba(76,175,125,.5); }
+.dot.err     { background:var(--danger-tx);  box-shadow:0 0 6px rgba(224,82,82,.5); }
+.dot.loading { background:var(--gold); animation:pulse 1s infinite; }
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.3} }
+
+/* CARD */
 .card {
   background: var(--card); border: 1px solid var(--border);
   border-radius: 5px; padding: 24px 26px;
@@ -152,30 +144,23 @@ body {
   margin-bottom: 16px; display: flex; align-items: center; gap: 10px;
 }
 .ci {
-  width: 26px; height: 26px; flex-shrink: 0;
-  background: var(--gold-bg); border: 1px solid var(--gold-bd);
-  border-radius: 4px; display: flex; align-items: center; justify-content: center;
+  width:26px; height:26px; flex-shrink:0;
+  background:var(--gold-bg); border:1px solid var(--gold-bd);
+  border-radius:4px; display:flex; align-items:center; justify-content:center;
 }
 .ci svg { width:14px; height:14px; stroke:var(--gold); fill:none; stroke-width:1.9; stroke-linecap:round; stroke-linejoin:round; }
 
-/* ── ALERTS ── */
-.alert {
-  border-radius: 3px; padding: 13px 16px; font-size: 14px;
-  display: flex; gap: 12px; align-items: flex-start; line-height: 1.62;
+/* INFO GRID */
+.info-grid { display:grid; grid-template-columns:1fr 1fr; gap:13px; margin-bottom:13px; }
+@media(max-width:560px){ .info-grid{ grid-template-columns:1fr; } }
+.info-item {
+  background:rgba(255,255,255,0.025); border:1px solid var(--border);
+  border-radius:4px; padding:16px 18px;
 }
-.alert + .alert { margin-top: 10px; }
-.alert .ai { width:18px; height:18px; margin-top:1px; flex-shrink:0; }
-.alert .ai svg { width:18px; height:18px; fill:none; stroke-width:1.9; stroke-linecap:round; stroke-linejoin:round; }
-.alert.info    { background:var(--info-bg);    border:1px solid var(--info-bd);    color:var(--info-tx);    }
-.alert.info    .ai svg { stroke:var(--info-tx); }
-.alert.success { background:var(--success-bg); border:1px solid var(--success-bd); color:var(--success-tx); }
-.alert.success .ai svg { stroke:var(--success-tx); }
-.alert.danger  { background:var(--danger-bg);  border:1px solid var(--danger-bd);  color:var(--danger-tx);  }
-.alert.danger  .ai svg { stroke:var(--danger-tx); }
-.alert.warning { background:var(--warn-bg);    border:1px solid var(--warn-bd);    color:var(--warn-tx);    }
-.alert.warning .ai svg { stroke:var(--warn-tx); }
+.info-item .lbl { font-family:'DM Mono',monospace; font-size:9.5px; letter-spacing:0.2em; text-transform:uppercase; color:var(--muted); margin-bottom:5px; }
+.info-item .val { font-size:15px; font-weight:600; color:var(--white); line-height:1.4; }
 
-/* ── TOP 10 TABLE ── */
+/* LEADERBOARD TABLE */
 .leaderboard { width:100%; border-collapse:collapse; }
 .leaderboard thead th {
   text-align:left; font-family:'DM Mono',monospace; font-size:9.5px;
@@ -183,74 +168,43 @@ body {
   padding:9px 14px; border-bottom:1px solid var(--border);
 }
 .leaderboard thead th:not(:first-child) { text-align:right; }
-.leaderboard tbody tr {
-  border-bottom:1px solid rgba(42,44,49,.7);
-  transition: background .12s;
-}
+.leaderboard tbody tr { border-bottom:1px solid rgba(42,44,49,.7); transition:background .12s; }
 .leaderboard tbody tr:last-child { border-bottom:none; }
-.leaderboard tbody tr:hover { background: var(--gold-bg); }
+.leaderboard tbody tr:hover { background:var(--gold-bg); }
 .leaderboard tbody td { padding:11px 14px; font-size:14px; vertical-align:middle; }
 .leaderboard tbody td:not(:first-child) { text-align:right; font-family:'DM Mono',monospace; font-size:13px; color:#c8c8c8; }
 
 .rank-cell { display:flex; align-items:center; gap:12px; }
-.rank-num {
-  font-family:'Bebas Neue',sans-serif; font-size:26px;
-  color:var(--muted); min-width:28px; text-align:center; line-height:1;
-}
+.rank-num { font-family:'Bebas Neue',sans-serif; font-size:26px; color:var(--muted); min-width:28px; text-align:center; line-height:1; }
 .rank-num.gold   { color:var(--gold); text-shadow:0 0 14px rgba(245,197,24,.55); }
 .rank-num.silver { color:#c0c0c0; }
 .rank-num.bronze { color:#cd7f32; }
 .driver-name { font-weight:600; font-size:14px; color:var(--white); }
-
 .stat-tag {
   display:inline-block; font-family:'DM Mono',monospace; font-size:10px;
-  padding:3px 9px; border-radius:2px; letter-spacing:0.06em; font-weight:500;
+  padding:3px 9px; border-radius:2px; letter-spacing:0.06em;
   background:var(--gold-bg); color:var(--gold); border:1px solid var(--gold-bd);
 }
 
-/* ── RECORDS GRID ── */
-.records-grid {
-  display:grid; grid-template-columns:repeat(3,1fr); gap:13px;
-}
+/* RECORDS GRID */
+.records-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:13px; }
 @media(max-width:640px){ .records-grid{ grid-template-columns:1fr; } }
 .record-item {
-  background: rgba(255,255,255,0.025); border:1px solid var(--border);
-  border-radius:4px; padding:20px 20px 18px;
+  background:rgba(255,255,255,0.025); border:1px solid var(--border);
   border-top:2px solid var(--gold-bd);
-  transition:border-color .2s;
+  border-radius:4px; padding:20px; transition:border-top-color .2s;
 }
 .record-item:hover { border-top-color:var(--gold); }
-.record-icon  { font-size:18px; margin-bottom:8px; display:block; }
-.record-lbl   { font-family:'DM Mono',monospace; font-size:9.5px; letter-spacing:0.2em; text-transform:uppercase; color:var(--muted); margin-bottom:6px; }
-.record-val   { font-family:'Bebas Neue',sans-serif; font-size:44px; color:var(--gold); line-height:1; margin-bottom:5px; }
-.record-name  { font-size:14px; font-weight:600; color:var(--white); }
-.record-date  { font-size:11.5px; color:var(--muted); font-family:'DM Mono',monospace; margin-top:3px; }
+.record-icon { font-size:18px; margin-bottom:8px; display:block; }
+.record-lbl  { font-family:'DM Mono',monospace; font-size:9.5px; letter-spacing:0.2em; text-transform:uppercase; color:var(--muted); margin-bottom:6px; }
+.record-val  { font-family:'Bebas Neue',sans-serif; font-size:44px; color:var(--gold); line-height:1; margin-bottom:5px; }
+.record-name { font-size:14px; font-weight:600; color:var(--white); }
+.record-date { font-size:11.5px; color:var(--muted); font-family:'DM Mono',monospace; margin-top:3px; }
 
-/* ── INFO GRID ── */
-.info-grid { display:grid; grid-template-columns:1fr 1fr; gap:13px; margin-bottom:13px; }
-@media(max-width:560px){ .info-grid{ grid-template-columns:1fr; } }
-.info-item {
-  background: rgba(255,255,255,0.025); border:1px solid var(--border);
-  border-radius:4px; padding:16px 18px;
-}
-.info-item .lbl { font-family:'DM Mono',monospace; font-size:9.5px; letter-spacing:0.2em; text-transform:uppercase; color:var(--muted); margin-bottom:5px; }
-.info-item .val { font-size:15px; font-weight:600; color:var(--white); line-height:1.4; }
+.empty-state { padding:2.5rem; text-align:center; color:var(--muted); font-family:'DM Mono',monospace; font-size:11.5px; letter-spacing:0.1em; }
 
-/* ── EMPTY STATE ── */
-.empty-state {
-  padding:2.5rem; text-align:center; color:var(--muted);
-  font-family:'DM Mono',monospace; font-size:11.5px; letter-spacing:0.12em;
-}
-
-/* ── TWO-COL TABLES GRID ── */
-.tables-grid { display:grid; grid-template-columns:1fr 1fr; gap:13px; }
-@media(max-width:780px){ .tables-grid{ grid-template-columns:1fr; } }
-
-/* ── FOOTER ── */
-.footer {
-  border-top:1px solid var(--border); padding:44px 28px;
-  text-align:center; color:var(--muted); font-size:13px;
-}
+/* FOOTER */
+.footer { border-top:1px solid var(--border); padding:44px 28px; text-align:center; color:var(--muted); font-size:13px; }
 .footer-logo { font-family:'Bebas Neue',sans-serif; font-size:28px; letter-spacing:0.06em; color:var(--white); margin-bottom:7px; }
 .footer-logo span { color:var(--gold); }
 
@@ -262,324 +216,294 @@ body {
 </head>
 <body>
 
-<!-- ══ HERO ══════════════════════════════════════════════ -->
 <section class="hero">
-  <div class="hero-badge">
-    <svg viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
-    Driver Performance Dashboard
-  </div>
+  <div class="hero-badge">Driver Performance Dashboard</div>
   <h1>Performance<span>Leaderboard</span></h1>
-  <p class="hero-sub">Live driver rankings pulled directly from the ONTH data sheet.</p>
-  <p class="hero-meta">
-    DSJ5 &nbsp;·&nbsp; Fresno, CA
-    &nbsp;·&nbsp; <span id="dateBadge">—</span>
-  </p>
-  <button class="hero-refresh" onclick="loadData()">↻ REFRESH</button>
+  <p class="hero-sub">Live driver rankings for DSJ5 — pulled directly from the ONTH data sheet.</p>
+  <p class="hero-meta">DSJ5 &nbsp;&middot;&nbsp; Fresno, CA &nbsp;&middot;&nbsp; <span id="dateBadge"></span></p>
+  <button class="hero-refresh" onclick="loadData()">&#8635; REFRESH</button>
 </section>
 
-<!-- ══ WRAPPER ══════════════════════════════════════════ -->
 <div class="wrapper">
 
-  <!-- STATUS -->
   <div class="section" style="margin-top:40px;">
     <div class="status-bar">
-      <div class="status-dot loading" id="statusDot"></div>
-      <span id="statusText">Loading data…</span>
+      <div class="dot loading" id="statusDot"></div>
+      <span id="statusText">Loading data...</span>
     </div>
   </div>
 
-  <!-- ══ TOP 10 YESTERDAY ══════════════════════════════ -->
-  <div class="section" id="sec-daily">
+  <!-- YESTERDAY TOP 10 -->
+  <div class="section">
     <div class="section-label">Daily Rankings</div>
-    <div class="section-title" id="dailyTitle">Yesterday · Top 10</div>
+    <div class="section-title">Yesterday &middot; Top 10</div>
     <div class="info-grid">
       <div class="info-item">
         <div class="lbl">Date</div>
-        <div class="val" id="dailyDateLabel">—</div>
+        <div class="val" id="dailyDateLabel">--</div>
       </div>
       <div class="info-item">
         <div class="lbl">Drivers Ranked</div>
-        <div class="val" id="dailyCountLabel">—</div>
+        <div class="val" id="dailyCountLabel">--</div>
       </div>
     </div>
     <div class="card">
       <div class="card-title">
         <span class="ci"><svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></span>
-        Top 10 Drivers — Stops Completed
+        Top 10 Drivers &mdash; Stops Completed
       </div>
       <table class="leaderboard">
         <thead><tr>
-          <th>Driver</th>
-          <th>Stops</th>
-          <th>Packages</th>
-          <th>SPH</th>
+          <th>Driver</th><th>Stops</th><th>Packages</th><th>SPH</th>
         </tr></thead>
         <tbody id="dailyBody">
-          <tr><td colspan="4"><div class="empty-state">Loading…</div></td></tr>
+          <tr><td colspan="4"><div class="empty-state">Loading...</div></td></tr>
         </tbody>
       </table>
     </div>
   </div>
 
-  <!-- ══ TOP 10 YTD ════════════════════════════════════ -->
-  <div class="section" id="sec-ytd">
+  <!-- YTD TOP 10 -->
+  <div class="section">
     <div class="section-label">Year-to-Date Rankings</div>
-    <div class="section-title">2026 · Top 10</div>
+    <div class="section-title">2026 &middot; Top 10</div>
     <div class="card">
       <div class="card-title">
-        <span class="ci"><svg viewBox="0 0 24 24"><path d="M18 20V10"/><path d="M12 20V4"/><path d="M6 20v-6"/></svg></span>
-        Top 10 Drivers — Overall Score
+        <span class="ci"><svg viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></span>
+        Top 10 Drivers &mdash; Overall Score
       </div>
       <table class="leaderboard">
         <thead><tr>
-          <th>Driver</th>
-          <th>Packages</th>
-          <th>SPH</th>
-          <th>Overall</th>
-          <th>Rank</th>
+          <th>Driver</th><th>Packages</th><th>SPH</th><th>Overall</th><th>Rank</th>
         </tr></thead>
         <tbody id="ytdBody">
-          <tr><td colspan="5"><div class="empty-state">Loading…</div></td></tr>
+          <tr><td colspan="5"><div class="empty-state">Loading...</div></td></tr>
         </tbody>
       </table>
     </div>
   </div>
 
-  <!-- ══ COMPANY RECORDS ═══════════════════════════════ -->
-  <div class="section" id="sec-records">
+  <!-- RECORDS -->
+  <div class="section">
     <div class="section-label">All-Time Records</div>
     <div class="section-title">2026 Company Records</div>
     <div class="records-grid" id="recordsGrid">
-      <div class="record-item"><span class="record-icon">🛑</span><div class="record-lbl">Most Stops · Single Day</div><div class="record-val">—</div><div class="record-name">Loading…</div></div>
-      <div class="record-item"><span class="record-icon">📦</span><div class="record-lbl">Most Packages · Single Day</div><div class="record-val">—</div><div class="record-name">Loading…</div></div>
-      <div class="record-item"><span class="record-icon">⚡</span><div class="record-lbl">Best SPH · Single Day</div><div class="record-val">—</div><div class="record-name">Loading…</div></div>
+      <div class="record-item"><span class="record-icon">&#128683;</span><div class="record-lbl">Most Stops &middot; Single Day</div><div class="record-val">--</div><div class="record-name">Loading...</div></div>
+      <div class="record-item"><span class="record-icon">&#128230;</span><div class="record-lbl">Most Packages &middot; Single Day</div><div class="record-val">--</div><div class="record-name">Loading...</div></div>
+      <div class="record-item"><span class="record-icon">&#9889;</span><div class="record-lbl">Best SPH &middot; Single Day</div><div class="record-val">--</div><div class="record-name">Loading...</div></div>
     </div>
   </div>
 
-</div><!-- /wrapper -->
+</div>
 
-<!-- ══ FOOTER ════════════════════════════════════════════ -->
 <footer class="footer">
   <div class="footer-logo">On The <span>Level</span> Logistics</div>
-  <p>825 N Clovis Ave &nbsp;·&nbsp; Fresno, CA &nbsp;·&nbsp; DSJ5</p>
-  <p style="margin-top:20px;font-size:10.5px;font-family:'DM Mono',monospace;letter-spacing:0.12em;color:#3e3f44;">ONTH INTERNAL USE ONLY &nbsp;·&nbsp; DATA: GOOGLE SHEETS</p>
+  <p>825 N Clovis Ave &nbsp;&middot;&nbsp; Fresno, CA &nbsp;&middot;&nbsp; DSJ5</p>
+  <p style="margin-top:20px;font-size:10.5px;font-family:'DM Mono',monospace;letter-spacing:0.12em;color:#3e3f44;">ONTH INTERNAL USE ONLY &nbsp;&middot;&nbsp; DATA: GOOGLE SHEETS</p>
 </footer>
 
 <script>
-// ─────────────────────────────────────────────────────────────
-//  CONFIG
-// ─────────────────────────────────────────────────────────────
-const CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRk7KPkl9jzG9FE3oMrfd1DHWSzlf-f1ANZNwUEnH8Hw0EZn9dHvosZxjzI2baWmN3Lr1_63h0sxzkr/pub?gid=0&single=true&output=csv';
-const PROXY   = 'https://api.allorigins.win/raw?url=';
+// ── CONFIG ──────────────────────────────────────────────────
+// Google Apps Script Web App URL - serves sheet data as JSON
+const API_URL = 'https://script.google.com/macros/s/AKfycbw4GMfxSMqD1dJCfmrcBPwX-PCc-QYKAiPxFn8yjcCPZQpgVbctqk8zhNk9Kr3eHScO/exec';
 
-// Column indices (0-based, after header row stripped)
-// Daily: A=0 B=1 K=10 N=13 P=15 Q=16
-const D_NAME  = 0;
-const D_DATE  = 1;
-const D_TYPE  = 10;
-const D_STOPS = 13;
-const D_PKGS  = 15;
-const D_SPH   = 16;
+// Column indices (0-based). Row 0 = header, data starts row 1.
+// Daily columns: A=0 B=1 K=10 N=13 P=15 Q=16
+var D_NAME  = 0;
+var D_DATE  = 1;
+var D_TYPE  = 10;
+var D_STOPS = 13;
+var D_PKGS  = 15;
+var D_SPH   = 16;
 
-// Yearly: U=20 Z=25 AA=26 AB=27 AC=28
-const Y_NAME    = 20;
-const Y_PKGS    = 25;
-const Y_SPH     = 26;
-const Y_OVERALL = 27;
-const Y_RANK    = 28;
+// Yearly columns: U=20 Z=25 AA=26 AB=27 AC=28
+var Y_NAME    = 20;
+var Y_PKGS    = 25;
+var Y_SPH     = 26;
+var Y_OVERALL = 27;
+var Y_RANK    = 28;
 
-// ─────────────────────────────────────────────────────────────
-//  INIT
-// ─────────────────────────────────────────────────────────────
-document.addEventListener('DOMContentLoaded', () => {
-  const now = new Date();
+// ── INIT ────────────────────────────────────────────────────
+document.addEventListener('DOMContentLoaded', function() {
+  var now = new Date();
   document.getElementById('dateBadge').textContent =
-    now.toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric',year:'numeric'}).toUpperCase();
+    now.toLocaleDateString('en-US', {weekday:'short', month:'short', day:'numeric', year:'numeric'}).toUpperCase();
   loadData();
 });
 
-// ─────────────────────────────────────────────────────────────
-//  FETCH
-// ─────────────────────────────────────────────────────────────
-async function loadData() {
-  setStatus('loading','Fetching sheet data…');
-  try {
-    const res = await fetch(PROXY + encodeURIComponent(CSV_URL));
-    if (!res.ok) throw new Error(`HTTP ${res.status}`);
-    const text = await res.text();
-    const rows = parseCSV(text);
-    if (rows.length < 2) throw new Error('Sheet returned no data rows');
-    processData(rows.slice(1));
-    setStatus('ok', `Loaded · Refreshed ${new Date().toLocaleTimeString()}`);
-  } catch(e) {
-    setStatus('err', `Load failed: ${e.message}`);
-    console.error(e);
-  }
+// ── FETCH ───────────────────────────────────────────────────
+function loadData() {
+  setStatus('loading', 'Fetching sheet data...');
+  fetch(API_URL)
+    .then(function(res) {
+      if (!res.ok) throw new Error('HTTP ' + res.status);
+      return res.json();
+    })
+    .then(function(data) {
+      if (!Array.isArray(data) || data.length < 2) throw new Error('No data rows returned');
+      // data[0] is the header row, data[1..] is the actual rows
+      processData(data.slice(1));
+      setStatus('ok', 'Loaded · Refreshed ' + new Date().toLocaleTimeString());
+    })
+    .catch(function(e) {
+      setStatus('err', 'Load failed: ' + e.message);
+      console.error(e);
+    });
 }
 
-// ─────────────────────────────────────────────────────────────
-//  CSV PARSER
-// ─────────────────────────────────────────────────────────────
-function parseCSV(text) {
-  return text.replace(/\r/g,'').split('\n').filter(l=>l.trim()).map(line => {
-    const cols=[]; let cur='', inQ=false;
-    for (const ch of line) {
-      if (ch==='"'){inQ=!inQ;continue;}
-      if (ch===','&&!inQ){cols.push(cur.trim());cur='';continue;}
-      cur+=ch;
-    }
-    cols.push(cur.trim());
-    return cols;
-  });
-}
-
-// ─────────────────────────────────────────────────────────────
-//  PROCESS
-// ─────────────────────────────────────────────────────────────
+// ── PROCESS ─────────────────────────────────────────────────
 function processData(rows) {
 
-  // Filter helpers and empty rows from daily side
-  const dailyRows = rows.filter(r => {
-    const name  = (r[D_NAME]||'').trim();
-    const type  = (r[D_TYPE]||'').toLowerCase();
-    const stops = num(r[D_STOPS]);
+  // Daily: filter out helpers and rows with no stops
+  var dailyRows = rows.filter(function(r) {
+    var name  = String(r[D_NAME]  || '').trim();
+    var type  = String(r[D_TYPE]  || '').toLowerCase();
+    var stops = num(r[D_STOPS]);
     return name && !type.includes('helper') && stops > 0;
   });
 
-  // Yesterday
-  const yest    = new Date(); yest.setDate(yest.getDate()-1);
-  const yestKey = `${yest.getMonth()+1}/${yest.getDate()}/${yest.getFullYear()}`;
+  // Yesterday's date key
+  var yest = new Date();
+  yest.setDate(yest.getDate() - 1);
+  var yestKey = (yest.getMonth()+1) + '/' + yest.getDate() + '/' + yest.getFullYear();
 
-  const yesterdayRows = dailyRows.filter(r => {
-    const d = parseSheetDate((r[D_DATE]||'').trim());
-    return d && `${d.getMonth()+1}/${d.getDate()}/${d.getFullYear()}` === yestKey;
+  var yesterdayRows = dailyRows.filter(function(r) {
+    var d = parseSheetDate(String(r[D_DATE] || '').trim());
+    if (!d) return false;
+    return (d.getMonth()+1) + '/' + d.getDate() + '/' + d.getFullYear() === yestKey;
   });
 
-  const top10Daily = [...yesterdayRows]
-    .sort((a,b) => num(b[D_STOPS]) - num(a[D_STOPS]))
-    .slice(0,10);
+  var top10Daily = yesterdayRows
+    .sort(function(a,b) { return num(b[D_STOPS]) - num(a[D_STOPS]); })
+    .slice(0, 10);
 
-  // All-time records
-  const stopsRec = dailyRows.reduce((b,r) => num(r[D_STOPS]) > num(b[D_STOPS]) ? r : b, dailyRows[0]||[]);
-  const pkgsRec  = dailyRows.reduce((b,r) => num(r[D_PKGS])  > num(b[D_PKGS])  ? r : b, dailyRows[0]||[]);
-  const sphRec   = dailyRows.reduce((b,r) => num(r[D_SPH])   > num(b[D_SPH])   ? r : b, dailyRows[0]||[]);
+  // All-time records from all daily data
+  var stopsRec = dailyRows.length ? dailyRows.reduce(function(b,r) { return num(r[D_STOPS]) > num(b[D_STOPS]) ? r : b; }) : null;
+  var pkgsRec  = dailyRows.length ? dailyRows.reduce(function(b,r) { return num(r[D_PKGS])  > num(b[D_PKGS])  ? r : b; }) : null;
+  var sphRec   = dailyRows.length ? dailyRows.reduce(function(b,r) { return num(r[D_SPH])   > num(b[D_SPH])   ? r : b; }) : null;
 
-  // Yearly — unique drivers, not helpers
-  const seen = new Set();
-  const yearlyRows = rows.filter(r => {
-    const name = (r[Y_NAME]||'').trim();
-    const type = (r[D_TYPE]||'').toLowerCase();
-    if (!name || type.includes('helper')) return false;
-    const key = name.toUpperCase();
-    if (seen.has(key)) return false;
-    seen.add(key); return true;
-  }).sort((a,b) => {
-    const ra = num(a[Y_RANK]), rb = num(b[Y_RANK]);
-    if (ra && rb) return ra - rb;
-    return num(b[Y_OVERALL]) - num(a[Y_OVERALL]);
-  }).slice(0,10);
+  // Yearly: unique drivers, not helpers, sorted by rank then overall
+  var seen = {};
+  var yearlyRows = rows
+    .filter(function(r) {
+      var name = String(r[Y_NAME] || '').trim();
+      var type = String(r[D_TYPE] || '').toLowerCase();
+      if (!name || type.includes('helper')) return false;
+      var key = name.toUpperCase();
+      if (seen[key]) return false;
+      seen[key] = true;
+      return true;
+    })
+    .sort(function(a,b) {
+      var ra = num(a[Y_RANK]), rb = num(b[Y_RANK]);
+      if (ra && rb) return ra - rb;
+      return num(b[Y_OVERALL]) - num(a[Y_OVERALL]);
+    })
+    .slice(0, 10);
 
-  // Update date label
+  // Update info labels
   document.getElementById('dailyDateLabel').textContent =
-    yest.toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric',year:'numeric'});
+    yest.toLocaleDateString('en-US', {weekday:'long', month:'long', day:'numeric', year:'numeric'});
   document.getElementById('dailyCountLabel').textContent =
-    top10Daily.length ? `${top10Daily.length} drivers` : 'No data';
+    top10Daily.length ? top10Daily.length + ' drivers' : 'No data for yesterday';
 
   renderDaily(top10Daily);
   renderYTD(yearlyRows);
-  renderRecords(stopsRec, pkgsRec, sphRec, dailyRows.length > 0);
+  renderRecords(stopsRec, pkgsRec, sphRec);
 }
 
-// ─────────────────────────────────────────────────────────────
-//  RENDER — DAILY
-// ─────────────────────────────────────────────────────────────
+// ── RENDER DAILY ────────────────────────────────────────────
 function renderDaily(rows) {
-  const tbody = document.getElementById('dailyBody');
+  var tbody = document.getElementById('dailyBody');
   if (!rows.length) {
-    tbody.innerHTML = `<tr><td colspan="4"><div class="empty-state">No drivers found for yesterday · Check that data has been entered for ${new Date(Date.now()-86400000).toLocaleDateString()}</div></td></tr>`;
+    tbody.innerHTML = '<tr><td colspan="4"><div class="empty-state">No drivers found for yesterday. Check that data has been entered for ' + new Date(Date.now()-86400000).toLocaleDateString() + '</div></td></tr>';
     return;
   }
-  tbody.innerHTML = rows.map((r,i) => `
-    <tr>
-      <td>
-        <div class="rank-cell">
-          <span class="rank-num ${rc(i)}">${i+1}</span>
-          <span class="driver-name">${esc(r[D_NAME])}</span>
-        </div>
-      </td>
-      <td>${i===0 ? `<span class="stat-tag">${num(r[D_STOPS])}</span>` : num(r[D_STOPS]) || '—'}</td>
-      <td>${num(r[D_PKGS])  || '—'}</td>
-      <td>${num(r[D_SPH])   || '—'}</td>
-    </tr>`).join('');
+  tbody.innerHTML = rows.map(function(r, i) {
+    var stops = num(r[D_STOPS]);
+    var pkgs  = num(r[D_PKGS]);
+    var sph   = num(r[D_SPH]);
+    return '<tr>' +
+      '<td><div class="rank-cell"><span class="rank-num ' + rc(i) + '">' + (i+1) + '</span>' +
+      '<span class="driver-name">' + esc(r[D_NAME]) + '</span></div></td>' +
+      '<td>' + (i===0 ? '<span class="stat-tag">' + stops + '</span>' : stops) + '</td>' +
+      '<td>' + (pkgs || '--') + '</td>' +
+      '<td>' + (sph  || '--') + '</td>' +
+      '</tr>';
+  }).join('');
 }
 
-// ─────────────────────────────────────────────────────────────
-//  RENDER — YTD
-// ─────────────────────────────────────────────────────────────
+// ── RENDER YTD ──────────────────────────────────────────────
 function renderYTD(rows) {
-  const tbody = document.getElementById('ytdBody');
+  var tbody = document.getElementById('ytdBody');
   if (!rows.length) {
-    tbody.innerHTML = `<tr><td colspan="5"><div class="empty-state">No yearly data found in columns U–AC</div></td></tr>`;
+    tbody.innerHTML = '<tr><td colspan="5"><div class="empty-state">No yearly data found in columns U-AC</div></td></tr>';
     return;
   }
-  tbody.innerHTML = rows.map((r,i) => `
-    <tr>
-      <td>
-        <div class="rank-cell">
-          <span class="rank-num ${rc(i)}">${i+1}</span>
-          <span class="driver-name">${esc(r[Y_NAME])}</span>
-        </div>
-      </td>
-      <td>${num(r[Y_PKGS])    || '—'}</td>
-      <td>${num(r[Y_SPH])     || '—'}</td>
-      <td>${num(r[Y_OVERALL]) ? `<span class="stat-tag">${num(r[Y_OVERALL])}</span>` : '—'}</td>
-      <td>${num(r[Y_RANK])    || '—'}</td>
-    </tr>`).join('');
+  tbody.innerHTML = rows.map(function(r, i) {
+    var pkgs    = num(r[Y_PKGS]);
+    var sph     = num(r[Y_SPH]);
+    var overall = num(r[Y_OVERALL]);
+    var rank    = num(r[Y_RANK]);
+    return '<tr>' +
+      '<td><div class="rank-cell"><span class="rank-num ' + rc(i) + '">' + (i+1) + '</span>' +
+      '<span class="driver-name">' + esc(r[Y_NAME]) + '</span></div></td>' +
+      '<td>' + (pkgs || '--') + '</td>' +
+      '<td>' + (sph  || '--') + '</td>' +
+      '<td>' + (overall ? '<span class="stat-tag">' + overall + '</span>' : '--') + '</td>' +
+      '<td>' + (rank || '--') + '</td>' +
+      '</tr>';
+  }).join('');
 }
 
-// ─────────────────────────────────────────────────────────────
-//  RENDER — RECORDS
-// ─────────────────────────────────────────────────────────────
-function renderRecords(sR, pR, sphR, hasData) {
-  const defs = [
-    { icon:'🛑', lbl:'Most Stops · Single Day',        val: hasData ? num(sR[D_STOPS]) : '—', name: hasData ? sR[D_NAME] : 'No data', date: hasData ? sR[D_DATE] : '' },
-    { icon:'📦', lbl:'Most Packages · Single Day',     val: hasData ? num(pR[D_PKGS])  : '—', name: hasData ? pR[D_NAME] : 'No data', date: hasData ? pR[D_DATE] : '' },
-    { icon:'⚡', lbl:'Best SPH · Single Day',          val: hasData ? num(sphR[D_SPH]) : '—', name: hasData ? sphR[D_NAME]: 'No data', date: hasData ? sphR[D_DATE]: '' },
+// ── RENDER RECORDS ──────────────────────────────────────────
+function renderRecords(sR, pR, sphR) {
+  var defs = [
+    { icon:'&#128683;', lbl:'Most Stops &middot; Single Day',    val: sR   ? num(sR[D_STOPS])  : '--', name: sR   ? sR[D_NAME]   : 'No data', date: sR   ? sR[D_DATE]   : '' },
+    { icon:'&#128230;', lbl:'Most Packages &middot; Single Day', val: pR   ? num(pR[D_PKGS])   : '--', name: pR   ? pR[D_NAME]   : 'No data', date: pR   ? pR[D_DATE]   : '' },
+    { icon:'&#9889;',   lbl:'Best SPH &middot; Single Day',      val: sphR ? num(sphR[D_SPH])  : '--', name: sphR ? sphR[D_NAME] : 'No data', date: sphR ? sphR[D_DATE] : '' },
   ];
-  document.getElementById('recordsGrid').innerHTML = defs.map(d => `
-    <div class="record-item">
-      <span class="record-icon">${d.icon}</span>
-      <div class="record-lbl">${d.lbl}</div>
-      <div class="record-val">${d.val}</div>
-      <div class="record-name">${esc(d.name)}</div>
-      ${d.date ? `<div class="record-date">${esc(d.date)}</div>` : ''}
-    </div>`).join('');
+  document.getElementById('recordsGrid').innerHTML = defs.map(function(d) {
+    return '<div class="record-item">' +
+      '<span class="record-icon">' + d.icon + '</span>' +
+      '<div class="record-lbl">' + d.lbl + '</div>' +
+      '<div class="record-val">' + d.val + '</div>' +
+      '<div class="record-name">' + esc(d.name) + '</div>' +
+      (d.date ? '<div class="record-date">' + esc(d.date) + '</div>' : '') +
+      '</div>';
+  }).join('');
 }
 
-// ─────────────────────────────────────────────────────────────
-//  UTILS
-// ─────────────────────────────────────────────────────────────
-function rc(i){ return i===0?'gold':i===1?'silver':i===2?'bronze':''; }
-function num(v){ const n=parseFloat((v||'').toString().replace(/,/g,'')); return isNaN(n)?0:n; }
-function parseSheetDate(s){
-  if(!s) return null;
-  const p=s.split('/');
-  return p.length===3 ? new Date(+p[2],+p[0]-1,+p[1]) : new Date(s);
+// ── UTILS ────────────────────────────────────────────────────
+function rc(i) { return i===0?'gold':i===1?'silver':i===2?'bronze':''; }
+
+function num(v) {
+  var n = parseFloat(String(v||'').replace(/,/g,''));
+  return isNaN(n) ? 0 : n;
 }
-function setStatus(state,msg){
-  document.getElementById('statusDot').className   = 'status-dot '+state;
+
+function parseSheetDate(s) {
+  if (!s) return null;
+  var p = s.split('/');
+  if (p.length === 3) return new Date(parseInt(p[2]), parseInt(p[0])-1, parseInt(p[1]));
+  return new Date(s);
+}
+
+function setStatus(state, msg) {
+  document.getElementById('statusDot').className    = 'dot ' + state;
   document.getElementById('statusText').textContent = msg;
 }
-function esc(s){ return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+function esc(s) {
+  return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
 </script>
 
 <script>
-  // Intersection observer — same pattern as welcome packet
-  const obs = new IntersectionObserver(
-    e => e.forEach(x => { if(x.isIntersecting) x.target.classList.add('visible'); }),
-    { threshold: 0.05 }
-  );
-  document.querySelectorAll('.section').forEach(s => obs.observe(s));
+var obs = new IntersectionObserver(function(entries) {
+  entries.forEach(function(e) { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.05 });
+document.querySelectorAll('.section').forEach(function(s) { obs.observe(s); });
 </script>
 </body>
 </html>
