@@ -30,7 +30,6 @@
   --amber-bd: rgba(255,176,32,0.28);
 }
 
-
 /* ── RESET ──────────────────────────────────────────────── */
 *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
 html { scroll-behavior:smooth; }
@@ -89,19 +88,6 @@ body {
   color:var(--muted); text-transform:uppercase;
   animation:fadeUp .6s .25s ease both;
 }
-.hero-refresh {
-  position:relative; z-index:1;
-  margin-top:18px; background:var(--gold); color:#000;
-  border:none; padding:9px 24px;
-  font-family:'Bebas Neue',sans-serif;
-  font-size:15px; letter-spacing:1.5px;
-  border-radius:2px; cursor:pointer;
-  transition:background .15s, transform .1s;
-  animation:fadeUp .6s .3s ease both;
-  -webkit-tap-highlight-color:transparent;
-}
-.hero-refresh:hover { background:#ffd83a; }
-.hero-refresh:active { transform:scale(.97); }
 
 /* ── WRAPPER ─────────────────────────────────────────────── */
 .wrapper {
@@ -109,7 +95,7 @@ body {
   margin:0 auto; padding:0 16px 80px;
 }
 
-  /* ── RECORD PODIUM ───────────────────────────────────────── */
+/* ── RECORD PODIUM ───────────────────────────────────────── */
 .record-podium {
   margin-top:10px;
   border-top:1px solid var(--border);
@@ -154,7 +140,7 @@ body {
   line-height:1; margin-bottom:16px; letter-spacing:.02em;
 }
 
-  /* ── QUICK LINKS ─────────────────────────────────────────── */
+/* ── QUICK LINKS ─────────────────────────────────────────── */
 .links-grid {
   display:grid;
   grid-template-columns:repeat(3,1fr);
@@ -313,16 +299,13 @@ body {
 .footer-logo span { color:var(--gold); }
 
 /* ── MOBILE: hide less critical columns to prevent overflow ─ */
-/* YTD: hide Pkgs + SPH on small screens, keep Driver/Overall/Rank */
 @media(max-width:519px) {
-  .ytd-hide   { display:none; }
+  .ytd-hide    { display:none; }
   .daily-hide  { display:none; }
 
-  /* Tighten number columns on mobile */
   .leaderboard .col-num  { width:54px; }
   .leaderboard .col-rank { width:42px; }
 
-  /* Smaller rank number */
   .rank-num { font-size:18px; min-width:18px; }
   .rank-cell { gap:6px; }
   .driver-name { font-size:12px; }
@@ -330,7 +313,6 @@ body {
   .leaderboard thead th { padding:7px 6px; font-size:8px; }
   .leaderboard tbody td:not(:first-child) { font-size:11px; }
 
-  /* Card padding tighter */
   .card { padding:14px 10px; }
   .wrapper { padding:0 12px 80px; }
 }
@@ -378,27 +360,26 @@ body {
   <h1>Performance<span>Leaderboard</span></h1>
   <p class="hero-sub">Below you'll find daily driver rankings, year-to-date standings, company records, and quick links for uniforms and resources</p>
   <p class="hero-meta">DSJ5 &nbsp;&middot;&nbsp; Fresno, CA &nbsp;&middot;&nbsp; <span id="dateBadge"></span></p>
-
 </section>
 
 <div class="wrapper">
 
   <!-- QUICK LINKS -->
-<a class="link-card" href="https://forms.gle/VeowNqKQhKndJfXX9" target="_blank">
-        <span class="link-icon"><svg viewBox="0 0 24 24"><path d="M20.38 3.46 16 2a4 4 0 0 1-8 0L3.62 3.46a2 2 0 0 0-1.34 2.23l.58 3.57a1 1 0 0 0 .99.84H6v10a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V10h2.15a1 1 0 0 0 .99-.84l.58-3.57a2 2 0 0 0-1.34-2.23z"/></svg></span>
-        <span class="link-label">Uniform Request</span>
-        <span class="link-arrow">→</span>
-      </a>
-      <a class="link-card" href="https://forms.gle/54tvV23Sdkz5WF3e6" target="_blank">
-        <span class="link-icon"><svg viewBox="0 0 24 24"><path d="M12 3c-1.5 0-2.9.6-3.9 1.5L3 9h3v11a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V9h3l-5.1-4.5C14.9 3.6 13.5 3 12 3z"/></svg></span>
-        <span class="link-label">Jacket Request</span>
-        <span class="link-arrow">→</span>
-      </a>
-      <a class="link-card" href="https://onth-bot.github.io/onth-metrics/" target="_blank">
-        <span class="link-icon"><svg viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></span>
-        <span class="link-label">Metrics Breakdown</span>
-        <span class="link-arrow">→</span>
-      </a>
+  <a class="link-card" href="https://forms.gle/VeowNqKQhKndJfXX9" target="_blank">
+    <span class="link-icon"><svg viewBox="0 0 24 24"><path d="M20.38 3.46 16 2a4 4 0 0 1-8 0L3.62 3.46a2 2 0 0 0-1.34 2.23l.58 3.57a1 1 0 0 0 .99.84H6v10a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V10h2.15a1 1 0 0 0 .99-.84l.58-3.57a2 2 0 0 0-1.34-2.23z"/></svg></span>
+    <span class="link-label">Uniform Request</span>
+    <span class="link-arrow">→</span>
+  </a>
+  <a class="link-card" href="https://forms.gle/54tvV23Sdkz5WF3e6" target="_blank">
+    <span class="link-icon"><svg viewBox="0 0 24 24"><path d="M12 3c-1.5 0-2.9.6-3.9 1.5L3 9h3v11a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V9h3l-5.1-4.5C14.9 3.6 13.5 3 12 3z"/></svg></span>
+    <span class="link-label">Jacket Request</span>
+    <span class="link-arrow">→</span>
+  </a>
+  <a class="link-card" href="https://onth-bot.github.io/onth-metrics/" target="_blank">
+    <span class="link-icon"><svg viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></span>
+    <span class="link-label">Metrics Breakdown</span>
+    <span class="link-arrow">→</span>
+  </a>
 
   <!-- YESTERDAY TOP 10 -->
   <div class="section">
@@ -420,7 +401,7 @@ body {
         Top 10 &mdash; Stops Completed
       </div>
       <table class="leaderboard" id="dailyTable">
-        <thead><tr id="dailyHead">
+        <thead><tr>
           <th class="col-driver">Driver</th>
           <th class="col-num">Stops</th>
           <th class="col-num daily-hide">Pkgs</th>
@@ -440,18 +421,17 @@ body {
     <div class="card">
       <div class="card-title">
         <span class="ci"><svg viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></span>
-        Top 10 &mdash; Overall Score
+        Top 10 &mdash; Stops (Season Total)
       </div>
       <table class="leaderboard" id="ytdTable">
-        <thead><tr id="ytdHead">
+        <thead><tr>
           <th class="col-driver">Driver</th>
-          <th class="col-num">Pkgs</th>
+          <th class="col-num ytd-hide">Pkgs</th>
+          <th class="col-num">Stops</th>
           <th class="col-num">SPH</th>
-          <th class="col-num">Overall</th>
-          <th class="col-rank ytd-hide">Rank</th>
         </tr></thead>
         <tbody id="ytdBody">
-          <tr><td colspan="5"><div class="empty-state">Loading...</div></td></tr>
+          <tr><td colspan="4"><div class="empty-state">Loading...</div></td></tr>
         </tbody>
       </table>
     </div>
@@ -494,10 +474,9 @@ body {
 // ── CONFIG ───────────────────────────────────────────────────
 var API_URL = 'https://script.google.com/macros/s/AKfycbzhbtHQAYPmLmKzTQr3rnLVkFWCIFEP5PjkMwNiTzv0zViYHCVYncc3VxFPZycOss4O/exec';
 
-// Remapped indices after Apps Script trimming
+// Column indices after Apps Script trimming
 // keep=[0,1,10,13,15,16,20,25,26,27,28] new idx 0-10
 var D_NAME=0, D_DATE=1, D_TYPE=2, D_STOPS=3, D_PKGS=4, D_SPH=5;
-var Y_NAME=6, Y_PKGS=7, Y_SPH=8, Y_OVERALL=9, Y_RANK=10;
 
 // ── INIT ─────────────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', function() {
@@ -514,6 +493,11 @@ function loadData() {
       if(!Array.isArray(data)||data.length<2) throw new Error('No data returned');
       processData(data.slice(1));
     })
+    .catch(function(err){
+      var msg='<tr><td colspan="4"><div class="empty-state">Failed to load data</div></td></tr>';
+      document.getElementById('dailyBody').innerHTML=msg;
+      document.getElementById('ytdBody').innerHTML=msg;
+    });
 }
 
 // ── PROCESS ──────────────────────────────────────────────────
@@ -524,7 +508,7 @@ function processData(rows) {
     return name && !name.startsWith('#') && !type.includes('helper') && num(r[D_STOPS])>0;
   });
 
-  // Yesterday
+  // ── YESTERDAY top 10 by stops ────────────────────────────
   var yest=new Date(); yest.setDate(yest.getDate()-1);
   var yKey=(yest.getMonth()+1)+'/'+yest.getDate()+'/'+yest.getFullYear();
   var top10=dailyRows.filter(function(r){
@@ -532,17 +516,25 @@ function processData(rows) {
     return d && (d.getMonth()+1)+'/'+d.getDate()+'/'+d.getFullYear()===yKey;
   }).sort(function(a,b){ return num(b[D_STOPS])-num(a[D_STOPS]); }).slice(0,10);
 
-  // Yearly — unique drivers, no helpers, no errors
-  var seen={};
-  var ytd=rows.filter(function(r){
-    var name=str(r[Y_NAME]),type=str(r[D_TYPE]).toLowerCase();
-    if(!name||name.startsWith('#')||type.includes('helper')) return false;
-    var k=name.toUpperCase(); if(seen[k]) return false; seen[k]=true; return true;
-  }).sort(function(a,b){
-    var ra=num(a[Y_RANK]),rb=num(b[Y_RANK]);
-    return (ra&&rb)?ra-rb:num(b[Y_OVERALL])-num(a[Y_OVERALL]);
-  }).slice(0,10);
+  // ── YTD — aggregate by driver name ───────────────────────
+  // Sum: packages, stops  |  Average: SPH (only non-zero days)
+  var ytdMap={};
+  dailyRows.forEach(function(r){
+    var name=str(r[D_NAME]); if(!name) return;
+    var k=name.toUpperCase();
+    if(!ytdMap[k]) ytdMap[k]={ name:name, pkgs:0, stops:0, sphSum:0, sphCount:0 };
+    ytdMap[k].pkgs  += num(r[D_PKGS]);
+    ytdMap[k].stops += num(r[D_STOPS]);
+    var s=num(r[D_SPH]);
+    if(s>0){ ytdMap[k].sphSum+=s; ytdMap[k].sphCount++; }
+  });
+  var ytd=Object.keys(ytdMap).map(function(k){
+    var d=ytdMap[k];
+    d.sphAvg = d.sphCount ? d.sphSum/d.sphCount : 0;
+    return d;
+  }).sort(function(a,b){ return b.stops-a.stops; }).slice(0,10);
 
+  // ── Labels ───────────────────────────────────────────────
   document.getElementById('dailyDateLabel').textContent =
     yest.toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric',year:'numeric'});
   document.getElementById('dailyCountLabel').textContent =
@@ -554,7 +546,6 @@ function processData(rows) {
 }
 
 // ── RENDER DAILY ─────────────────────────────────────────────
-// Always renders all 4 columns — CSS handles layout at every size
 function renderDaily(rows) {
   var body=document.getElementById('dailyBody');
   if(!rows.length){
@@ -576,24 +567,22 @@ function renderDaily(rows) {
 }
 
 // ── RENDER YTD ───────────────────────────────────────────────
-// Always renders all 5 columns — CSS handles layout at every size
+// Aggregated: pkgs (sum), stops (sum), SPH (avg) — sorted by stops desc
 function renderYTD(rows) {
   var body=document.getElementById('ytdBody');
   if(!rows.length){
-    body.innerHTML='<tr><td colspan="5"><div class="empty-state">No yearly data found</div></td></tr>';
+    body.innerHTML='<tr><td colspan="4"><div class="empty-state">No yearly data found</div></td></tr>';
     return;
   }
   body.innerHTML=rows.map(function(r,i){
-    var overall=fmt(r[Y_OVERALL],2);
     return '<tr>'+
       '<td><div class="rank-cell">'+
         '<span class="rank-num '+rc(i)+'">'+(i+1)+'</span>'+
-        '<span class="driver-name">'+esc(r[Y_NAME])+'</span>'+
+        '<span class="driver-name">'+esc(r.name)+'</span>'+
       '</div></td>'+
-      '<td>'+fmt(r[Y_PKGS])+'</td>'+
-      '<td>'+fmt(r[Y_SPH],2)+'</td>'+
-      '<td>'+(overall!='--'?'<span class="stat-tag">'+overall+'</span>':'--')+'</td>'+
-      '<td class="ytd-hide">'+fmt(r[Y_RANK])+'</td>'+
+      '<td class="ytd-hide">'+r.pkgs+'</td>'+
+      '<td>'+(i===0?'<span class="stat-tag">'+r.stops+'</span>':r.stops)+'</td>'+
+      '<td>'+(r.sphAvg>0?r.sphAvg.toFixed(2):'--')+'</td>'+
     '</tr>';
   }).join('');
 }
@@ -623,11 +612,15 @@ function renderRecords(dailyRows) {
       return num(b[cat.key]) - num(a[cat.key]);
     }).slice(0,3);
 
-    var top = sorted[0] || null;
+    var top  = sorted[0] || null;
     var rest = sorted.slice(1);
 
     return '<div class="record-item">'+
-      '<span class="ci" style="margin-bottom:8px;display:inline-flex;"><svg viewBox="0 0 24 24" style="width:12px;height:12px;stroke:var(--gold);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;">'+cat.icon+'</svg></span>'+
+      '<span class="ci" style="margin-bottom:8px;display:inline-flex;">'+
+        '<svg viewBox="0 0 24 24" style="width:12px;height:12px;stroke:var(--gold);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;">'+
+          cat.icon+
+        '</svg>'+
+      '</span>'+
       '<div class="record-lbl">'+cat.lbl+'</div>'+
       (top ?
         '<div class="record-val">'+cat.fmt(top)+'</div>'+
@@ -648,6 +641,7 @@ function renderRecords(dailyRows) {
     '</div>';
   }).join('');
 }
+
 // ── UTILS ────────────────────────────────────────────────────
 function rc(i){ return i===0?'gold':i===1?'silver':i===2?'bronze':''; }
 function str(v){ return String(v==null?'':v).trim(); }
@@ -667,6 +661,7 @@ function esc(s){ return str(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replac
 </script>
 
 <script>
+// ── SCROLL REVEAL ────────────────────────────────────────────
 var obs=new IntersectionObserver(function(e){
   e.forEach(function(x){ if(x.isIntersecting) x.target.classList.add('visible'); });
 },{threshold:0.05});
