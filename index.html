@@ -532,7 +532,7 @@ function processData(rows) {
     var d=ytdMap[k];
     d.sphAvg = d.sphCount ? d.sphSum/d.sphCount : 0;
     return d;
-  }).sort(function(a,b){ return b.stops-a.stops; }).slice(0,10);
+  }).sort(function(a,b){ return b.sphAvg-a.sphAvg; }).slice(0,10);
 
   // ── Labels ───────────────────────────────────────────────
   document.getElementById('dailyDateLabel').textContent =
@@ -581,8 +581,8 @@ function renderYTD(rows) {
         '<span class="driver-name">'+esc(r.name)+'</span>'+
       '</div></td>'+
       '<td class="ytd-hide">'+r.pkgs+'</td>'+
-      '<td>'+(i===0?'<span class="stat-tag">'+r.stops+'</span>':r.stops)+'</td>'+
-      '<td>'+(r.sphAvg>0?r.sphAvg.toFixed(2):'--')+'</td>'+
+      '<td>'+r.stops+'</td>'+
+      '<td>'+(i===0?'<span class="stat-tag">'+(r.sphAvg>0?r.sphAvg.toFixed(2):'--')+'</span>':(r.sphAvg>0?r.sphAvg.toFixed(2):'--'))+'</td>'+
     '</tr>';
   }).join('');
 }
